@@ -1,4 +1,4 @@
-# cryptofolio
+# Cryptofolio
 
 ## Project setup
 ```

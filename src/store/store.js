@@ -1,7 +1,9 @@
 import Vue from "vue"
 import Vuex from "vuex"
+import axios from "axios"
 import customisedUsersAxios from "./../customisedAxios/usersAxios.js"
 import router from "./../router"
+
 
 Vue.use(Vuex)
 
@@ -10,7 +12,10 @@ export const store = new Vuex.Store({
         user: {},
         invalidUser: false,
         isAdmin: false,
-        users: []
+        users: [],
+        // ********
+        cryptoData: [],
+        cryptoIDs: []
     },
     getters: {
         user(state) {
@@ -24,6 +29,10 @@ export const store = new Vuex.Store({
         },
         users(state) {
             return state.users
+        },
+        // ********
+        cryptoData(state) {
+            return state.cryptoData
         }
     },
     mutations: {
@@ -53,6 +62,32 @@ export const store = new Vuex.Store({
             state.isAdmin = false
             localStorage.clear()
             router.push({ path: "/login" })
+        },
+        // ********
+        saveCryptoDataLocally(state, data) {
+            state.cryptoData = []
+            data.forEach(crypto => {
+                const newCrypto = {
+                    id: crypto.id,
+                    name: crypto.name,
+                    symbol: crypto.symbol,
+                    slug: crypto.slug,
+                    price: crypto.quote.USD.price,
+                    change24h: crypto.quote.USD.percent_change_24h
+                }
+                state.cryptoData.push(newCrypto)
+                state.cryptoIDs.push(crypto.id)
+            })
+        },
+        saveLogos(state, data) {
+            state.cryptoData.forEach(crypto => {
+                for (const key of Object.keys(data)) {
+                    if(crypto.id == data[key].id){
+                        crypto.logo = data[key].logo
+                        break;
+                    } 
+                }
+            })
         }
     },
     actions: {
@@ -153,7 +188,22 @@ export const store = new Vuex.Store({
                 admin,
                 token
             })
+        },
+        // ********
+        getCryptoData(context) {
+            axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
+                .then(response => {
+                    context.commit("saveCryptoDataLocally", response.data.data)
+                    context.dispatch("getCryptoLogo")
+                        console.log("wait man");
+                        
+                })
+        },
+        getCryptoLogo(context) {
+            axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?id=" + context.state.cryptoIDs + "&CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
+                .then(response => {
+                    context.commit("saveLogos", response.data.data)
+                })
         }
     }
-
 })

@@ -2,7 +2,8 @@
     <div class="home-container">
       <div v-if="!isAdmin" class="home-container-wrapper">
         <div  class="home-container__information">
-            <h2> Trade or  View your Portfolio</h2>
+            <h2> User Panel</h2>
+            <p> Trade or view your portfolio </p>
         </div>
       </div>
       <div v-else class="home-container-wrapper">
@@ -25,6 +26,7 @@ export default {
 </script>
 
 <style scoped>
+
 .home-container {
   display: flex;
   justify-content: center;

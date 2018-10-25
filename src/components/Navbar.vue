@@ -17,6 +17,8 @@
                                 <router-link to="" tag="li"  exact><a class="dropdown-item"> Profile </a></router-link>
                             </div>
                         </li>
+                        <router-link v-if="user.token && !isAdmin" to="/portfolio" class="nav-item" tag="li" exact><a class="nav-link"> Portfolio </a></router-link>
+                        <router-link v-if="user.token && !isAdmin" to="/market" class="nav-item" tag="li" exact><a class="nav-link"> Market </a></router-link>
                         <li v-if="user.token" class="nav-item">
                             <a class="nav-link"><i class="fas fa-user"></i> {{user.username}}</a>
                         </li>
@@ -45,6 +47,17 @@ export default {
 
 
 <style scoped>
+.nav-link{
+    font-size: 16px;
+}
+
+.navbar-brand{
+    font-size: 22px;
+}
+
+.navbar{
+padding: 0;
+}
 
 .navbar-nav {
   background-color: rgba(230, 230, 233, 0.829);
