@@ -1,4 +1,4 @@
-<template>
+<template >
     <div class="market-container">
         <table class="table table-hover">
             <thead>
@@ -14,7 +14,7 @@
                     <th scope="row"> {{ index +1 }} </th>
                     <td class="table-padding logo-wrapper"> 
                         <div class="logo-direction">
-                            <img :src="crypto.logo" class="logo-sprite" alt="cryto.slug" height="16" width="16">
+                            <img :src="crypto.logo" class="logo-sprite" :alt="crypto.slug" height="16" width="16">
                         </div>
                         {{ crypto.name }} 
                         </td>
@@ -35,14 +35,36 @@ export default {
   computed: {
     ...mapGetters(["cryptoData"])
   },
+  beforeCreate() {
+    console.log("beforeCreate");
+  },
   created() {
     this.$store.dispatch("getCryptoData");
+    console.log("finished created");
+  },
+  beforeMount() {
+    console.log("beforeMount");
+  },
+  mounted() {
+    console.log("mounted");
+  },
+  beforeUpdate() {
+    console.log("beforeUpdate");
+  },
+  updated() {
+    console.log("updated");
   }
 };
 </script>
 
 
 <style scoped>
+[v-cloak] > * {
+  display: none;
+}
+[v-cloak]::before {
+  content: "loading...";
+}
 .market-container {
   display: flex;
   justify-content: center;
@@ -57,13 +79,13 @@ export default {
   padding-right: 200px;
 }
 
-.logo-wrapper{
-    display: flex;
-    flex-direction: row;
+.logo-wrapper {
+  display: flex;
+  flex-direction: row;
 }
 
-.logo-direction{
-    margin-right: 5px;
+.logo-direction {
+  margin-right: 5px;
 }
 </style>
 

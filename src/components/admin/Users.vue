@@ -1,5 +1,8 @@
-<template>
-    <div class="users-container">
+<template >
+    <div class="users-container" >
+      <!-- <div v-if="loading">
+        Loading...
+      </div> -->
         <div class="table">
             <thead class="thead-dark">
                 <tr>
@@ -51,7 +54,8 @@ export default {
     return {
       showNewUserModal: false,
       showEditUserModal: false,
-      userInformation : {}
+      userInformation : {},
+      loading : true
     };
   },
   methods: {
@@ -90,7 +94,7 @@ export default {
 <style scoped>
 .users-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .table {

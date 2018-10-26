@@ -4,7 +4,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <div class="left-navbar">
-                        <router-link to="/" tag="li" class="nav-item" exact><a class="navbar-brand"> Stock Trader </a></router-link>
+                        <router-link to="/" tag="li" class="nav-item" exact><a class="navbar-brand"> Cryptofolio </a></router-link>
                     </div>
                     <div class="right-navbar"> 
                         <router-link v-if="!user.token" to="/login" tag="li" class="nav-item" exact><a class="nav-link"> <i class="fas fa-sign-in-alt"></i> Log in </a></router-link>

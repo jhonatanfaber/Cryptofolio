@@ -66,6 +66,7 @@ export const store = new Vuex.Store({
         // ********
         saveCryptoDataLocally(state, data) {
             state.cryptoData = []
+            state.cryptoIDs = []
             data.forEach(crypto => {
                 const newCrypto = {
                     id: crypto.id,
@@ -88,6 +89,7 @@ export const store = new Vuex.Store({
                     } 
                 }
             })
+            console.log("saving logo...... estoy en 5");    
         }
     },
     actions: {
@@ -191,19 +193,38 @@ export const store = new Vuex.Store({
         },
         // ********
         getCryptoData(context) {
+            console.log("dispatched cryotoData action");
             axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
                 .then(response => {
+                    console.log("before commit data in mutation");
                     context.commit("saveCryptoDataLocally", response.data.data)
-                    context.dispatch("getCryptoLogo")
-                        console.log("wait man");
-                        
+                    console.log("finished commit data in mutation");
+                    
+                    console.log("before dispatch action logo");
+                    
+                  context.dispatch("getCryptoLogo", context.state.cryptoIDs)
+                    console.log("after dispatch logo in action de data");
+                    console.log("FIN cryptoData");
                 })
+              
         },
         getCryptoLogo(context) {
+            console.log("dispatch cryptologo action");
             axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?id=" + context.state.cryptoIDs + "&CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
                 .then(response => {
+                    console.log("before commit logo in mutation");
                     context.commit("saveLogos", response.data.data)
+                    console.log("finished commit logo in mutation");
+                    console.log("FIN cryptoLogo");
                 })
-        }
+              
+        },
+        // axiosallRe(){
+        //     Promise.all([getCryptoData(), getCryptoLogo()])
+        //         .then(axios.spread(function (acct, perms) {
+        //             console.log("both requests are now complete")
+
+        //         }));
+        // }
     }
 })
