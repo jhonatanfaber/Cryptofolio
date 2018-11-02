@@ -17,7 +17,8 @@ export default {
     Navbar
   },
   created() {
-    this.$store.dispatch("tryAutoLogin");
+    this.$store.dispatch("tryAutoLogin")
+    //this.$store.dispatch("getCryptoData");
 
   }
 };

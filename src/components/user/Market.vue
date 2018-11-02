@@ -1,12 +1,12 @@
 <template >
     <div class="market-container">
-        <table class="table table-hover">
+        <table class="table">
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th class="table-padding" scope="col"> Name</th>
-                <th class="table-padding" scope="col">Price</th>
-                <th class="table-padding" scope="col">Change (24h)</th>
+                <th id="nameAlign" class="table-padding head" scope="col"> Name</th>
+                <th class="table-padding head" scope="col">Price</th>
+                <th class="table-padding head" scope="col">Change (24h)</th>
             </tr>
             </thead>
             <tbody v-for="(crypto,index) in cryptoData" :key="crypto.id">
@@ -30,7 +30,6 @@
 
 <script>
 import { mapGetters } from "vuex";
-
 export default {
   computed: {
     ...mapGetters(["cryptoData"])
@@ -39,8 +38,8 @@ export default {
     console.log("beforeCreate");
   },
   created() {
-    this.$store.dispatch("getCryptoData");
-    console.log("finished created");
+   this.$store.dispatch("getCryptoData")
+
   },
   beforeMount() {
     console.log("beforeMount");
@@ -59,12 +58,10 @@ export default {
 
 
 <style scoped>
-[v-cloak] > * {
-  display: none;
+#nameAlign {
+  display: flex;
 }
-[v-cloak]::before {
-  content: "loading...";
-}
+
 .market-container {
   display: flex;
   justify-content: center;
@@ -75,8 +72,17 @@ export default {
   width: auto;
 }
 
+.table th {
+  border-top: 1px solid #dee2e6;
+}
+
+.table td {
+  border-top: 0;
+}
+
 .table-padding {
   padding-right: 200px;
+  line-height: 3;
 }
 
 .logo-wrapper {

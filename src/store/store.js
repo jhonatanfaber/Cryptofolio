@@ -79,17 +79,19 @@ export const store = new Vuex.Store({
                 state.cryptoData.push(newCrypto)
                 state.cryptoIDs.push(crypto.id)
             })
+            console.log("******");
+
         },
         saveLogos(state, data) {
             state.cryptoData.forEach(crypto => {
                 for (const key of Object.keys(data)) {
-                    if(crypto.id == data[key].id){
+                    if (crypto.id == data[key].id) {
                         crypto.logo = data[key].logo
                         break;
-                    } 
+                    }
                 }
             })
-            console.log("saving logo...... estoy en 5");    
+            console.log("saving logo...... estoy en 5");
         }
     },
     actions: {
@@ -192,21 +194,33 @@ export const store = new Vuex.Store({
             })
         },
         // ********
-        getCryptoData(context) {
+        async getCryptoData(context) {
             console.log("dispatched cryotoData action");
             axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
                 .then(response => {
                     console.log("before commit data in mutation");
                     context.commit("saveCryptoDataLocally", response.data.data)
                     console.log("finished commit data in mutation");
-                    
+                    //return new Promise(context.state.cryptoIDs)
                     console.log("before dispatch action logo");
-                    
-                  context.dispatch("getCryptoLogo", context.state.cryptoIDs)
-                    console.log("after dispatch logo in action de data");
-                    console.log("FIN cryptoData");
+                    // axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?id=" + 1 + "&CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
+                    // .then(response => {
+                    //     console.log("before commit logo in mutation");
+                    //     context.commit("saveLogos", response.data.data)
+                    //     console.log("finished commit logo in mutation");
+                    //     console.log("FIN cryptoLogo");
+                    // })
+                    context.dispatch("getCryptoLogo", context.state.cryptoIDs)
+                    // console.log("after dispatch logo in action de data");
+                    // console.log("FIN cryptoData");
                 })
-              
+                // .then(response => {
+                //     console.log("before commit logo in mutation");
+                //     context.commit("saveLogos", response.data.data)
+                //     console.log("finished commit logo in mutation");
+                //     console.log("FIN cryptoLogo");
+                // })
+
         },
         getCryptoLogo(context) {
             console.log("dispatch cryptologo action");
@@ -217,7 +231,7 @@ export const store = new Vuex.Store({
                     console.log("finished commit logo in mutation");
                     console.log("FIN cryptoLogo");
                 })
-              
+
         },
         // axiosallRe(){
         //     Promise.all([getCryptoData(), getCryptoLogo()])
