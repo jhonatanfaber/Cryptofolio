@@ -11,11 +11,15 @@
             </div>
         </div>
         <div class="add-button"> 
-           <button type="button" class="btn btn-dark btn-circle btn-xl">
+           <button @click="showNewCoinModal = true"  type="button" class="btn btn-dark btn-circle btn-xl">
               +
             </button>
         </div>
         <Coins/>
+        <NewCoinModal 
+                v-if="showNewCoinModal"
+                @close="showNewCoinModal = false"
+        />
         
     </div>
     
@@ -23,10 +27,17 @@
 
 <script>
 import Coins from "./Coins.vue"
+import NewCoinModal from "./NewCoinModal.vue"
 
 export default {
+    data(){
+        return {
+            showNewCoinModal : false
+        }
+    },
     components : {
-        Coins
+        Coins,
+        NewCoinModal
     }
 };
 </script>
@@ -71,8 +82,6 @@ export default {
   line-height: 1.33;
   border-radius: 35px;
 }
-
-
 
 .add-button{
     margin-bottom: 31px;
