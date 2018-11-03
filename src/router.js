@@ -4,7 +4,7 @@ import { store } from "./store/store"
 import Home from "./components/Home.vue"
 import Login from "./components/Login.vue"
 import Users from "./components/admin/Users.vue"
-import Portfolio from "./components/user/Portfolio.vue"
+import Portfolio from "./components/user/portfolio/Portfolio.vue"
 import Market from "./components/user/Market.vue"
 
 Vue.use(Router)
