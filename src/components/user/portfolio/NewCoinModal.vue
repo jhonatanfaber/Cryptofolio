@@ -4,37 +4,58 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="header">
-             <h3> New User </h3>
+             <h3> Add new coin to portfolio </h3>
             <i class="fas fa-times fa-2x" @click="closeModal"></i>
           </div>
 
           <div class="body">
             <div class="form-group">
-                <label for="subject">
+                <!-- <label for="subject">
                     Coin
-                </label>
-                <select id="subject" name="subject" class="form-control col-sm-6" required="required">
-                    <option value="" selected="">Choose One:</option>
+                </label> -->
+                <select id="subject" name="subject" class="form-control col-sm-8" required="required">
+                    <option value="" selected="">Choose One Coin:</option>
                     <option value="service">Bitcoin (BTC)</option>
         
                 </select>
             </div>
-           <div class="form-group">
-                <label for="inputName">Amount </label>
-                <input type="number" v-model="name" class="form-control col-sm-6"  id="inputName" placeholder="Enter name">
+            <div class="amountWrapper">
+              <div class="col-auto">
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="fas fa-align-justify"></i>
+                    </div>
+                  </div>
+                  <input type="number"  class="form-control col-sm-7" id="inlineFormInputGroup" placeholder="Amount">
+                </div>
+              </div>
+              <div class="col-auto">
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="far fa-money-bill-alt"></i>
+                    </div>
+                  </div>
+                  <input type="text" class="form-control col-sm-7" id="inlineFormInputGroup" placeholder="Buy price (btc)">
+                </div>
+              </div>
             </div>
-            <div class="form-group">
-                <label for="inputUsername">Buy Price </label>
-                <input type="number" v-model="username" class="form-control col-sm-6" id="inputUsername" placeholder="Enter username">
-            </div>
-            <div class="form-group">
-                <label for="inputUsername">Bought On </label>
-                <input type="number" v-model="username" class="form-control col-sm-6" id="inputUsername" placeholder="Enter username">
-            </div>
+            <div class="col-auto">
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="fas fa-calendar-alt"></i> Bought on
+                    </div>
+                  </div>
+                  <input type="date" class="form-control col-sm-6" id="inlineFormInputGroup" placeholder="Buy price">
+                </div>
+              </div>
+            
           </div>
 
           <div class="footer">
-              <label class="btn btn-dark" @click="createNewUser"> Create </label>
+              <label class="btn btn-dark"> Add to porfolio </label>
           </div>
         </div>
       </div>
@@ -46,23 +67,10 @@
 export default {
   data() {
     return {
-      name: "",
-      username: "",
-      password: "",
-      isAdmin: false
+      amount : null
     };
   },
   methods: {
-    createNewUser() {
-      const newUser = {
-        name: this.name,
-        username: this.username,
-        password: this.password,
-        admin: this.isAdmin
-      };
-      this.$store.dispatch("createUser", newUser);
-      this.closeModal();
-    },
     closeModal() {
       this.$emit("close");
     }
@@ -88,9 +96,9 @@ export default {
 }
 
 .modal-container {
-  width: 50%;
+  width: 55%;
   margin: 0px auto;
-  padding: 20px;
+  padding: 50px;
   padding-left: 5%;
   background-color: #fff;
   border-radius: 2px;
@@ -112,17 +120,11 @@ export default {
 }
 
 .fa-times {
-  padding-top: 15px;
-  padding-right: 20px;
   cursor: pointer;
 }
 
 .body {
   margin: 20px 0;
-}
-
-.btn:hover {
-  color: #fff;
 }
 
 .footer {
@@ -135,6 +137,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-bottom: 30px;
 }
 
 .modal-default-button {
@@ -153,5 +156,22 @@ export default {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+
+.amountWrapper{
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.col-auto {
+  padding: 0;
+}
+
+.fa-calendar-alt{
+  margin-right: 10px;
+}
+
+.btn-dark{
+  margin-top: 30px;
 }
 </style>
