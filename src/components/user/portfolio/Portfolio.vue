@@ -26,19 +26,19 @@
 </template>
 
 <script>
-import Coins from "./Coins.vue"
-import NewCoinModal from "./NewCoinModal.vue"
+import Coins from "./Coins.vue";
+import NewCoinModal from "./NewCoinModal.vue";
 
 export default {
-    data(){
-        return {
-            showNewCoinModal : false
-        }
-    },
-    components : {
-        Coins,
-        NewCoinModal
-    }
+  data() {
+    return {
+      showNewCoinModal: false
+    };
+  },
+  components: {
+    Coins,
+    NewCoinModal
+  }
 };
 </script>
 
@@ -68,7 +68,6 @@ export default {
   padding: 20px 90px;
 }
 
-
 #information-quantity {
   font-size: 50px;
   margin-top: 30px;
@@ -83,10 +82,9 @@ export default {
   border-radius: 35px;
 }
 
-.add-button{
-    margin-bottom: 31px;
-    margin-top: 10px;
-
+.add-button {
+  margin-bottom: 31px;
+  margin-top: 10px;
 }
 </style>
 

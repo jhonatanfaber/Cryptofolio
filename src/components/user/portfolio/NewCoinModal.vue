@@ -9,15 +9,16 @@
           </div>
 
           <div class="body">
-            <div class="form-group">
+            <div class="form-group"  >
                 <!-- <label for="subject">
                     Coin
                 </label> -->
-                <select id="subject" name="subject" class="form-control col-sm-8" required="required">
-                    <option value="" selected="">Choose One Coin:</option>
-                    <option value="service">Bitcoin (BTC)</option>
-        
+                <!-- <template> -->
+                <select id="subject"  name="subject" class="form-control col-sm-8" required="required">
+                    <option  value="" selected="">Choose One:</option>
+                    <option  v-for="crypto in sortedCryptoData" :key="crypto.id"> {{crypto.slug}}</option>
                 </select>
+            <!-- <template/> -->
             </div>
             <div class="amountWrapper">
               <div class="col-auto">
@@ -64,11 +65,25 @@
     
 </template>
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   data() {
     return {
-      amount : null
+      amount: null
     };
+  },
+  computed: {
+    ...mapGetters(["cryptoData"]),
+    sortedCryptoData() {
+      function compare(a, b) {
+        if (a.slug.toLowerCase() < b.slug.toLowerCase()) return -1;
+        if (a.slug.toLowerCase() > b.slug.toLowerCase()) return 1;
+        return 0;
+      }
+      const clonedArray = this.cryptoData.slice(0)
+      return clonedArray.sort(compare);
+    }
   },
   methods: {
     closeModal() {
@@ -158,7 +173,7 @@ export default {
   transform: scale(1.1);
 }
 
-.amountWrapper{
+.amountWrapper {
   display: flex;
   margin-bottom: 30px;
 }
@@ -167,11 +182,11 @@ export default {
   padding: 0;
 }
 
-.fa-calendar-alt{
+.fa-calendar-alt {
   margin-right: 10px;
 }
 
-.btn-dark{
+.btn-dark {
   margin-top: 30px;
 }
 </style>

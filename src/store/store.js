@@ -203,23 +203,20 @@ export const store = new Vuex.Store({
                     console.log("finished commit data in mutation");
                     //return new Promise(context.state.cryptoIDs)
                     console.log("before dispatch action logo");
-                    // axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?id=" + 1 + "&CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
-                    // .then(response => {
-                    //     console.log("before commit logo in mutation");
-                    //     context.commit("saveLogos", response.data.data)
-                    //     console.log("finished commit logo in mutation");
-                    //     console.log("FIN cryptoLogo");
-                    // })
-                    context.dispatch("getCryptoLogo", context.state.cryptoIDs)
+                    return context.state.cryptoIDs
+                    //context.dispatch("getCryptoLogo", context.state.cryptoIDs)
                     // console.log("after dispatch logo in action de data");
                     // console.log("FIN cryptoData");
                 })
-                // .then(response => {
-                //     console.log("before commit logo in mutation");
-                //     context.commit("saveLogos", response.data.data)
-                //     console.log("finished commit logo in mutation");
-                //     console.log("FIN cryptoLogo");
-                // })
+                .then(ids => {
+                    axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?id=" + ids + "&CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
+                    .then(response => {
+                        console.log("before commit logo in mutation");
+                        context.commit("saveLogos", response.data.data)
+                        console.log("finished commit logo in mutation");
+                        console.log("FIN cryptoLogo");
+                    })
+                })
 
         },
         getCryptoLogo(context) {

@@ -38,7 +38,7 @@ export default {
     console.log("beforeCreate");
   },
   created() {
-   this.$store.dispatch("getCryptoData")
+   //this.$store.dispatch("getCryptoData")
 
   },
   beforeMount() {
