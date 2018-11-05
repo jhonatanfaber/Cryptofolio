@@ -3,8 +3,10 @@
         <div class="card ">
                 <div class="card-body">
                     <h5 class="card-title">{{coin.name}}</h5>
-                    <p class="card-text">{{coin.symbol}}</p>
-                    <a href="#" class="btn btn-primary">Button</a>
+                    <h4> LOGO </h4>
+                    <p class="card-text">CAntidad : X</p>
+                    <p class="card-text">Precio por unidad(en btc) : X</p>
+                    <a href="#" class="btn btn-primary">Ver Detalles</a>
                 </div>
             </div>
     </div>

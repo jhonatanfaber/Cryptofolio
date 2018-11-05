@@ -10,15 +10,12 @@
 
           <div class="body">
             <div class="form-group"  >
-                <!-- <label for="subject">
-                    Coin
-                </label> -->
-                <!-- <template> -->
-                <select id="subject"  name="subject" class="form-control col-sm-8" required="required">
+                <select id="subject" v-model="card.coin"  name="subject" class="form-control col-sm-8" required="required">
                     <option  value="" selected="">Choose One:</option>
-                    <option  v-for="crypto in sortedCryptoData" :key="crypto.id"> {{crypto.slug}}</option>
+                    <option  v-for="crypto in sortedCryptoData" :key="crypto.id" >
+                      {{crypto.slug}}
+                    </option>
                 </select>
-            <!-- <template/> -->
             </div>
             <div class="amountWrapper">
               <div class="col-auto">
@@ -28,7 +25,7 @@
                       <i class="fas fa-align-justify"></i>
                     </div>
                   </div>
-                  <input type="number"  class="form-control col-sm-7" id="inlineFormInputGroup" placeholder="Amount">
+                  <input type="number" v-model="card.amount"  class="form-control col-sm-7" id="inlineFormInputGroup" placeholder="Amount">
                 </div>
               </div>
               <div class="col-auto">
@@ -38,7 +35,7 @@
                       <i class="far fa-money-bill-alt"></i>
                     </div>
                   </div>
-                  <input type="text" class="form-control col-sm-7" id="inlineFormInputGroup" placeholder="Buy price (btc)">
+                  <input type="text" v-model="card.price" class="form-control col-sm-7" id="inlineFormInputGroup" placeholder="Buy price (btc)">
                 </div>
               </div>
             </div>
@@ -49,14 +46,13 @@
                       <i class="fas fa-calendar-alt"></i> Bought on
                     </div>
                   </div>
-                  <input type="date" class="form-control col-sm-6" id="inlineFormInputGroup" placeholder="Buy price">
+                  <input type="date" v-model="card.date" class="form-control col-sm-6" id="inlineFormInputGroup">
                 </div>
               </div>
-            
+              {{card}}
           </div>
-
           <div class="footer">
-              <label class="btn btn-dark"> Add to porfolio </label>
+              <label class="btn btn-dark" @click="addToPortfolio"> Add to porfolio </label>
           </div>
         </div>
       </div>
@@ -70,24 +66,34 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      amount: null
+      card : {
+        coin : null,
+        amount: null,
+        price : null,
+        date : null
+      }
     };
   },
   computed: {
-    ...mapGetters(["cryptoData"]),
+    ...mapGetters(["cryptoData", "portfolio"]),
     sortedCryptoData() {
       function compare(a, b) {
         if (a.slug.toLowerCase() < b.slug.toLowerCase()) return -1;
         if (a.slug.toLowerCase() > b.slug.toLowerCase()) return 1;
         return 0;
       }
-      const clonedArray = this.cryptoData.slice(0)
+      const clonedArray = this.cryptoData.slice(0);
       return clonedArray.sort(compare);
     }
   },
   methods: {
     closeModal() {
       this.$emit("close");
+    },
+    addToPortfolio(){
+      this.portfolio.push(this.card)
+      console.log(this.portfolio);
+      
     }
   }
 };

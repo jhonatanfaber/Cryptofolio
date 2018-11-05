@@ -15,7 +15,8 @@ export const store = new Vuex.Store({
         users: [],
         // ********
         cryptoData: [],
-        cryptoIDs: []
+        cryptoIDs: [],
+        portfolio : []
     },
     getters: {
         user(state) {
@@ -33,6 +34,9 @@ export const store = new Vuex.Store({
         // ********
         cryptoData(state) {
             return state.cryptoData
+        },
+        portfolio(state){
+            return state.portfolio
         }
     },
     mutations: {
@@ -220,7 +224,6 @@ export const store = new Vuex.Store({
 
         },
         getCryptoLogo(context) {
-            console.log("dispatch cryptologo action");
             axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?id=" + context.state.cryptoIDs + "&CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
                 .then(response => {
                     console.log("before commit logo in mutation");
@@ -230,12 +233,8 @@ export const store = new Vuex.Store({
                 })
 
         },
-        // axiosallRe(){
-        //     Promise.all([getCryptoData(), getCryptoLogo()])
-        //         .then(axios.spread(function (acct, perms) {
-        //             console.log("both requests are now complete")
+        saveCoinInPortfolio(context){
 
-        //         }));
-        // }
+        }
     }
 })
