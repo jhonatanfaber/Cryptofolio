@@ -10,9 +10,9 @@
 
           <div class="body">
             <div class="form-group"  >
-                <select id="subject" v-model="card.coin"  name="subject" class="form-control col-sm-8" required="required">
-                    <option  value="" selected="">Choose One:</option>
-                    <option  v-for="crypto in sortedCryptoData" :key="crypto.id" >
+                <select v-model="card.id" class="form-control col-sm-8">
+                    <option >Choose One:</option>
+                    <option  v-for="crypto in sortedCryptoData" :key="crypto.id" :value="crypto.id">
                       {{crypto.slug}}
                     </option>
                 </select>
@@ -35,7 +35,7 @@
                       <i class="far fa-money-bill-alt"></i>
                     </div>
                   </div>
-                  <input type="text" v-model="card.price" class="form-control col-sm-7" id="inlineFormInputGroup" placeholder="Buy price (btc)">
+                  <input type="text" v-model="card.buyPrice" class="form-control col-sm-7" id="inlineFormInputGroup" placeholder="Buy price (btc)">
                 </div>
               </div>
             </div>
@@ -46,11 +46,12 @@
                       <i class="fas fa-calendar-alt"></i> Bought on
                     </div>
                   </div>
-                  <input type="date" v-model="card.date" class="form-control col-sm-6" id="inlineFormInputGroup">
+                  <input type="date" v-model="card.boughtDate" class="form-control col-sm-6" id="inlineFormInputGroup">
                 </div>
               </div>
-              {{card}}
+             
           </div>
+          
           <div class="footer">
               <label class="btn btn-dark" @click="addToPortfolio"> Add to porfolio </label>
           </div>
@@ -67,10 +68,14 @@ export default {
   data() {
     return {
       card : {
-        coin : null,
+        id : null,
+        name : null,
+        logo : null,
         amount: null,
-        price : null,
-        date : null
+        buyPrice : null,
+        boughtDate : null,
+        symbol : null
+
       }
     };
   },
@@ -91,9 +96,14 @@ export default {
       this.$emit("close");
     },
     addToPortfolio(){
+      let coin = this.cryptoData.find(coin => {
+        return coin.id == this.card.id
+      })
+      this.card.name = coin.name;
+      this.card.logo = coin.logo;
+      this.card.symbol = coin.symbol;
       this.portfolio.push(this.card)
-      console.log(this.portfolio);
-      
+      this.closeModal()      
     }
   }
 };
