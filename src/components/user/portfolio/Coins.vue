@@ -13,24 +13,6 @@ import Coin from "./Coin.vue"
 import {mapGetters} from "vuex"
 
 export default {
-    data(){
-        return {
-            // coins : [
-            //     {
-            //         id : 1,
-            //         logo : "logo",
-            //         name : "name",
-            //         symbol : "symbol csafdvxn sdfbsdnmadvdsbdvc csbhfd ",
-            //         slug : "slug",
-            //         actualPrice : "actualPrice",
-            //         quantity : "quantity",
-            //         boughtPrice : "boughtPrice",
-            //         btcQuantity : "btcquantity"
-            //     }
-                 
-            // ]
-        }
-    },
     computed : {
         ...mapGetters(["portfolio"])
     },

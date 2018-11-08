@@ -35,6 +35,9 @@ export default {
       showNewCoinModal: false
     };
   },
+  created() {
+   this.$store.dispatch("getCryptoData");
+  },
   components: {
     Coins,
     NewCoinModal

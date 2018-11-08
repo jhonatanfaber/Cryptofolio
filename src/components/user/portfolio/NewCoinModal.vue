@@ -35,7 +35,7 @@
                       <i class="far fa-money-bill-alt"></i>
                     </div>
                   </div>
-                  <input type="text" v-model="card.buyPrice" class="form-control col-sm-7" id="inlineFormInputGroup" placeholder="Buy price (btc)">
+                  <input type="text" v-model="card.usdBuyPrice" class="form-control col-sm-7" id="inlineFormInputGroup" placeholder="Buy price ($)">
                 </div>
               </div>
             </div>
@@ -69,11 +69,12 @@ export default {
     return {
       card : {
         id : null,
+        amount: null,
+        usdBuyPrice : null,
+        boughtDate : null,
+        usdBuyPrice : null,
         name : null,
         logo : null,
-        amount: null,
-        buyPrice : null,
-        boughtDate : null,
         symbol : null
 
       }
@@ -103,7 +104,11 @@ export default {
       this.card.logo = coin.logo;
       this.card.symbol = coin.symbol;
       this.portfolio.push(this.card)
+      this.getCurrentCoinPrice(this.card.symbol)
       this.closeModal()      
+    },
+    getCurrentCoinPrice(coinSymbol){
+      this.$store.dispatch("getCurrentCoinPrice", coinSymbol)
     }
   }
 };

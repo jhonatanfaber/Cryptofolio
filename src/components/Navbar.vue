@@ -4,7 +4,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <div class="left-navbar">
-                        <router-link to="/" tag="li" class="nav-item" exact><a class="navbar-brand"> Cryptofolio </a></router-link>
+                        <router-link to="/" tag="li" class="nav-item" exact><a class="brand"> Cryptofolio </a></router-link>
                     </div>
                     <div class="right-navbar"> 
                         <router-link v-if="!user.token" to="/login" tag="li" class="nav-item" exact><a class="nav-link"> <i class="fas fa-sign-in-alt"></i> Log in </a></router-link>
@@ -20,10 +20,10 @@
                         <router-link v-if="user.token && !isAdmin" to="/portfolio" class="nav-item" tag="li" exact><a class="nav-link"> Portfolio </a></router-link>
                         <router-link v-if="user.token && !isAdmin" to="/market" class="nav-item" tag="li" exact><a class="nav-link"> Market </a></router-link>
                         <li v-if="user.token" class="nav-item">
-                            <a class="nav-link"><i class="fas fa-user"></i> {{user.username}}</a>
+                            <a class="nav-link username"><i class="fas fa-user"></i> {{user.username}}</a>
                         </li>
-                        <li v-if="user.token" class="nav-item">
-                            <a @click="logout" class="nav-link logout"><i class="fas fa-sign-out-alt"></i> Log out </a>
+                        <li id="qq" v-if="user.token" class="nav-item">
+                            <a  @click="logout" class="nav-link logout"><i class="fas fa-sign-out-alt"></i> Log out </a>
                         </li>
                     </div>
                 </ul>
@@ -47,26 +47,45 @@ export default {
 
 
 <style scoped>
+
+.navbar-light .navbar-nav .nav-link,
+.brand{
+    color: white;
+}
+
 .nav-link{
     font-size: 16px;
 }
 
-.navbar-brand{
+.navbar-light .navbar-nav .nav-link:hover{
+    color: rgb(197, 178, 72);
+}
+
+.brand{
     font-size: 22px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.brand:hover{
+    color: rgb(197, 178, 72);
 }
 
 .navbar{
 padding: 0;
+margin-bottom: 100px;
 }
 
 .navbar-nav {
-  background-color: rgba(230, 230, 233, 0.829);
+  background-color: rgba(0, 0, 0, 1);
   width: 100%;
-  margin-top: 30px;
   padding: 20px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  border-radius: 5px;
+  position: fixed;
+  top: 0;
+  z-index: 99;
+  
 }
 
 .left-navbar {

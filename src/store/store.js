@@ -16,6 +16,7 @@ export const store = new Vuex.Store({
         // ********
         cryptoData: [],
         cryptoIDs: [],
+        cryptoSymbols: [],
         portfolio : []
     },
     getters: {
@@ -34,6 +35,9 @@ export const store = new Vuex.Store({
         // ********
         cryptoData(state) {
             return state.cryptoData
+        },
+        getCryptoDataById: (state) => (id) => {
+            return state.cryptoData.find(coin => coin.id == id)
         },
         portfolio(state){
             return state.portfolio
@@ -71,19 +75,22 @@ export const store = new Vuex.Store({
         saveCryptoDataLocally(state, data) {
             state.cryptoData = []
             state.cryptoIDs = []
+            state.cryptoSymbols = []
             data.forEach(crypto => {
                 const newCrypto = {
                     id: crypto.id,
                     name: crypto.name,
                     symbol: crypto.symbol,
                     slug: crypto.slug,
-                    price: crypto.quote.USD.price,
-                    change24h: crypto.quote.USD.percent_change_24h
+                    change24h: crypto.quote.USD.percent_change_24h,
+                    usdCurrentPrice: crypto.quote.USD.price,
+                    btcCurrentPrice : null
                 }
                 state.cryptoData.push(newCrypto)
                 state.cryptoIDs.push(crypto.id)
+                state.cryptoSymbols.push(crypto.symbol)
             })
-            console.log("******");
+            console.log(state.cryptoSymbols);
 
         },
         saveLogos(state, data) {
@@ -95,7 +102,15 @@ export const store = new Vuex.Store({
                     }
                 }
             })
+            return state.cryptoData
             console.log("saving logo...... estoy en 5");
+        },
+        mergeCoinPriceWithCryptoDataArray(state, {response, targetCoin}){
+            state.cryptoData.forEach(coin => {
+                if(coin.symbol == targetCoin){
+                    return coin.btcCurrentPrice = response.data.BTC
+                }
+            })
         }
     },
     actions: {
@@ -198,7 +213,15 @@ export const store = new Vuex.Store({
             })
         },
         // ********
-        async getCryptoData(context) {
+        getCryptoData(context) {
+            // async function getCrytoInformation(){
+            //     const info = await axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
+            //     console.log(info);
+                
+            //     context.commit("saveCryptoDataLocally", info.data.data)
+            //     const logos = await axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?id=" + context.state.cryptoIDs + "&CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
+            //     context.commit("saveLogos", logos.data.data)
+            // }
             console.log("dispatched cryotoData action");
             axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
                 .then(response => {
@@ -233,8 +256,12 @@ export const store = new Vuex.Store({
                 })
 
         },
-        saveCoinInPortfolio(context){
-
+        getCurrentCoinPrice(context, targetCoin){
+            const cryptocurrencySymbolToConvert = "BTC"
+            axios.get(`https://min-api.cryptocompare.com/data/price?fsym=${targetCoin}&tsyms=${cryptocurrencySymbolToConvert}`)
+                .then(response => {
+                   context.commit("mergeCoinPriceWithCryptoDataArray", {response, targetCoin})
+                })
         }
     }
 })

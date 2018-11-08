@@ -23,7 +23,7 @@ export default {
     ...mapGetters(["user", "isAdmin"])
   },
   created() {
-    this.$store.dispatch("getCryptoData");
+   this.$store.dispatch("getCryptoData");
   },
 };
 </script>
@@ -44,9 +44,6 @@ export default {
 
 .home-container__information {
   margin: 30px;
-}
-.router-link-active {
-  background-color: yellow;
 }
 </style>
 

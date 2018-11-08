@@ -18,7 +18,7 @@
                         </div>
                         {{ crypto.name }} 
                         </td>
-                    <td class="table-padding"> {{ crypto.price.toLocaleString() }} </td>
+                    <td class="table-padding"> {{ crypto.usdCurrentPrice.toLocaleString() }} </td>
                     <td class="table-padding" 
                         :style="[crypto.change24h >= 0 ? {color : 'green'} : {color : 'red'}]"
                         > {{ crypto.change24h.toFixed(2) }}% </td>
@@ -38,7 +38,7 @@ export default {
     console.log("beforeCreate");
   },
   created() {
-   //this.$store.dispatch("getCryptoData")
+  //  this.$store.dispatch("getCryptoData");
 
   },
   beforeMount() {
