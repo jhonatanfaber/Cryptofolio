@@ -45,6 +45,10 @@ export default {
 </script>
 
 <style scoped>
+.login-container{
+  margin-top: 180px;
+}
+
 .form-control.invalidHighlight {
   border: 1px solid rgb(226, 152, 152);
 }

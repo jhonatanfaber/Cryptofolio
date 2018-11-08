@@ -16,7 +16,6 @@ export const store = new Vuex.Store({
         // ********
         cryptoData: [],
         cryptoIDs: [],
-        cryptoSymbols: [],
         portfolio : []
     },
     getters: {
@@ -75,7 +74,6 @@ export const store = new Vuex.Store({
         saveCryptoDataLocally(state, data) {
             state.cryptoData = []
             state.cryptoIDs = []
-            state.cryptoSymbols = []
             data.forEach(crypto => {
                 const newCrypto = {
                     id: crypto.id,
@@ -88,10 +86,7 @@ export const store = new Vuex.Store({
                 }
                 state.cryptoData.push(newCrypto)
                 state.cryptoIDs.push(crypto.id)
-                state.cryptoSymbols.push(crypto.symbol)
             })
-            console.log(state.cryptoSymbols);
-
         },
         saveLogos(state, data) {
             state.cryptoData.forEach(crypto => {
@@ -255,13 +250,6 @@ export const store = new Vuex.Store({
                     console.log("FIN cryptoLogo");
                 })
 
-        },
-        getCurrentCoinPrice(context, targetCoin){
-            const cryptocurrencySymbolToConvert = "BTC"
-            axios.get(`https://min-api.cryptocompare.com/data/price?fsym=${targetCoin}&tsyms=${cryptocurrencySymbolToConvert}`)
-                .then(response => {
-                   context.commit("mergeCoinPriceWithCryptoDataArray", {response, targetCoin})
-                })
         }
     }
 })

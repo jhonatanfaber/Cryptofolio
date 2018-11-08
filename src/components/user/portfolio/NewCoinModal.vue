@@ -104,11 +104,7 @@ export default {
       this.card.logo = coin.logo;
       this.card.symbol = coin.symbol;
       this.portfolio.push(this.card)
-      this.getCurrentCoinPrice(this.card.symbol)
       this.closeModal()      
-    },
-    getCurrentCoinPrice(coinSymbol){
-      this.$store.dispatch("getCurrentCoinPrice", coinSymbol)
     }
   }
 };

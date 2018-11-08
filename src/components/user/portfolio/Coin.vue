@@ -6,17 +6,19 @@
                     <h5 class="card-title">{{card.name}}</h5>
                     <img :src="card.logo" class="logo-sprite" :alt="card.name" height="60" width="60">
                     <p class="card-text">{{card.amount}} ({{card.symbol}})</p>
-                    <p class="card-text"> %</p>
+                    <label class="btn  btn-sm" :class="[{ 'btn-success': profitable == true }, {'btn-danger' : profitable ==false}]">
+                        {{ tradePercentage }}%
+                    </label>
                     <hr>
                     <div class="info-comparison">
                         <div class="before">
                             <h5> Before </h5>
                             <div class="values">
                                 <p class="card-text"> 
-                                    {{symbolToShow}}{{ ((card.usdBuyPrice *  card.amount).toFixed(6)).toLocaleString() }}
+                                    {{symbolToShow}}{{ ((card.usdBuyPrice *  card.amount).toFixed(4)).toLocaleString() }}
                                 </p>
                                 <p class="card-text"> 
-                                    {{symbolToShow}}{{ ((card.usdBuyPrice*1).toFixed(6)).toLocaleString() }}
+                                    {{symbolToShow}}{{ ((card.usdBuyPrice*1).toFixed(4)).toLocaleString() }}
                                 </p>
                             </div>
                         </div>
@@ -24,10 +26,10 @@
                             <h5> After </h5>
                             <div class="values">
                                 <p class="card-text"> 
-                                    {{symbolToShow}}{{ ((getCryptoDataById(card.id).usdCurrentPrice *  card.amount).toFixed(6)).toLocaleString() }}
+                                    {{symbolToShow}}{{ ((getCryptoDataById(card.id).usdCurrentPrice *  card.amount).toFixed(4)).toLocaleString() }}
                                 </p>
                                 <p class="card-text"> 
-                                    {{symbolToShow}}{{ ((getCryptoDataById(card.id).usdCurrentPrice).toFixed(6)).toLocaleString() }}
+                                    {{symbolToShow}}{{ ((getCryptoDataById(card.id).usdCurrentPrice).toFixed(4)).toLocaleString() }}
                                 </p>
                             </div>
                         </div>
@@ -46,21 +48,32 @@ export default {
   props: ["card"],
   data() {
     return {
-      symbolToShow: "$"
-    //   profitsOrLosesPercentage:
-    //     ((this.getCryptoDataById(this.card.id).usdCurrentPrice -
-    //       this.card.usdBuyPrice) *
-    //       100)/
-    //     this.card.usdBuyPrice
+      symbolToShow: "$",
+      profitable: false
     };
   },
   computed: {
-    ...mapGetters(["getCryptoDataById"])
+    ...mapGetters(["getCryptoDataById"]),
+    tradePercentage() {
+      let currentPrice = this.getCryptoDataById(this.card.id).usdCurrentPrice;
+      let buyPrice = this.card.usdBuyPrice;
+      let profitsOrLossesPercentage =
+        ((currentPrice - buyPrice) * 100) / buyPrice;
+      if (profitsOrLossesPercentage >= 0) {
+        this.profitable = true;
+      } else {
+        this.profitable = false;
+      }
+      return profitsOrLossesPercentage.toFixed(2);
+    }
   }
 };
 </script>
 
 <style scoped>
+.btn-sm {
+  border-radius: 50%;
+}
 .card {
   margin-right: 20px;
   margin-bottom: 20px;
