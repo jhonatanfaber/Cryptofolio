@@ -217,26 +217,15 @@ export const store = new Vuex.Store({
             //     const logos = await axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?id=" + context.state.cryptoIDs + "&CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
             //     context.commit("saveLogos", logos.data.data)
             // }
-            console.log("dispatched cryotoData action");
             axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
                 .then(response => {
-                    console.log("before commit data in mutation");
                     context.commit("saveCryptoDataLocally", response.data.data)
-                    console.log("finished commit data in mutation");
-                    //return new Promise(context.state.cryptoIDs)
-                    console.log("before dispatch action logo");
                     return context.state.cryptoIDs
-                    //context.dispatch("getCryptoLogo", context.state.cryptoIDs)
-                    // console.log("after dispatch logo in action de data");
-                    // console.log("FIN cryptoData");
                 })
                 .then(ids => {
                     axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?id=" + ids + "&CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
                     .then(response => {
-                        console.log("before commit logo in mutation");
                         context.commit("saveLogos", response.data.data)
-                        console.log("finished commit logo in mutation");
-                        console.log("FIN cryptoLogo");
                     })
                 })
 
@@ -244,10 +233,7 @@ export const store = new Vuex.Store({
         getCryptoLogo(context) {
             axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?id=" + context.state.cryptoIDs + "&CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
                 .then(response => {
-                    console.log("before commit logo in mutation");
                     context.commit("saveLogos", response.data.data)
-                    console.log("finished commit logo in mutation");
-                    console.log("FIN cryptoLogo");
                 })
 
         }

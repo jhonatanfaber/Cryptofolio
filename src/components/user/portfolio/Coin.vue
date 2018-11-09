@@ -1,13 +1,16 @@
 <template>
     <div class="coin-container">
-        <div class="card ">
-                <div class="card-body">
-                    <p id="bought-day"> {{card.boughtDate}}</p>
+        <div class="card-wrapper ">
+                <div class="card-body" :style="[profitable ? { backgroundColor: profitBackgroundColor, border: profitBorder, } : { backgroundColor: lossesBackgroundColor, border: lossesBorder, }]">
+                    <p id="bought-day"> 
+                        {{card.boughtDate}}
+                        <i @click="removeCard" class="fas fa-times"></i>
+                      </p>
                     <h5 class="card-title">{{card.name}}</h5>
                     <img :src="card.logo" class="logo-sprite" :alt="card.name" height="60" width="60">
-                    <p class="card-text">{{card.amount}} ({{card.symbol}})</p>
-                    <label class="btn  btn-sm" :class="[{ 'btn-success': profitable == true }, {'btn-danger' : profitable ==false}]">
-                        {{ tradePercentage }}%
+                    <p class="card-text amount">{{card.amount}} ({{card.symbol}})</p>
+                    <label class="btn  btn-sm" :class="[{ 'btn-success': profitable == true}, {'btn-danger' : profitable == false}]">
+                        {{ tradePercentage }}% 
                     </label>
                     <hr>
                     <div class="info-comparison">
@@ -34,8 +37,11 @@
                             </div>
                         </div>
                     </div>
-                    
                     <a href="#" class="btn btn-dark">View Details</a>
+                    <RemoveConfirmationModal 
+                      v-if="confirmatiomModalIsOpen"
+                      @close="confirmatiomModalIsOpen = false"
+                    />
                 </div>
             </div>
     </div>
@@ -43,13 +49,19 @@
 
 <script>
 import { mapGetters } from "vuex";
+import RemoveConfirmationModal from "./RemoveConfirmationModal.vue"
 
 export default {
   props: ["card"],
   data() {
     return {
       symbolToShow: "$",
-      profitable: false
+      profitable: false,
+      profitBorder: "1px solid green",
+      profitBackgroundColor: "#b6efb673",
+      lossesBorder: "1px solid #d04d4d",
+      lossesBackgroundColor: "#da7c7c3d",
+      confirmatiomModalIsOpen : false
     };
   },
   computed: {
@@ -66,6 +78,14 @@ export default {
       }
       return profitsOrLossesPercentage.toFixed(2);
     }
+  },
+  methods : {
+    removeCard(){
+      this.confirmatiomModalIsOpen = true
+    }
+  },
+  components : {
+    RemoveConfirmationModal
   }
 };
 </script>
@@ -74,9 +94,18 @@ export default {
 .btn-sm {
   border-radius: 50%;
 }
-.card {
+.card-wrapper {
   margin-right: 20px;
   margin-bottom: 20px;
+}
+
+.card-body{
+  border-radius: 20px;
+  box-shadow: inset 0px 0px 20px 2px #888888;
+}
+
+.card-text.amount{
+  margin-top: 8px;
 }
 
 .info-comparison {
@@ -88,6 +117,7 @@ export default {
 #bought-day {
   font-size: 9px;
   display: flex;
+  justify-content: space-between;
   margin: 5px;
 }
 
@@ -95,6 +125,10 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.fa-times{
+  cursor: pointer;
 }
 </style>
 

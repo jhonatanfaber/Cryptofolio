@@ -49,9 +49,7 @@
                   <input type="date" v-model="card.boughtDate" class="form-control col-sm-6" id="inlineFormInputGroup">
                 </div>
               </div>
-             
           </div>
-          
           <div class="footer">
               <label class="btn btn-dark" @click="addToPortfolio"> Add to porfolio </label>
           </div>
@@ -75,7 +73,8 @@ export default {
         usdBuyPrice : null,
         name : null,
         logo : null,
-        symbol : null
+        symbol : null,
+        cardId : null
 
       }
     };
@@ -103,6 +102,7 @@ export default {
       this.card.name = coin.name;
       this.card.logo = coin.logo;
       this.card.symbol = coin.symbol;
+      this.card.cardId = this.card.symbol + Date.now()
       this.portfolio.push(this.card)
       this.closeModal()      
     }

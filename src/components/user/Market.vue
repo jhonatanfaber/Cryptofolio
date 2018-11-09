@@ -74,6 +74,7 @@ export default {
 
 .table th {
   border-top: 1px solid #dee2e6;
+  vertical-align: 0;
 }
 
 .table td {
