@@ -207,33 +207,24 @@ export const store = new Vuex.Store({
                 token
             })
         },
-        // ********
-        async getCryptoData(context) {
-            console.log("getCryptoData 1");
-            return new Promise((resolve, reject) => {
+        // using then instead of async/await
+        getCryptoData(context) {
+            return new Promise((resolve) => {
                 axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
                     .then(response => {
                         context.commit("saveCryptoDataLocally", response.data.data)
-                        console.log("desp del commit de data 2");
                         resolve()
                     })
             })
         },
+        //using async/await
         async getCryptoLogo(context) {
-            return context.dispatch("getCryptoData")
-                .then(() => {
-                    console.log("LGOOO 3");
-                    return new Promise((resolve, reject) => {
-                        axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?id=" + context.state.cryptoIDs + "&CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
-                            .then(response => {
-                                console.log("aqui en 4");
-                                context.commit("saveLogos", response.data.data)
-                                console.log("aqui en 5");
-                                resolve()
-                            })
-                    })
-
-                })
+            await context.dispatch("getCryptoData")
+            return new Promise(async (resolve) => {
+                const response = await axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?id=" + context.state.cryptoIDs + "&CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
+                context.commit("saveLogos", response.data.data)
+                resolve()
+            })
         }
     }
 })

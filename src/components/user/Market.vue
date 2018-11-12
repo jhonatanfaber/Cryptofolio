@@ -9,7 +9,7 @@
                 <th class="table-padding head" scope="col">Change (24h)</th>
             </tr>
             </thead>
-            <tbody v-for="(crypto,index) in dataDB" :key="crypto.id">
+            <tbody v-for="(crypto,index) in data" :key="crypto.id">
                 <tr>
                     <th scope="row"> {{ index +1 }} </th>
                     <td class="table-padding logo-wrapper"> 
@@ -31,10 +31,10 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  data(){
+  data() {
     return {
-      dataDB : []
-    }
+      data: []
+    };
   },
   computed: {
     ...mapGetters(["cryptoData"])
@@ -42,14 +42,9 @@ export default {
   beforeCreate() {
     console.log("beforeCreate");
   },
-  created() {
-   this.$store.dispatch("getCryptoLogo")
-    .then( () => {
-      console.log("aqui en 6 ultimo!!!!!");
-      
-      this.dataDB = this.$store.getters.cryptoData;
-    })
-
+  async created() {
+    await this.$store.dispatch("getCryptoLogo");
+    this.data = this.$store.getters.cryptoData;
   },
   beforeMount() {
     console.log("beforeMount");

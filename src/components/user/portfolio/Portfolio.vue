@@ -36,7 +36,7 @@ export default {
     };
   },
   created() {
-   this.$store.dispatch("getCryptoData");
+   this.$store.dispatch("getCryptoLogo");
   },
   components: {
     Coins,
