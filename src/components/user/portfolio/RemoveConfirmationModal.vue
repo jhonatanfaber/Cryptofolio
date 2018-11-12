@@ -1,14 +1,20 @@
 <template>
     <div class="confirmation-modal">
-         <div class="modal-mask">
+        <div class="modal-mask">
             <div class="modal-wrapper">
                 <div class="modal-container">
-              <button class="modal-default-button" @click="$emit('close')">
-                OK
-              </button>
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="modal-title">Are you sure you want to delete the card?</h5>
+                      <div class="modal-buttons">
+                        <button type="button" class="btn btn-danger" >Delete</button>
+                        <button type="button" class="btn btn-dark">No</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
     </div>
     
 </template>
@@ -25,6 +31,19 @@ export default {
 </script>
 
 <style scoped>
+.card {
+  border: 0;
+  padding: 20px;
+}
+
+.modal-buttons{
+  margin-top: 40px;
+}
+
+.btn-danger{
+  margin-right: 30px;
+}
+
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -32,9 +51,9 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
   display: table;
-  transition: opacity .3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .modal-wrapper {
@@ -43,13 +62,13 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
+  width: 35%;
   margin: 0px auto;
-  padding: 20px 30px;
+  padding: 7¡50px;
   background-color: #fff;
   border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-  transition: all .3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
 }
 

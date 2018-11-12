@@ -16,7 +16,7 @@ export const store = new Vuex.Store({
         // ********
         cryptoData: [],
         cryptoIDs: [],
-        portfolio : []
+        portfolio: []
     },
     getters: {
         user(state) {
@@ -38,7 +38,7 @@ export const store = new Vuex.Store({
         getCryptoDataById: (state) => (id) => {
             return state.cryptoData.find(coin => coin.id == id)
         },
-        portfolio(state){
+        portfolio(state) {
             return state.portfolio
         }
     },
@@ -82,7 +82,7 @@ export const store = new Vuex.Store({
                     slug: crypto.slug,
                     change24h: crypto.quote.USD.percent_change_24h,
                     usdCurrentPrice: crypto.quote.USD.price,
-                    btcCurrentPrice : null
+                    btcCurrentPrice: null
                 }
                 state.cryptoData.push(newCrypto)
                 state.cryptoIDs.push(crypto.id)
@@ -100,9 +100,9 @@ export const store = new Vuex.Store({
             return state.cryptoData
             console.log("saving logo...... estoy en 5");
         },
-        mergeCoinPriceWithCryptoDataArray(state, {response, targetCoin}){
+        mergeCoinPriceWithCryptoDataArray(state, { response, targetCoin }) {
             state.cryptoData.forEach(coin => {
-                if(coin.symbol == targetCoin){
+                if (coin.symbol == targetCoin) {
                     return coin.btcCurrentPrice = response.data.BTC
                 }
             })
@@ -208,34 +208,32 @@ export const store = new Vuex.Store({
             })
         },
         // ********
-        getCryptoData(context) {
-            // async function getCrytoInformation(){
-            //     const info = await axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
-            //     console.log(info);
-                
-            //     context.commit("saveCryptoDataLocally", info.data.data)
-            //     const logos = await axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?id=" + context.state.cryptoIDs + "&CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
-            //     context.commit("saveLogos", logos.data.data)
-            // }
-            axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
-                .then(response => {
-                    context.commit("saveCryptoDataLocally", response.data.data)
-                    return context.state.cryptoIDs
-                })
-                .then(ids => {
-                    axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?id=" + ids + "&CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
+        async getCryptoData(context) {
+            console.log("getCryptoData 1");
+            return new Promise((resolve, reject) => {
+                axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
                     .then(response => {
-                        context.commit("saveLogos", response.data.data)
+                        context.commit("saveCryptoDataLocally", response.data.data)
+                        console.log("desp del commit de data 2");
+                        resolve()
                     })
-                })
-
+            })
         },
-        getCryptoLogo(context) {
-            axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?id=" + context.state.cryptoIDs + "&CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
-                .then(response => {
-                    context.commit("saveLogos", response.data.data)
-                })
+        async getCryptoLogo(context) {
+            return context.dispatch("getCryptoData")
+                .then(() => {
+                    console.log("LGOOO 3");
+                    return new Promise((resolve, reject) => {
+                        axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?id=" + context.state.cryptoIDs + "&CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
+                            .then(response => {
+                                console.log("aqui en 4");
+                                context.commit("saveLogos", response.data.data)
+                                console.log("aqui en 5");
+                                resolve()
+                            })
+                    })
 
+                })
         }
     }
 })

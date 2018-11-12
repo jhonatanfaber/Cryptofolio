@@ -23,7 +23,7 @@ export default {
     ...mapGetters(["user", "isAdmin"])
   },
   created() {
-   this.$store.dispatch("getCryptoData");
+  //  this.$store.dispatch("getCryptoData");
   },
 };
 </script>
