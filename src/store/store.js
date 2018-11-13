@@ -16,7 +16,9 @@ export const store = new Vuex.Store({
         // ********
         cryptoData: [],
         cryptoIDs: [],
-        portfolio: []
+        portfolio: [],
+        totalInvestment : 0,
+        profit : 0
     },
     getters: {
         user(state) {
@@ -40,6 +42,12 @@ export const store = new Vuex.Store({
         },
         portfolio(state) {
             return state.portfolio
+        },
+        totalInvestment(state){
+            return state.totalInvestment
+        },
+        profit(state){
+            return state.profit
         }
     },
     mutations: {
@@ -98,14 +106,11 @@ export const store = new Vuex.Store({
                 }
             })
             return state.cryptoData
-            console.log("saving logo...... estoy en 5");
         },
-        mergeCoinPriceWithCryptoDataArray(state, { response, targetCoin }) {
-            state.cryptoData.forEach(coin => {
-                if (coin.symbol == targetCoin) {
-                    return coin.btcCurrentPrice = response.data.BTC
-                }
-            })
+        updateTotalInvestementPrice(state, payload){
+            console.log(payload);
+            
+            state.totalInvestment += payload
         }
     },
     actions: {
@@ -225,6 +230,9 @@ export const store = new Vuex.Store({
                 context.commit("saveLogos", response.data.data)
                 resolve()
             })
+        },
+        updateTotalInvestementPrice(context, payload){
+            context.commit("updateTotalInvestementPrice", payload)
         }
     }
 })

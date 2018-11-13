@@ -2,12 +2,12 @@
     <div class="portfolio-container">
         <div class="information">
             <div class="information-investment">
-                <h4> Total investment </h4>
-                <p id="information-quantity"> 345,56 </p>
+                <h4> Invested </h4>
+                <p class="information-quantity"> {{ totalInvestment }} </p>
             </div>
-            <div class="information-profit">
+            <div class="information-investment">
                 <h4> Profit </h4>
-                <p id="information-quantity"> 3453,56 </p>
+                <p class="information-quantity"> {{ profit }} </p>
             </div>
         </div>
         <div class="add-button"> 
@@ -20,14 +20,14 @@
                 v-if="showNewCoinModal"
                 @close="showNewCoinModal = false"
         />
-        
     </div>
-    
 </template>
 
 <script>
 import Coins from "./Coins.vue";
 import NewCoinModal from "./NewCoinModal.vue";
+import { mapGetters } from "vuex"
+
 
 export default {
   data() {
@@ -37,6 +37,9 @@ export default {
   },
   created() {
    this.$store.dispatch("getCryptoLogo");
+  },
+  computed:{
+    ...mapGetters(["totalInvestment", "profit"]),
   },
   components: {
     Coins,
@@ -64,17 +67,15 @@ export default {
 .information-investment {
   border: 1px solid rgb(98, 67, 67);
   padding: 20px 90px;
+  width: 30%;
 }
 
-.information-profit {
-  border: 1px solid rgb(98, 67, 67);
-  padding: 20px 90px;
-}
-
-#information-quantity {
-  font-size: 50px;
+.information-quantity {
+  font-size: 25px;
   margin-top: 30px;
 }
+
+
 
 .btn-circle.btn-xl {
   width: 70px;

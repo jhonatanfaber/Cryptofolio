@@ -60,7 +60,7 @@
     
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   data() {
@@ -92,6 +92,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(["updateTotalInvestementPrice"]),
     closeModal() {
       this.$emit("close");
     },
@@ -104,6 +105,7 @@ export default {
       this.card.symbol = coin.symbol;
       this.card.cardId = this.card.symbol + Date.now()
       this.portfolio.push(this.card)
+      this.updateTotalInvestementPrice(this.card.amount * this.card.usdBuyPrice)
       this.closeModal()      
     }
   }
