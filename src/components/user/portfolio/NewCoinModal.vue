@@ -63,6 +63,7 @@
 import { mapGetters, mapActions } from "vuex";
 
 export default {
+  props: ["showStarterMessage"],
   data() {
     return {
       card : {
@@ -92,7 +93,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["updateTotalInvestementPrice"]),
+    ...mapActions(["updateTotalInvestementPrice","updateProfit"]),
     closeModal() {
       this.$emit("close");
     },
@@ -106,6 +107,7 @@ export default {
       this.card.cardId = this.card.symbol + Date.now()
       this.portfolio.push(this.card)
       this.updateTotalInvestementPrice(this.card.amount * this.card.usdBuyPrice)
+      this.updateProfit((coin.usdCurrentPrice * this.card.amount) - (this.card.usdBuyPrice * this.card.amount))
       this.closeModal()      
     }
   }

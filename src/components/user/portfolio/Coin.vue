@@ -15,29 +15,37 @@
                     <hr>
                     <div class="info-comparison">
                         <div class="before">
-                            <h5> Before </h5>
+                            <h6> Before </h6>
                             <div class="values">
                                 <p class="card-text"> 
-                                    {{symbolToShow}}{{ ((card.usdBuyPrice *  card.amount).toFixed(4)).toLocaleString() }}
+                                    {{symbolToShow}}{{ (card.usdBuyPrice *  card.amount).toLocaleString(undefined, {
+                                                                                                              minimumFractionDigits: 2,
+                                                                                                              maximumFractionDigits: 6}) }}
                                 </p>
                                 <p class="card-text"> 
-                                    {{symbolToShow}}{{ ((card.usdBuyPrice*1).toFixed(4)).toLocaleString() }}
+                                    {{symbolToShow}}{{ (card.usdBuyPrice*1).toLocaleString(undefined, {
+                                                                                              minimumFractionDigits: 2,
+                                                                                              maximumFractionDigits: 6}) }}
                                 </p>
                             </div>
                         </div>
                         <div class="after">
-                            <h5> After </h5>
+                            <h6> After </h6>
                             <div class="values">
                                 <p class="card-text"> 
-                                    {{symbolToShow}}{{ ((getCryptoDataById(card.id).usdCurrentPrice *  card.amount).toFixed(4)).toLocaleString() }}
+                                    {{symbolToShow}}{{ (getCryptoDataById(card.id).usdCurrentPrice *  card.amount).toLocaleString(undefined, {
+                                                                                                                                minimumFractionDigits: 2,
+                                                                                                                                maximumFractionDigits: 5}) }}
                                 </p>
                                 <p class="card-text"> 
-                                    {{symbolToShow}}{{ ((getCryptoDataById(card.id).usdCurrentPrice).toFixed(4)).toLocaleString() }}
+                                    {{symbolToShow}}{{ (getCryptoDataById(card.id).usdCurrentPrice).toLocaleString(undefined, {
+                                                                                                              minimumFractionDigits: 2,
+                                                                                                              maximumFractionDigits: 5}) }}
                                 </p>
                             </div>
                         </div>
                     </div>
-                    <a href="#" class="btn btn-dark">View Details</a>
+                    <!-- <a href="#" class="btn btn-dark">View Details</a> -->
                     <RemoveConfirmationModal 
                       v-if="confirmatiomModalIsOpen"
                       @close="confirmatiomModalIsOpen = false"
@@ -111,7 +119,7 @@ export default {
 .info-comparison {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 #bought-day {
@@ -129,6 +137,10 @@ export default {
 
 .fa-times{
   cursor: pointer;
+}
+
+hr{
+  margin-top: 0;
 }
 </style>
 

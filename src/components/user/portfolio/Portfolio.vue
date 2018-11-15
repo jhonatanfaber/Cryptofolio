@@ -1,19 +1,31 @@
 <template>
     <div class="portfolio-container">
-        <div class="information">
-            <div class="information-investment">
-                <h4> Invested </h4>
-                <p class="information-quantity"> {{ totalInvestment }} </p>
-            </div>
-            <div class="information-investment">
-                <h4> Profit </h4>
-                <p class="information-quantity"> {{ profit }} </p>
-            </div>
-        </div>
         <div class="add-button"> 
            <button @click="showNewCoinModal = true"  type="button" class="btn btn-dark btn-circle btn-xl">
               +
             </button>
+        </div>
+        <div class="beginnerMessage" v-if="totalInvestment == 0.00" >
+          <h3> Click the add button and start creating your portfolio</h3>
+        </div>
+        <div v-else class="information">
+            <div class="information-investment">
+                <h4> Invested </h4>
+                <p class="information-quantity"> 
+                  {{ currencySymbol }}{{ totalInvestment.toLocaleString(undefined, {
+                                                                          minimumFractionDigits: 2,
+                                                                          maximumFractionDigits: 4
+                                                                                    })}} 
+                </p>
+            </div>
+            
+            <div class="information-investment">
+                <h4> Profit </h4>
+                <p class="information-quantity"> {{ currencySymbol }}{{ profit.toLocaleString(undefined, {
+                                                                                        minimumFractionDigits: 2,
+                                                                                        maximumFractionDigits: 4}) }} 
+                </p>
+            </div>
         </div>
         <Coins/>
         <NewCoinModal 
@@ -26,20 +38,20 @@
 <script>
 import Coins from "./Coins.vue";
 import NewCoinModal from "./NewCoinModal.vue";
-import { mapGetters } from "vuex"
-
+import { mapGetters } from "vuex";
 
 export default {
   data() {
     return {
-      showNewCoinModal: false
+      showNewCoinModal: false,
+      currencySymbol: "$"
     };
   },
   created() {
-   this.$store.dispatch("getCryptoLogo");
+    this.$store.dispatch("getCryptoLogo");
   },
-  computed:{
-    ...mapGetters(["totalInvestment", "profit"]),
+  computed: {
+    ...mapGetters(["totalInvestment", "profit"])
   },
   components: {
     Coins,
@@ -60,22 +72,18 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  margin-bottom: 20px;
-  margin-top: 40px;
+  margin-bottom: 30px;
 }
 
 .information-investment {
-  border: 1px solid rgb(98, 67, 67);
   padding: 20px 90px;
   width: 30%;
 }
 
 .information-quantity {
   font-size: 25px;
-  margin-top: 30px;
+  margin-top: 10px;
 }
-
-
 
 .btn-circle.btn-xl {
   width: 70px;
@@ -87,8 +95,21 @@ export default {
 }
 
 .add-button {
-  margin-bottom: 31px;
-  margin-top: 10px;
+  display: flex;
+  width: 95%;
+}
+
+.btn-circle.btn-xl {
+  width: 50px;
+  height: 50px;
+}
+
+h5 {
+  font-weight: 900;
+}
+
+.beginnerMessage {
+  margin-top: 40px;
 }
 </style>
 

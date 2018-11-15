@@ -108,9 +108,10 @@ export const store = new Vuex.Store({
             return state.cryptoData
         },
         updateTotalInvestementPrice(state, payload){
-            console.log(payload);
-            
             state.totalInvestment += payload
+        },
+        updateProfit(state, payload){
+            state.profit += payload
         }
     },
     actions: {
@@ -233,6 +234,9 @@ export const store = new Vuex.Store({
         },
         updateTotalInvestementPrice(context, payload){
             context.commit("updateTotalInvestementPrice", payload)
+        },
+        updateProfit(context, payload){
+            context.commit("updateProfit", payload)
         }
     }
 })
