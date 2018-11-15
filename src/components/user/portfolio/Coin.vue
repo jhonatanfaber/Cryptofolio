@@ -2,16 +2,21 @@
     <div class="coin-container">
         <div class="card-wrapper ">
                 <div class="card-body" :style="[profitable ? { backgroundColor: profitBackgroundColor, border: profitBorder, } : { backgroundColor: lossesBackgroundColor, border: lossesBorder, }]">
+                    
                     <p id="bought-day"> 
                         {{card.boughtDate}}
                         <i @click="removeCard" class="fas fa-times"></i>
-                      </p>
+                    </p>
+
+
                     <h5 class="card-title">{{card.name}}</h5>
                     <img :src="card.logo" class="logo-sprite" :alt="card.name" height="60" width="60">
                     <p class="card-text amount">{{card.amount}} ({{card.symbol}})</p>
                     <label class="btn  btn-sm" :class="[{ 'btn-success': profitable == true}, {'btn-danger' : profitable == false}]">
                         {{ tradePercentage }}% 
                     </label>
+
+
                     <hr>
                     <div class="info-comparison">
                         <div class="before">
@@ -45,10 +50,12 @@
                             </div>
                         </div>
                     </div>
+
                     <!-- <a href="#" class="btn btn-dark">View Details</a> -->
                     <RemoveConfirmationModal 
                       v-if="confirmatiomModalIsOpen"
                       @close="confirmatiomModalIsOpen = false"
+                      :card=card
                     />
                 </div>
             </div>

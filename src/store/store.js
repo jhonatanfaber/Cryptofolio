@@ -112,6 +112,10 @@ export const store = new Vuex.Store({
         },
         updateProfit(state, payload){
             state.profit += payload
+        },
+        removeCardFromStore(state, cardID){
+            let index = state.portfolio.findIndex(card => card.cardId == cardID)
+            state.portfolio.splice(index, 1)
         }
     },
     actions: {
@@ -237,6 +241,9 @@ export const store = new Vuex.Store({
         },
         updateProfit(context, payload){
             context.commit("updateProfit", payload)
+        },
+        removeCardFromStore(context, cardID){
+            context.commit("removeCardFromStore", cardID)
         }
     }
 })
