@@ -28,7 +28,7 @@ export default {
       this.$emit("close");
     },
     removeCardFromStore(){
-      this.$store.dispatch("removeCardFromStore", this.card.cardId)
+      this.$store.dispatch("removeCardFromStore", this.card)
       this.closeModal()
     }
   }

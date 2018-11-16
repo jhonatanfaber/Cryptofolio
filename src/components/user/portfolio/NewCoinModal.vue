@@ -93,7 +93,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["updateTotalInvestementPrice","updateProfit"]),
+    ...mapActions(["updateTotalInvestementPrice","updateProfit","setCurrentCardID"]),
     closeModal() {
       this.$emit("close");
     },
@@ -107,7 +107,8 @@ export default {
       this.card.cardId = this.card.symbol + Date.now()
       this.portfolio.push(this.card)
       this.updateTotalInvestementPrice(this.card.amount * this.card.usdBuyPrice)
-      this.updateProfit((coin.usdCurrentPrice * this.card.amount) - (this.card.usdBuyPrice * this.card.amount))
+      this.setCurrentCardID({cardID: this.card.cardId, coinID : this.card.id})
+      // this.updateProfit((coin.usdCurrentPrice * this.card.amount) - (this.card.usdBuyPrice * this.card.amount))
       this.closeModal()      
     }
   }

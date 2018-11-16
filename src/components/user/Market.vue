@@ -39,25 +39,10 @@ export default {
   computed: {
     ...mapGetters(["cryptoData"])
   },
-  beforeCreate() {
-    console.log("beforeCreate");
-  },
   async created() {
     await this.$store.dispatch("getCryptoLogo");
     this.data = this.$store.getters.cryptoData;
   },
-  beforeMount() {
-    console.log("beforeMount");
-  },
-  mounted() {
-    console.log("mounted");
-  },
-  beforeUpdate() {
-    console.log("beforeUpdate");
-  },
-  updated() {
-    console.log("updated");
-  }
 };
 </script>
 

@@ -18,7 +18,11 @@ export const store = new Vuex.Store({
         cryptoIDs: [],
         portfolio: [],
         totalInvestment : 0,
-        profit : 0
+        profit : 0,
+        currentCardInformation: {
+            cardID : null,
+            coinID : null
+        }
     },
     getters: {
         user(state) {
@@ -48,6 +52,9 @@ export const store = new Vuex.Store({
         },
         profit(state){
             return state.profit
+        },
+        currentCardInformation(state){
+            return state.currentCardInformation
         }
     },
     mutations: {
@@ -111,11 +118,15 @@ export const store = new Vuex.Store({
             state.totalInvestment += payload
         },
         updateProfit(state, payload){
-            state.profit += payload
+            state.profit = payload
         },
-        removeCardFromStore(state, cardID){
-            let index = state.portfolio.findIndex(card => card.cardId == cardID)
+        removeCardFromStore(state, card){
+            let index = state.portfolio.findIndex(coin => coin.cardId == card.cardId)
             state.portfolio.splice(index, 1)
+        },
+        setCurrentCardID(state, card){
+            state.currentCardInformation.cardID = card.cardID
+            state.currentCardInformation.coinID = card.coinID
         }
     },
     actions: {
@@ -242,8 +253,14 @@ export const store = new Vuex.Store({
         updateProfit(context, payload){
             context.commit("updateProfit", payload)
         },
-        removeCardFromStore(context, cardID){
-            context.commit("removeCardFromStore", cardID)
+        removeCardFromStore(context, card){
+            context.commit("removeCardFromStore", card)
+            context.commit("updateTotalInvestementPrice", -card.amount * card.usdBuyPrice)
+        },
+        setCurrentCardID(context, payload){
+            console.log(payload);
+            
+            context.commit("setCurrentCardID", payload)
         }
     }
 })
