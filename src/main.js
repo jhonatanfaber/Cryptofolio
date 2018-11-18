@@ -13,7 +13,7 @@ router.beforeEach((to, from, next) => {
   } else if (store.state.user.token || localStorage.getItem("token")) {
     next()
   } else {
-    next("/login")
+    next("/home")
   }
 
 });

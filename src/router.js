@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { store } from "./store/store"
 import Home from "./components/Home.vue"
+import Test from "./components/Test.vue"
 import Login from "./components/Login.vue"
 import Users from "./components/admin/Users.vue"
 import Portfolio from "./components/user/portfolio/Portfolio.vue"
@@ -17,20 +18,14 @@ export default new Router({
             path: '/', name: "home", component: Home
         },
         {
+            path: '/test', name: "test", component: Test
+        },
+        {
             path: '/login', name: "login", component: Login
         },
         {
             path: "/users", name: "users", component: Users, beforeEnter(to, from, next) {
                 if (store.getters.user.admin === true || localStorage.getItem("admin") == "true") {
-                    next()
-                } else {
-                    next(from.path)
-                }
-            }
-        },
-        {
-            path: "/portfolio", name: "portfolio", component: Portfolio, beforeEnter(to, from, next) {
-                if (store.getters.user.admin === false || localStorage.getItem("admin") == "false") {
                     next()
                 } else {
                     next(from.path)
@@ -45,6 +40,15 @@ export default new Router({
                     next(from.path)
                 }
             }
+        },
+        {
+            path: "/portfolio", name: "portfolio", component: Portfolio//, beforeEnter(to, from, next) {
+            //     if (store.getters.user.admin === false || localStorage.getItem("admin") == "false") {
+            //         next()
+            //     } else {
+            //         next(from.path)
+            //     }
+            // }
         },
         {
             path: "/*", redirect: "/"

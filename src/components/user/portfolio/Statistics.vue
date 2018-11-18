@@ -31,18 +31,28 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["profit", "totalInvestment","currentCardInformation","cryptoData","portfolio","getCryptoDataById"]),
-    profitsToShow(){
-      let profit = 0
+    ...mapGetters([
+      "profit",
+      "totalInvestment",
+      "currentCardInformation",
+      "cryptoData",
+      "portfolio",
+      "getCryptoDataById"
+    ]),
+    profitsToShow() {
+      let profit = 0;
       this.portfolio.forEach(element => {
-        let currentCoinPrice = this.getCryptoDataById(element.id).usdCurrentPrice
-        profit += ((currentCoinPrice * element.amount) - (element.usdBuyPrice * element.amount))
+        let currentCoinPrice = this.getCryptoDataById(element.id)
+          .usdCurrentPrice;
+        profit +=
+          currentCoinPrice * element.amount -
+          element.usdBuyPrice * element.amount;
       });
-       this.updateProfit(profit)
-      return profit
+      this.updateProfit(profit);
+      return profit;
     }
   },
-  methods : {
+  methods: {
     ...mapActions(["updateProfit"])
   }
 };
@@ -64,6 +74,8 @@ export default {
 .information-quantity {
   font-size: 25px;
   margin-top: 10px;
+  display: flex;
+  justify-content: center;
 }
 </style>
 

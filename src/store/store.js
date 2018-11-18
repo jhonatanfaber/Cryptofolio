@@ -209,6 +209,7 @@ export const store = new Vuex.Store({
         tryAutoLogin(context) {
             const token = localStorage.getItem("token");
             if (!token) return
+            
             const expirationDate = localStorage.getItem("expirationDate")
             const now = Date.now()
             if (now >= new Date(expirationDate)) {

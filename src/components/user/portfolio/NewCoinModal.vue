@@ -71,7 +71,6 @@ export default {
         amount: null,
         usdBuyPrice : null,
         boughtDate : null,
-        usdBuyPrice : null,
         name : null,
         logo : null,
         symbol : null,
@@ -105,6 +104,15 @@ export default {
       this.card.logo = coin.logo;
       this.card.symbol = coin.symbol;
       this.card.cardId = this.card.symbol + Date.now()
+      //TODO: 1,2,3,4,ultimo
+//       amount: "1"
+// boughtDate: "2018-11-18"
+// cardId: "BTC1542545948096"
+// id: 1
+// logo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png"
+// name: "Bitcoin"
+// symbol: "BTC"
+// usdBuyPrice: "300"
       this.portfolio.push(this.card)
       this.updateTotalInvestementPrice(this.card.amount * this.card.usdBuyPrice)
       this.setCurrentCardID({cardID: this.card.cardId, coinID : this.card.id})

@@ -3,11 +3,11 @@
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
+
                     <div class="left-navbar">
                         <router-link to="/" tag="li" class="nav-item" exact><a class="brand"> Cryptofolio </a></router-link>
                     </div>
                     <div class="right-navbar"> 
-                        <router-link v-if="!user.token" to="/login" tag="li" class="nav-item" exact><a class="nav-link"> <i class="fas fa-sign-in-alt"></i> Log in </a></router-link>
                         <li v-if="isAdmin" class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Settings
@@ -17,15 +17,20 @@
                                 <router-link to="" tag="li"  exact><a class="dropdown-item"> Profile </a></router-link>
                             </div>
                         </li>
+
+                        <router-link v-if="user.token && !isAdmin"  to="/test" class="nav-item" tag="li" exact><a class="nav-link-disabled"> </a></router-link>
                         <router-link v-if="user.token && !isAdmin" to="/portfolio" class="nav-item" tag="li" exact><a class="nav-link"> Portfolio </a></router-link>
                         <router-link v-if="user.token && !isAdmin" to="/market" class="nav-item" tag="li" exact><a class="nav-link"> Market </a></router-link>
                         <li v-if="user.token" class="nav-item">
                             <a class="nav-link username"><i class="fas fa-user"></i> {{user.username}}</a>
                         </li>
-                        <li id="qq" v-if="user.token" class="nav-item">
+                        <router-link v-if="!user.token" to="/login" tag="li" class="nav-item" exact><a class="nav-link"> <i class="fas fa-sign-in-alt"></i> Log in </a></router-link>
+                        <li v-if="user.token" class="nav-item">
                             <a  @click="logout" class="nav-link logout"><i class="fas fa-sign-out-alt"></i> Log out </a>
                         </li>
+
                     </div>
+
                 </ul>
             </div>
         </nav>
