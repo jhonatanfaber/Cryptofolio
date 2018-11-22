@@ -36,11 +36,8 @@ export default {
       data: []
     };
   },
-  computed: {
-    ...mapGetters(["cryptoData"])
-  },
   async created() {
-    await this.$store.dispatch("getCryptoLogo");
+    await this.$store.dispatch("getCryptoData");
     this.data = this.$store.getters.cryptoData;
   },
 };

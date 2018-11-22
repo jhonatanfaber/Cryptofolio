@@ -33,7 +33,7 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch("getCryptoLogo");
+    this.$store.dispatch("getCryptoData");
   },
   computed: {
     ...mapGetters(["totalInvestment", "profit"])

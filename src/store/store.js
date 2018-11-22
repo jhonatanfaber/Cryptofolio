@@ -3,6 +3,8 @@ import Vuex from "vuex"
 import axios from "axios"
 import customisedUsersAxios from "./../customisedAxios/usersAxios.js"
 import router from "./../router"
+import dotenv from 'dotenv'
+dotenv.config()
 
 
 Vue.use(Vuex)
@@ -17,11 +19,11 @@ export const store = new Vuex.Store({
         cryptoData: [],
         cryptoIDs: [],
         portfolio: [],
-        totalInvestment : 0,
-        profit : 0,
+        totalInvestment: 0,
+        profit: 0,
         currentCardInformation: {
-            cardID : null,
-            coinID : null
+            cardID: null,
+            coinID: null
         }
     },
     getters: {
@@ -47,13 +49,13 @@ export const store = new Vuex.Store({
         portfolio(state) {
             return state.portfolio
         },
-        totalInvestment(state){
+        totalInvestment(state) {
             return state.totalInvestment
         },
-        profit(state){
+        profit(state) {
             return state.profit
         },
-        currentCardInformation(state){
+        currentCardInformation(state) {
             return state.currentCardInformation
         }
     },
@@ -88,43 +90,31 @@ export const store = new Vuex.Store({
         // ********
         saveCryptoDataLocally(state, data) {
             state.cryptoData = []
-            state.cryptoIDs = []
             data.forEach(crypto => {
                 const newCrypto = {
                     id: crypto.id,
                     name: crypto.name,
                     symbol: crypto.symbol,
                     slug: crypto.slug,
+                    logo :  crypto.logo,
                     change24h: crypto.quote.USD.percent_change_24h,
                     usdCurrentPrice: crypto.quote.USD.price,
                     btcCurrentPrice: null
                 }
                 state.cryptoData.push(newCrypto)
-                state.cryptoIDs.push(crypto.id)
             })
         },
-        saveLogos(state, data) {
-            state.cryptoData.forEach(crypto => {
-                for (const key of Object.keys(data)) {
-                    if (crypto.id == data[key].id) {
-                        crypto.logo = data[key].logo
-                        break;
-                    }
-                }
-            })
-            return state.cryptoData
-        },
-        updateTotalInvestementPrice(state, payload){
+        updateTotalInvestementPrice(state, payload) {
             state.totalInvestment += payload
         },
-        updateProfit(state, payload){
+        updateProfit(state, payload) {
             state.profit = payload
         },
-        removeCardFromStore(state, card){
+        removeCardFromStore(state, card) {
             let index = state.portfolio.findIndex(coin => coin.cardId == card.cardId)
             state.portfolio.splice(index, 1)
         },
-        setCurrentCardID(state, card){
+        setCurrentCardID(state, card) {
             state.currentCardInformation.cardID = card.cardID
             state.currentCardInformation.coinID = card.coinID
         }
@@ -209,7 +199,7 @@ export const store = new Vuex.Store({
         tryAutoLogin(context) {
             const token = localStorage.getItem("token");
             if (!token) return
-            
+
             const expirationDate = localStorage.getItem("expirationDate")
             const now = Date.now()
             if (now >= new Date(expirationDate)) {
@@ -229,38 +219,27 @@ export const store = new Vuex.Store({
                 token
             })
         },
-        // using then instead of async/await
-        getCryptoData(context) {
-            return new Promise((resolve) => {
-                axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
-                    .then(response => {
-                        context.commit("saveCryptoDataLocally", response.data.data)
-                        resolve()
-                    })
+        async getCryptoData(context) {
+            const response = await axios.get("http://localhost:3000/coins", {
+                headers: {
+                    'x-api-token': context.state.user.token
+                }
             })
+            context.commit("saveCryptoDataLocally", response.data)
         },
-        //using async/await
-        async getCryptoLogo(context) {
-            await context.dispatch("getCryptoData")
-            return new Promise(async (resolve) => {
-                const response = await axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?id=" + context.state.cryptoIDs + "&CMC_PRO_API_KEY=da29af3e-a894-43d1-805e-f64def15b26c")
-                context.commit("saveLogos", response.data.data)
-                resolve()
-            })
-        },
-        updateTotalInvestementPrice(context, payload){
+        updateTotalInvestementPrice(context, payload) {
             context.commit("updateTotalInvestementPrice", payload)
         },
-        updateProfit(context, payload){
+        updateProfit(context, payload) {
             context.commit("updateProfit", payload)
         },
-        removeCardFromStore(context, card){
+        removeCardFromStore(context, card) {
             context.commit("removeCardFromStore", card)
             context.commit("updateTotalInvestementPrice", -card.amount * card.usdBuyPrice)
         },
-        setCurrentCardID(context, payload){
+        setCurrentCardID(context, payload) {
             console.log(payload);
-            
+
             context.commit("setCurrentCardID", payload)
         }
     }

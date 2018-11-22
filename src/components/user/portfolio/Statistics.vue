@@ -12,11 +12,11 @@
             <div class="information-investment">
                 <h4> Profit </h4>
                 <p class="information-quantity">
-                   {{ currencySymbol }}{{ profit.toLocaleString(undefined, {
+                   {{ currencySymbol }}{{ profitsToShow.toLocaleString(undefined, {
                                                                   minimumFractionDigits: 2,
                                                                   maximumFractionDigits: 4 }) }} 
                 </p>
-                {{profitsToShow}}
+                <!-- {{profitsToShow}} -->
             </div>
     </div>
 </template>
@@ -34,19 +34,14 @@ export default {
     ...mapGetters([
       "profit",
       "totalInvestment",
-      "currentCardInformation",
-      "cryptoData",
       "portfolio",
       "getCryptoDataById"
     ]),
     profitsToShow() {
       let profit = 0;
       this.portfolio.forEach(element => {
-        let currentCoinPrice = this.getCryptoDataById(element.id)
-          .usdCurrentPrice;
-        profit +=
-          currentCoinPrice * element.amount -
-          element.usdBuyPrice * element.amount;
+        let currentCoinPrice = this.getCryptoDataById(element.id).usdCurrentPrice;
+        profit += currentCoinPrice * element.amount - element.usdBuyPrice * element.amount;
       });
       this.updateProfit(profit);
       return profit;

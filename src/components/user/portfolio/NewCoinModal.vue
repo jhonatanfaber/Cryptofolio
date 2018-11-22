@@ -104,7 +104,7 @@ export default {
       this.card.logo = coin.logo;
       this.card.symbol = coin.symbol;
       this.card.cardId = this.card.symbol + Date.now()
-      //TODO: 1,2,3,4,ultimo
+      //TODO: create post to save card info:  1,2,3,4,ultimo info
 //       amount: "1"
 // boughtDate: "2018-11-18"
 // cardId: "BTC1542545948096"
