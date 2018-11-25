@@ -104,8 +104,12 @@ export const store = new Vuex.Store({
                 state.cryptoData.push(newCrypto)
             })
         },
-        addCardToPortfolio(state, card){
-            state.portfolio.push(card)
+        addCardToPortfolio(state, card) {
+            if(Array.isArray(card)){
+                state.portfolio = card
+            }else{
+                state.portfolio.push(card)
+            }
         },
         updateTotalInvestementPrice(state, payload) {
             state.totalInvestment += payload
@@ -230,7 +234,7 @@ export const store = new Vuex.Store({
             })
             context.commit("saveCryptoDataLocally", response.data)
         },
-        addCardToPortfolio(context, card){
+        addCardToPortfolio(context, card) {
             context.commit("addCardToPortfolio", card)
         },
         updateTotalInvestementPrice(context, payload) {
@@ -248,21 +252,21 @@ export const store = new Vuex.Store({
         },
         async saveCardInDB(context, payload) {
             const userID = context.state.user.id
-            // amount: "1"
-            // boughtDate: "2018-11-23"
-            // cardID: "BTC1542965974545"
-            // coinID: 1
-            // usdBuyPrice: "5555"
             await axios.post("http://localhost:3000/users/" + userID + "/card", payload, {
                 headers: {
                     'x-api-token': context.state.user.token
                 }
             })
         },
-        async getCardsFromDB(context, payload){
+        // call in portfolio.vue
+        async getCardsFromDB(context) {
             const userID = context.state.user.id
-            const response = await axios.get("http://localhost:3000/users/" + userID + "/cards")
-            
+            const response = await axios.get("http://localhost:3000/users/" + userID + "/cards", {
+                headers: {
+                    'x-api-token': context.state.user.token
+                }
+            })
+            context.commit("addCardToPortfolio", response.data)
         }
     }
 })

@@ -32,8 +32,9 @@ export default {
       currencySymbol: "$"
     };
   },
-  created() {
-    this.$store.dispatch("getCryptoData");
+  async created() {
+    await this.$store.dispatch("getCryptoData");
+    await this.$store.dispatch("getCardsFromDB");
   },
   computed: {
     ...mapGetters(["totalInvestment", "profit"])

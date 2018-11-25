@@ -115,13 +115,19 @@ export default {
         this.card.amount * this.card.usdBuyPrice
       );
 
-      this.setCurrentCardID({ cardID: this.card.cardID, coinID: this.card.coinID });
+      this.setCurrentCardID({
+        cardID: this.card.cardID,
+        coinID: this.card.coinID
+      });
       // this.saveCardInDB({
       //   cardID: this.card.cardID,
       //   coinID: this.card.coinID,
       //   amount: this.card.amount,
       //   usdBuyPrice: this.card.usdBuyPrice,
-      //   boughtDate: this.card.boughtDate
+      //   boughtDate: this.card.boughtDate,
+      //   logo: this.card.logo,
+      //   name: this.card.name,
+      //   symbol: this.card.symbol
       // });
       this.closeModal();
     }
