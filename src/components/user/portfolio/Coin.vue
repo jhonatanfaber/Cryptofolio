@@ -20,7 +20,7 @@
                     <hr>
                     <div class="info-comparison">
                         <div class="before">
-                            <h6> Before </h6>
+                            <h6> Purchase price </h6>
                             <div class="values">
                                 <p class="card-text"> 
                                     {{symbolToShow}}{{ (card.usdBuyPrice *  card.amount).toLocaleString(undefined, {
@@ -35,15 +35,15 @@
                             </div>
                         </div>
                         <div class="after">
-                            <h6> After </h6>
+                            <h6> Current price </h6>
                             <div class="values">
                                 <p class="card-text"> 
-                                    {{symbolToShow}}{{ (getCryptoDataById(card.id).usdCurrentPrice *  card.amount).toLocaleString(undefined, {
+                                    {{symbolToShow}}{{ (getCryptoDataById(card.coinID).usdCurrentPrice *  card.amount).toLocaleString(undefined, {
                                                                                                                                 minimumFractionDigits: 2,
                                                                                                                                 maximumFractionDigits: 5}) }}
                                 </p>
                                 <p class="card-text"> 
-                                    {{symbolToShow}}{{ (getCryptoDataById(card.id).usdCurrentPrice).toLocaleString(undefined, {
+                                    {{symbolToShow}}{{ (getCryptoDataById(card.coinID).usdCurrentPrice).toLocaleString(undefined, {
                                                                                                               minimumFractionDigits: 2,
                                                                                                               maximumFractionDigits: 5}) }}
                                 </p>
@@ -82,7 +82,7 @@ export default {
   computed: {
     ...mapGetters(["getCryptoDataById"]),
     tradePercentage() {
-      let currentPrice = this.getCryptoDataById(this.card.id).usdCurrentPrice;
+      let currentPrice = this.getCryptoDataById(this.card.coinID).usdCurrentPrice;
       let buyPrice = this.card.usdBuyPrice;
       let profitsOrLossesPercentage =
         ((currentPrice - buyPrice) * 100) / buyPrice;

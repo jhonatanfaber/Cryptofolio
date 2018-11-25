@@ -96,13 +96,16 @@ export const store = new Vuex.Store({
                     name: crypto.name,
                     symbol: crypto.symbol,
                     slug: crypto.slug,
-                    logo :  crypto.logo,
+                    logo: crypto.logo,
                     change24h: crypto.quote.USD.percent_change_24h,
                     usdCurrentPrice: crypto.quote.USD.price,
                     btcCurrentPrice: null
                 }
                 state.cryptoData.push(newCrypto)
             })
+        },
+        addCardToPortfolio(state, card){
+            state.portfolio.push(card)
         },
         updateTotalInvestementPrice(state, payload) {
             state.totalInvestment += payload
@@ -227,6 +230,9 @@ export const store = new Vuex.Store({
             })
             context.commit("saveCryptoDataLocally", response.data)
         },
+        addCardToPortfolio(context, card){
+            context.commit("addCardToPortfolio", card)
+        },
         updateTotalInvestementPrice(context, payload) {
             context.commit("updateTotalInvestementPrice", payload)
         },
@@ -238,9 +244,25 @@ export const store = new Vuex.Store({
             context.commit("updateTotalInvestementPrice", -card.amount * card.usdBuyPrice)
         },
         setCurrentCardID(context, payload) {
-            console.log(payload);
-
             context.commit("setCurrentCardID", payload)
+        },
+        async saveCardInDB(context, payload) {
+            const userID = context.state.user.id
+            // amount: "1"
+            // boughtDate: "2018-11-23"
+            // cardID: "BTC1542965974545"
+            // coinID: 1
+            // usdBuyPrice: "5555"
+            await axios.post("http://localhost:3000/users/" + userID + "/card", payload, {
+                headers: {
+                    'x-api-token': context.state.user.token
+                }
+            })
+        },
+        async getCardsFromDB(context, payload){
+            const userID = context.state.user.id
+            const response = await axios.get("http://localhost:3000/users/" + userID + "/cards")
+            
         }
     }
 })

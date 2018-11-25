@@ -1,8 +1,8 @@
 <template>
     <div class="coins-container">
             <Coin 
-                v-for="coin in portfolio" :key="coin.id"
-                :card=coin
+                v-for="card in portfolio" :key="card.coinID"
+                :card=card
             />
     </div>
     

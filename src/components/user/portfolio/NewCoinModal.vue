@@ -10,7 +10,7 @@
 
           <div class="body">
             <div class="form-group"  >
-                <select v-model="card.id" class="form-control col-sm-8">
+                <select v-model="card.coinID" class="form-control col-sm-8">
                     <option >Choose One:</option>
                     <option  v-for="crypto in sortedCryptoData" :key="crypto.id" :value="crypto.id">
                       {{crypto.slug}}
@@ -66,16 +66,15 @@ export default {
   props: ["showStarterMessage"],
   data() {
     return {
-      card : {
-        id : null,
+      card: {
+        coinID: null,
         amount: null,
-        usdBuyPrice : null,
-        boughtDate : null,
-        name : null,
-        logo : null,
-        symbol : null,
-        cardId : null
-
+        usdBuyPrice: null,
+        boughtDate: null,
+        name: null,
+        logo: null,
+        symbol: null,
+        cardID: null
       }
     };
   },
@@ -92,32 +91,39 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["updateTotalInvestementPrice","updateProfit","setCurrentCardID"]),
+    ...mapActions([
+      "updateTotalInvestementPrice",
+      "updateProfit",
+      "setCurrentCardID",
+      "saveCardInDB",
+      "addCardToPortfolio"
+    ]),
     closeModal() {
       this.$emit("close");
     },
-    addToPortfolio(){
+    addToPortfolio() {
       let coin = this.cryptoData.find(coin => {
-        return coin.id == this.card.id
-      })
+        return coin.id == this.card.coinID;
+      });
       this.card.name = coin.name;
       this.card.logo = coin.logo;
       this.card.symbol = coin.symbol;
-      this.card.cardId = this.card.symbol + Date.now()
-      //TODO: create post to save card info:  1,2,3,4,ultimo info
-//       amount: "1"
-// boughtDate: "2018-11-18"
-// cardId: "BTC1542545948096"
-// id: 1
-// logo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png"
-// name: "Bitcoin"
-// symbol: "BTC"
-// usdBuyPrice: "300"
-      this.portfolio.push(this.card)
-      this.updateTotalInvestementPrice(this.card.amount * this.card.usdBuyPrice)
-      this.setCurrentCardID({cardID: this.card.cardId, coinID : this.card.id})
-      // this.updateProfit((coin.usdCurrentPrice * this.card.amount) - (this.card.usdBuyPrice * this.card.amount))
-      this.closeModal()      
+      this.card.cardID = this.card.symbol + Date.now();
+      this.addCardToPortfolio(this.card);
+
+      this.updateTotalInvestementPrice(
+        this.card.amount * this.card.usdBuyPrice
+      );
+
+      this.setCurrentCardID({ cardID: this.card.cardID, coinID: this.card.coinID });
+      // this.saveCardInDB({
+      //   cardID: this.card.cardID,
+      //   coinID: this.card.coinID,
+      //   amount: this.card.amount,
+      //   usdBuyPrice: this.card.usdBuyPrice,
+      //   boughtDate: this.card.boughtDate
+      // });
+      this.closeModal();
     }
   }
 };

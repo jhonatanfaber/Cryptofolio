@@ -12,11 +12,11 @@
             <div class="information-investment">
                 <h4> Profit </h4>
                 <p class="information-quantity">
-                   {{ currencySymbol }}{{ profitsToShow.toLocaleString(undefined, {
+                   {{ currencySymbol }}{{ profit.toLocaleString(undefined, {
                                                                   minimumFractionDigits: 2,
                                                                   maximumFractionDigits: 4 }) }} 
                 </p>
-                <!-- {{profitsToShow}} -->
+                {{profitsToShow}}
             </div>
     </div>
 </template>
@@ -40,7 +40,7 @@ export default {
     profitsToShow() {
       let profit = 0;
       this.portfolio.forEach(element => {
-        let currentCoinPrice = this.getCryptoDataById(element.id).usdCurrentPrice;
+        let currentCoinPrice = this.getCryptoDataById(element.coinID).usdCurrentPrice;
         profit += currentCoinPrice * element.amount - element.usdBuyPrice * element.amount;
       });
       this.updateProfit(profit);
