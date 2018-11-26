@@ -1,5 +1,11 @@
 <template >
     <div class="market-container">
+      
+      <template v-if="loading">
+        <p> Loading... </p>
+      </template>
+
+      <template v-if="!loading">
         <table class="table">
             <thead>
             <tr>
@@ -25,6 +31,7 @@
                 </tr>
             </tbody>
         </table>
+      </template>
     </div>
 </template>
 
@@ -33,11 +40,14 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      data: []
+      data: [],
+      loading : false
     };
   },
   async created() {
+    this.loading = true
     await this.$store.dispatch("getCryptoData");
+    this.loading = false
     this.data = this.$store.getters.cryptoData;
   },
 };

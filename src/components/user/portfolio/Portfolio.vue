@@ -1,22 +1,31 @@
 <template>
-    <div class="portfolio-container">
-        <div class="add-button"> 
-           <button @click="showNewCoinModal = true"  type="button" class="btn btn-dark btn-circle btn-xl">
-              +
-            </button>
-        </div>
-        <div class="beginnerMessage" v-if="totalInvestment == 0.00" >
-          <h3> Click the add button and start creating your portfolio</h3>
-        </div>
-        <div v-else class="information">
-            <Statistics />
-        </div>
-        <Coins/>
-        <NewCoinModal 
-                v-if="showNewCoinModal"
-                @close="showNewCoinModal = false"
-        />
+  <div class="portfolio-container">
+    <template v-if="loading">
+      <p>Loading...</p>
+    </template>
+
+    <div class="add-button">
+      <button
+        @click="showNewCoinModal = true"
+        type="button"
+        class="btn btn-dark btn-circle btn-xl"> + </button>
     </div>
+
+
+    <div class="beginnerMessage" v-show="portfolioIsEmpty && !loading">
+      <h3>Click the add button and start creating your portfolio</h3>
+    </div>
+
+    <div v-if="!loading" class="information">
+      <Statistics/>
+    </div>
+
+    <template v-if="!loading">
+      <Coins/>
+    </template>
+
+    <NewCoinModal v-if="showNewCoinModal" @close="showNewCoinModal = false"/>
+  </div>
 </template>
 
 <script>
@@ -29,15 +38,24 @@ export default {
   data() {
     return {
       showNewCoinModal: false,
-      currencySymbol: "$"
+      currencySymbol: "$",
+      loading : false,
     };
   },
   async created() {
-    await this.$store.dispatch("getCryptoData");
+    this.loading = true
+    await this.$store.dispatch("getCryptoData")
     await this.$store.dispatch("getCardsFromDB");
+    this.loading = false
   },
   computed: {
-    ...mapGetters(["totalInvestment", "profit"])
+    ...mapGetters(["totalInvestment", "profit","portfolio"]),
+    portfolioIsEmpty(){
+      if(this.portfolio.length == 0){
+        return true;
+      }
+      return false
+    }
   },
   components: {
     Coins,

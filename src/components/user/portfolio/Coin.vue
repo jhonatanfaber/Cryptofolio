@@ -52,7 +52,7 @@
                     </div>
 
                     <!-- <a href="#" class="btn btn-dark">View Details</a> -->
-                    <RemoveConfirmationModal 
+                    <RemoveModal 
                       v-if="confirmatiomModalIsOpen"
                       @close="confirmatiomModalIsOpen = false"
                       :card=card
@@ -64,7 +64,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import RemoveConfirmationModal from "./RemoveConfirmationModal.vue"
+import RemoveModal from "./RemoveModal.vue"
 
 export default {
   props: ["card"],
@@ -100,7 +100,7 @@ export default {
     }
   },
   components : {
-    RemoveConfirmationModal
+    RemoveModal
   }
 };
 </script>
