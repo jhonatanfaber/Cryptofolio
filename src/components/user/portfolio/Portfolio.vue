@@ -16,7 +16,7 @@
       <h3>Click the add button and start creating your portfolio</h3>
     </div>
 
-    <div v-if="!loading" class="information">
+    <div v-if="!loading && !portfolioIsEmpty" class="information">
       <Statistics/>
     </div>
 

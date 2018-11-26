@@ -117,8 +117,8 @@ export const store = new Vuex.Store({
         updateProfit(state, payload) {
             state.profit = payload
         },
-        removeCardFromStore(state, card) {
-            let index = state.portfolio.findIndex(coin => coin.cardId == card.cardId)
+        removeCardFromPortfolio(state, card) {
+            let index = state.portfolio.findIndex(coin => coin.cardID == card.cardID)
             state.portfolio.splice(index, 1)
         },
         setCurrentCardID(state, card) {
@@ -243,8 +243,17 @@ export const store = new Vuex.Store({
         updateProfit(context, payload) {
             context.commit("updateProfit", payload)
         },
-        removeCardFromStore(context, card) {
-            context.commit("removeCardFromStore", card)
+        removeCardFromPortfolio(context, card) {
+            console.log(card);
+            
+            const userID = context.state.user.id
+            const cardID = card.cardID
+            axios.delete("http://localhost:3000/users/"+ userID + "/card/" + cardID, {
+                headers: {
+                    'x-api-token': context.state.user.token
+                }
+            })
+            context.commit("removeCardFromPortfolio", card)
             context.commit("updateTotalInvestementPrice", -card.amount * card.usdBuyPrice)
         },
         setCurrentCardID(context, payload) {

@@ -119,16 +119,16 @@ export default {
         cardID: this.card.cardID,
         coinID: this.card.coinID
       });
-      // this.saveCardInDB({
-      //   cardID: this.card.cardID,
-      //   coinID: this.card.coinID,
-      //   amount: this.card.amount,
-      //   usdBuyPrice: this.card.usdBuyPrice,
-      //   boughtDate: this.card.boughtDate,
-      //   logo: this.card.logo,
-      //   name: this.card.name,
-      //   symbol: this.card.symbol
-      // });
+      this.saveCardInDB({
+        cardID: this.card.cardID,
+        coinID: this.card.coinID,
+        amount: this.card.amount,
+        usdBuyPrice: this.card.usdBuyPrice,
+        boughtDate: this.card.boughtDate,
+        logo: this.card.logo,
+        name: this.card.name,
+        symbol: this.card.symbol
+      });
       this.closeModal();
     }
   }

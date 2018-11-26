@@ -7,7 +7,7 @@
                     <div class="card-body">
                       <h5 class="modal-title">Are you sure you want to delete the card?</h5>
                       <div class="modal-buttons">
-                        <button @click="removeCardFromStore" type="button" class="btn btn-danger" >Delete</button>
+                        <button @click="removeCardFromPortfolio" type="button" class="btn btn-danger" >Delete</button>
                         <button @click="closeModal" type="button" class="btn btn-dark">No</button>
                       </div>
                     </div>
@@ -27,8 +27,8 @@ export default {
     closeModal() {
       this.$emit("close");
     },
-    removeCardFromStore(){
-      this.$store.dispatch("removeCardFromStore", this.card)
+    removeCardFromPortfolio(){
+      this.$store.dispatch("removeCardFromPortfolio", this.card)
       this.closeModal()
     }
   }
