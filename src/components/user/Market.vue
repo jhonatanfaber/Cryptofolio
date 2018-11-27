@@ -1,9 +1,7 @@
 <template >
     <div class="market-container">
       
-      <template v-if="loading">
-        <p> Loading... </p>
-      </template>
+        <p v-if="loading" id="loadingMessage"> Loading... </p>
 
       <template v-if="!loading">
         <table class="table">
@@ -54,6 +52,9 @@ export default {
 </script>
 
 <style scoped>
+#loadingMessage{
+  margin-top: 45px;
+}
 
 #nameAlign {
   display: flex;

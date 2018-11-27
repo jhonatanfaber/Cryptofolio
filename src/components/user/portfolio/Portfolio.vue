@@ -1,10 +1,10 @@
 <template>
   <div class="portfolio-container">
-    <template v-if="loading">
-      <p>Loading...</p>
+    <template >
     </template>
 
-    <div v-if="!loading" class="add-button">
+    <div class="add-button">
+      <p v-if="loading">Loading...</p>
       <button
         @click="showNewCoinModal = true"
         type="button"
@@ -91,6 +91,8 @@ export default {
 .add-button {
   display: flex;
   width: 95%;
+  flex-direction: column-reverse;
+  margin-top: 20px;
 }
 
 .btn-circle.btn-xl {
