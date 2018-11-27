@@ -42,13 +42,13 @@ export default new Router({
             }
         },
         {
-            path: "/portfolio", name: "portfolio", component: Portfolio//, beforeEnter(to, from, next) {
-            //     if (store.getters.user.admin === false || localStorage.getItem("admin") == "false") {
-            //         next()
-            //     } else {
-            //         next(from.path)
-            //     }
-            // }
+            path: "/portfolio", name: "portfolio", component: Portfolio, beforeEnter(to, from, next) {
+                if (store.getters.user.admin === false || localStorage.getItem("admin") == "false") {
+                    next()
+                } else {
+                    next(from.path)
+                }
+            }
         },
         {
             path: "/*", redirect: "/"

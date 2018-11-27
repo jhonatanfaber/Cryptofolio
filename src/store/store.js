@@ -105,14 +105,20 @@ export const store = new Vuex.Store({
             })
         },
         addCardToPortfolio(state, card) {
-            if(Array.isArray(card)){
+            if (Array.isArray(card)) {
                 state.portfolio = card
-            }else{
+            } else {
                 state.portfolio.push(card)
             }
         },
         updateTotalInvestementPrice(state, payload) {
-            state.totalInvestment += payload
+            if (Array.isArray(payload)) {
+                payload.forEach(card => {
+                    state.totalInvestment += card.amount * card.usdBuyPrice
+                })
+            } else {
+                state.totalInvestment += payload
+            }
         },
         updateProfit(state, payload) {
             state.profit = payload
@@ -245,10 +251,10 @@ export const store = new Vuex.Store({
         },
         removeCardFromPortfolio(context, card) {
             console.log(card);
-            
+
             const userID = context.state.user.id
             const cardID = card.cardID
-            axios.delete("http://localhost:3000/users/"+ userID + "/card/" + cardID, {
+            axios.delete("http://localhost:3000/users/" + userID + "/card/" + cardID, {
                 headers: {
                     'x-api-token': context.state.user.token
                 }
@@ -276,6 +282,8 @@ export const store = new Vuex.Store({
                 }
             })
             context.commit("addCardToPortfolio", response.data)
+            context.commit("updateTotalInvestementPrice", response.data)
+
         }
     }
 })

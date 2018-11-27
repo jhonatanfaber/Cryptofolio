@@ -53,8 +53,8 @@ export default {
 };
 </script>
 
-
 <style scoped>
+
 #nameAlign {
   display: flex;
 }

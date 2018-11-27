@@ -4,7 +4,7 @@
       <p>Loading...</p>
     </template>
 
-    <div class="add-button">
+    <div v-if="!loading" class="add-button">
       <button
         @click="showNewCoinModal = true"
         type="button"
