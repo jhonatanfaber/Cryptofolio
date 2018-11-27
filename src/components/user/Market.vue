@@ -53,7 +53,7 @@ export default {
 
 <style scoped>
 #loadingMessage{
-  margin-top: 45px;
+  margin-top: 70px;
 }
 
 #nameAlign {
