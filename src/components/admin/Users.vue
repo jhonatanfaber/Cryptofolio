@@ -1,48 +1,51 @@
 <template >
-    <div class="users-container" >
-      <!-- <div v-if="loading">
-        Loading...
-      </div> -->
-        <div class="table">
-            <thead class="thead-dark">
-                <tr>
-                <th scope="col">#</th>
-                <th scope="col">ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Password</th>
-                <th scope="col">Username</th>
-                <th scope="col">Admin</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(user,index) in users" :key="user.id">
-                <th scope="row">{{index+1}}</th>
-                <td>{{user.id}}</td>
-                <td>{{user.name}}</td>
-                <td>{{user.password}}</td>
-                <td>{{user.username}}</td>
-                <td>{{user.admin ? 'Yes' : 'No'}}</td>
-                <td> 
-                    <i class="fas fa-pen fa-lg" @click="editUser(user)"></i></td>
-                   <td> <i class="fas fa-trash-alt fa-lg" @click="deleteUser(user.id, index)"></i>
-                 </td>
-                </tr>
-            </tbody>
-            <NewUserModal 
-                v-if="showNewUserModal"
-                @close="showNewUserModal = false"
-            />
-            <EditUserModal 
-                v-if="showEditUserModal"
-                @close="showEditUserModal = false"
-                :user = userInformation
-            />
+  <div class="users-container">
 
-            <button  id="show-modal" @click="showNewUserModal = true" class="btn btn-md"><i class="fas fa-plus"></i> Add User</button>
-        </div>
-    </div> 
+    <p v-if="loading" id="loadingMessage">
+        Loading...
+    </p>
+
+    <table v-if="!loading" class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Username</th>
+          <th scope="col">Admin</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(user,index) in users" :key="user.id">
+          <th scope="row">{{index+1}}</th>
+          <td>{{user.id}}</td>
+          <td>{{user.name}}</td>
+          <td>{{user.username}}</td>
+          <td>{{user.admin ? 'Yes' : 'No'}}</td>
+          <td>
+            <i class="fas fa-pen fa-lg" @click="editUser(user)"></i>
+          </td>
+          <td>
+            <i class="fas fa-trash-alt fa-lg" @click="deleteUser(user.id, index)"></i>
+          </td>
+        </tr>
+      </tbody>
+
+      <NewUserModal v-if="showNewUserModal" @close="showNewUserModal = false"/>
+
+      <EditUserModal
+        v-if="showEditUserModal"
+        @close="showEditUserModal = false"
+        :user="userInformation"
+      />
+
+      <button id="show-modal" @click="showNewUserModal = true" class="btn btn-md">
+        <i class="fas fa-plus"></i> Add User
+      </button>
+    </table>
+  </div>
 </template>
 
 <script>
@@ -54,8 +57,8 @@ export default {
     return {
       showNewUserModal: false,
       showEditUserModal: false,
-      userInformation : {},
-      loading : true
+      userInformation: {},
+      loading: false
     };
   },
   methods: {
@@ -66,18 +69,20 @@ export default {
       };
       this.$store.dispatch("deleteUser", userToDelete);
     },
-    editUser(userData){
+    editUser(userData) {
       this.userInformation = {
-        id : userData.id,
-        name : userData.name,
-        password : userData.password,
-        admin : userData.admin
-      }
-      this.showEditUserModal = true
+        id: userData.id,
+        name: userData.name,
+        password: userData.password,
+        admin: userData.admin
+      };
+      this.showEditUserModal = true;
     }
   },
-  created() {
-    this.$store.dispatch("getUsers");
+  async created() {
+    this.loading = true;
+    await this.$store.dispatch("getUsers");
+    this.loading = false;
   },
   computed: {
     users() {
@@ -92,13 +97,19 @@ export default {
 </script>
 
 <style scoped>
+
+#loadingMessage{
+    margin-top: 40px;
+}
+
 .users-container {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .table {
-  width: 90%;
+  width: 70%;
+  margin-top: 40px;
 }
 
 .fas {

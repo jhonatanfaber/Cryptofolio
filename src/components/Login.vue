@@ -1,22 +1,45 @@
 <template>
-    <div class="login-container">
-        <div class="container">
-            <div class="card card-container">
-                <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-                <p id="profile-name" class="profile-name-card"></p>
-                <form class="form-signin">
-                    <span id="reauth-email" class="reauth-email"></span>
-                    <input type="text" v-model="username" id="exampleInputEmail1" :class="{invalidHighlight: invalidUser}" class="form-control" placeholder="Username" required autofocus>
-                    <input type="password" v-model="password" id="exampleInputPassword" :class="{invalidHighlight: invalidUser}" class="form-control" placeholder="Password" required>
-                    <button @click.prevent="login" class="btn btn-lg btn-primary btn-block btn-signin">Log in</button>
-                </form>
-                <a href="" class="forgot-password">
-                    Forgot the password?
-                </a>
-            </div>
-        </div>
-    </div>
+  <div class="login-container">
     
+    <template>
+      <img src="https://source.unsplash.com/6dW3xyQvcYE">
+    </template>
+
+    <div class="container">
+      <div class="card card-container">
+        <img
+          id="profile-img"
+          class="profile-img-card"
+          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+        >
+        <p id="profile-name" class="profile-name-card"></p>
+        <form class="form-signin">
+          <span id="reauth-email" class="reauth-email"></span>
+          <input
+            type="text"
+            v-model="username"
+            id="exampleInputEmail1"
+            :class="{invalidHighlight: invalidUser}"
+            class="form-control"
+            placeholder="Username"
+            required
+            autofocus
+          >
+          <input
+            type="password"
+            v-model="password"
+            id="exampleInputPassword"
+            :class="{invalidHighlight: invalidUser}"
+            class="form-control"
+            placeholder="Password"
+            required
+          >
+          <button @click.prevent="login" class="btn btn-lg btn-primary btn-block btn-signin">Log in</button>
+        </form>
+        <a href class="forgot-password">Forgot the password?</a>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -45,8 +68,19 @@ export default {
 </script>
 
 <style scoped>
-.login-container{
-  margin-top: 180px;
+img {
+  width: 100%;
+  height: 700px;
+  background-size: cover;
+  background-position: center top;
+  opacity: 0.8;
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .form-control.invalidHighlight {

@@ -4,6 +4,8 @@ import axios from "axios"
 import customisedUsersAxios from "./../customisedAxios/usersAxios.js"
 import router from "./../router"
 import dotenv from 'dotenv'
+import { resolve } from "url";
+import { rejects } from "assert";
 dotenv.config()
 
 
@@ -64,6 +66,8 @@ export const store = new Vuex.Store({
             state.user = data
         },
         getUsers(state, data) {
+            console.log("4");
+
             state.users = data
         },
         createUser(state, data) {
@@ -161,14 +165,15 @@ export const store = new Vuex.Store({
                 })
         },
         getUsers(context) {
-            customisedUsersAxios.get("/users", {
-                headers: {
-                    'x-api-token': context.state.user.token
-                }
-            })
-                .then(response => {
-                    context.commit("getUsers", response.data)
+            return new Promise(async (resolve) => {
+                const response = await customisedUsersAxios.get("/users", {
+                    headers: {
+                        'x-api-token': context.state.user.token
+                    }
                 })
+                context.commit("getUsers", response.data)
+                resolve()
+            })
         },
         createUser(context, payload) {
             customisedUsersAxios.post("/users", payload, {
@@ -250,8 +255,6 @@ export const store = new Vuex.Store({
             context.commit("updateProfit", payload)
         },
         removeCardFromPortfolio(context, card) {
-            console.log(card);
-
             const userID = context.state.user.id
             const cardID = card.cardID
             axios.delete("http://localhost:3000/users/" + userID + "/card/" + cardID, {

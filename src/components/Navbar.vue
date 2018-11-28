@@ -5,7 +5,11 @@
                 <ul class="navbar-nav mr-auto">
 
                     <div class="left-navbar">
-                        <router-link to="/" tag="li" class="nav-item" exact><a class="brand"> Cryptofolio </a></router-link>
+                        <router-link to="/" tag="li" class="nav-item" exact><a class="brand">
+                             <i class="fab fa-audible"></i>
+                             Cryptofolio
+                             <!-- <img src="../../public/logo.png" class="logo-sprite" alt="logo" height="100" width="100">  -->
+                             </a></router-link>
                     </div>
                     <div class="right-navbar"> 
                         <li v-if="isAdmin" class="nav-item dropdown">
