@@ -1,23 +1,26 @@
 <template>
   <div class="login-container">
-    
     <template>
       <img src="https://source.unsplash.com/6dW3xyQvcYE">
     </template>
 
     <div class="container">
       <div class="card card-container">
-        <img
-          id="profile-img"
-          class="profile-img-card"
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-        >
+        <p class="profile-name-card">Create an Account</p>
         <form class="form-signin">
           <input
             type="text"
+            v-model="name"
+            id="exampleInputName"
+            class="form-control"
+            placeholder="Name"
+            required
+            autofocus
+          >
+          <input
+            type="text"
             v-model="username"
-            id="exampleInputEmail1"
-            :class="{invalidHighlight: invalidUser}"
+            id="exampleInputUsername"
             class="form-control"
             placeholder="Username"
             required
@@ -27,42 +30,48 @@
             type="password"
             v-model="password"
             id="exampleInputPassword"
-            :class="{invalidHighlight: invalidUser}"
             class="form-control"
             placeholder="Password"
             required
           >
-          <button @click.prevent="login" class="btn btn-lg btn-primary btn-block btn-signin">Log in</button>
+          <input
+            type="password"
+            v-model="repeatPassword"
+            id="exampleInputRepeatedPassword"
+            class="form-control"
+            placeholder="Repeat password"
+            required
+          >
+          <button
+            @click.prevent="signup"
+            class="btn btn-lg btn-primary btn-block btn-signin"
+          >Sign up</button>
         </form>
-        <span @click="signup" class="dontHaveAccount">Don't have an account?</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 
 export default {
   data() {
     return {
-      username: "faber",
-      password: "123"
+      name: "",
+      username: "",
+      password: "",
+      repeatPassword: ""
     };
   },
-  computed: {
-    ...mapGetters(["invalidUser"])
-  },
   methods: {
-    login() {
+    signup() {
       const user = {
+        name: this.name,
         username: this.username,
         password: this.password
       };
-      this.$store.dispatch("login", user);
-    },
-    signup(){
-      this.$router.push("/signup")
+      this.$store.dispatch("createUser", user);
+      this.$router.push({ path: "/login" })
     }
   }
 };
@@ -96,8 +105,8 @@ html {
 }
 
 .card-container.card {
-  max-width: 350px;
-  padding: 40px 40px;
+  width: 50%;
+  padding: 5%;
 }
 
 .btn {
@@ -122,10 +131,18 @@ html {
   margin: 0 auto 10px;
   display: block;
   border-radius: 50%;
+}
+
+.profile-name-card {
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
   margin-bottom: 40px;
 }
 
-.form-signin #exampleInputEmail1,
+.form-signin #exampleInputName,
+.form-signin #exampleInputUsername,
+.form-signin #exampleInputRepeatedPassword,
 .form-signin #exampleInputPassword {
   direction: ltr;
   height: 44px;
@@ -161,15 +178,13 @@ html {
   background-color: rgb(0, 0, 0);
 }
 
-.dontHaveAccount {
+.forgot-password {
   color: #343a40;
-  cursor: pointer;
 }
 
-.dontHaveAccount:hover,
-.dontHaveAccount:active,
-.dontHaveAccount:focus {
+.forgot-password:hover,
+.forgot-password:active,
+.forgot-password:focus {
   color: rgb(0, 0, 0);
-  text-decoration: underline;
 }
 </style>

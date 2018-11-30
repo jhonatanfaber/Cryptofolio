@@ -1,44 +1,74 @@
 <template>
-    <div class="container-navBar">
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-
-                    <div class="left-navbar">
-                        <router-link to="/" tag="li" class="nav-item" exact><a class="brand">
-                             <i class="fab fa-audible"></i>
-                             Cryptofolio
-                             <!-- <img src="../../public/logo.png" class="logo-sprite" alt="logo" height="100" width="100">  -->
-                             </a></router-link>
-                    </div>
-                    <div class="right-navbar"> 
-                        <li v-if="isAdmin" class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Settings
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <router-link to="/users" tag="li"  exact><a class="dropdown-item"> Manage users </a></router-link>
-                                <router-link to="" tag="li"  exact><a class="dropdown-item"> Profile </a></router-link>
-                            </div>
-                        </li>
-
-                        <router-link v-if="user.token && !isAdmin"  to="/test" class="nav-item" tag="li" exact><a class="nav-link-disabled"> </a></router-link>
-                        <router-link v-if="user.token && !isAdmin" to="/portfolio" class="nav-item" tag="li" exact><a class="nav-link"> Portfolio </a></router-link>
-                        <router-link v-if="user.token && !isAdmin" to="/market" class="nav-item" tag="li" exact><a class="nav-link"> Market </a></router-link>
-                        <li v-if="user.token" class="nav-item">
-                            <a class="nav-link username"><i class="fas fa-user"></i> {{user.username}}</a>
-                        </li>
-                        <router-link v-if="!user.token" to="/login" tag="li" class="nav-item" exact><a class="nav-link"> <i class="fas fa-sign-in-alt"></i> Log in </a></router-link>
-                        <li v-if="user.token" class="nav-item">
-                            <a  @click="logout" class="nav-link logout"><i class="fas fa-sign-out-alt"></i> Log out </a>
-                        </li>
-
-                    </div>
-
-                </ul>
-            </div>
-        </nav>
-    </div>
+  <div class="container-navBar">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <div class="left-navbar">
+            <router-link to="/" tag="li" class="nav-item" exact>
+              <a class="brand">
+                <i class="fab fa-audible"></i>
+                Cryptofolio
+              </a>
+            </router-link>
+          </div>
+          <div class="right-navbar">
+            <router-link v-if="user.token && isAdmin" to="/test" class="nav-item" tag="li" exact>
+              <a class="nav-link-disabled"></a>
+            </router-link>
+              <router-link v-if="user.token && isAdmin" to="/users" tag="li" class="nav-item" exact>
+              <a class="nav-link">
+                Manage users
+              </a>
+            </router-link>
+            <router-link v-if="user.token && !isAdmin" to="/" class="nav-item" tag="li" exact>
+              <a class="nav-link-disabled"></a>
+            </router-link>
+            <router-link
+              v-if="user.token && !isAdmin"
+              to="/portfolio"
+              class="nav-item"
+              tag="li"
+              exact
+            >
+              <a class="nav-link">Portfolio</a>
+            </router-link>
+            <router-link v-if="user.token && !isAdmin" to="/market" class="nav-item" tag="li" exact>
+              <a class="nav-link">Market</a>
+            </router-link>
+            <li v-if="user.token" class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i class="fas fa-user"></i>
+                {{user.username}}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <router-link to="/profile" tag="li" exact>
+                  <a class="dropdown-item">
+                    <i class="fas fa-cog"></i> Edit Profile
+                  </a>
+                </router-link>
+                  <a @click="logout" class="dropdown-item logout">
+                    <i class="fas fa-sign-out-alt"></i> Log out
+                  </a>
+              </div>
+            </li>
+            <router-link v-if="!user.token" to="/login" tag="li" class="nav-item" exact>
+              <a class="nav-link">
+                <i class="fas fa-sign-in-alt"></i> Log in
+              </a>
+            </router-link>
+          </div>
+        </ul>
+      </div>
+    </nav>
+  </div>
 </template>
 
 <script>
@@ -46,43 +76,42 @@ import { mapActions, mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters([ "user", "isAdmin"])
+    ...mapGetters(["user", "isAdmin"])
   },
   methods: {
-    ...mapActions(["logout"]),
+    ...mapActions(["logout"])
   }
 };
 </script>
 
 
 <style scoped>
-
 .navbar-light .navbar-nav .nav-link,
-.brand{
-    color: white;
+.brand {
+  color: white;
 }
 
-.nav-link{
-    font-size: 16px;
+.nav-link {
+  font-size: 16px;
 }
 
-.navbar-light .navbar-nav .nav-link:hover{
-    color: rgb(197, 178, 72);
+.navbar-light .navbar-nav .nav-link:hover {
+  color: rgb(197, 178, 72);
 }
 
-.brand{
-    font-size: 22px;
-    text-decoration: none;
-    font-weight: bold;
+.brand {
+  font-size: 22px;
+  text-decoration: none;
+  font-weight: bold;
 }
 
-.brand:hover{
-    color: rgb(197, 178, 72);
+.brand:hover {
+  color: rgb(197, 178, 72);
 }
 
-.navbar{
-padding: 0;
-margin-bottom: 75px;
+.navbar {
+  padding: 0;
+  margin-bottom: 75px;
 }
 
 .navbar-nav {
@@ -94,7 +123,6 @@ margin-bottom: 75px;
   position: fixed;
   top: 0;
   z-index: 99;
-  
 }
 
 .left-navbar {
@@ -108,16 +136,16 @@ margin-bottom: 75px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  margin-right: 15px;
 }
 
-.nav-item{
-    margin-right: 15px;
+.nav-item {
+  margin-right: 15px;
 }
 
 .fa-sign-out-alt,
-.logout{
-    cursor: pointer;
+.logout {
+  cursor: pointer;
 }
-
 </style>
 

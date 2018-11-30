@@ -6,7 +6,7 @@ import { store } from './store/store'
 Vue.config.productionTip = false
 export const busPrice = new Vue()
 
-const openRoutes = ["home", "login"]
+const openRoutes = ["home", "login", "signup"]
 router.beforeEach((to, from, next) => {
   if (openRoutes.includes(to.name)) {
     next()

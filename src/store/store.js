@@ -4,8 +4,6 @@ import axios from "axios"
 import customisedUsersAxios from "./../customisedAxios/usersAxios.js"
 import router from "./../router"
 import dotenv from 'dotenv'
-import { resolve } from "url";
-import { rejects } from "assert";
 dotenv.config()
 
 
@@ -66,8 +64,6 @@ export const store = new Vuex.Store({
             state.user = data
         },
         getUsers(state, data) {
-            console.log("4");
-
             state.users = data
         },
         createUser(state, data) {

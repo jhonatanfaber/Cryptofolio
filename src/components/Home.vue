@@ -5,10 +5,10 @@
       <div class="hero-text">
         <h1 style="font-size:50px">Start Now!</h1>
         <h2 style="font-size:30px">Manage and track your cryptocurrency portfolio</h2>
-        <span class="btn btn-dark">SING UP</span>
+        <span @click="redirectsToSignupPage" class="btn btn-dark btn-lg"> SIGN UP</span>
       </div>
     </template>
-    
+
     <div v-if="!isAdmin && !isEmpty" class="home-container-wrapper">
       <div class="home-container__information">
         <h2>User Panel</h2>
@@ -26,7 +26,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import lodash from "lodash";
+import _ from "lodash";
 
 export default {
   computed: {
@@ -37,11 +37,20 @@ export default {
       }
       return false;
     }
+  },
+  methods : {
+    redirectsToSignupPage(){
+      this.$router.push("/signup")
+    }
   }
 };
 </script>
 
 <style scoped>
+#signup {
+  color: #fafbfd;
+}
+
 .hero-text {
   text-align: center;
   position: absolute;
@@ -73,6 +82,12 @@ img {
 
 .home-container__information {
   margin: 30px;
+}
+
+.btn-dark {
+  padding: 10px;
+  font-weight: 700;
+  margin-top: 20px;
 }
 </style>
 

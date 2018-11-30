@@ -4,6 +4,7 @@ import { store } from "./store/store"
 import Home from "./components/Home.vue"
 import Test from "./components/Test.vue"
 import Login from "./components/Login.vue"
+import Signup from "./components/Signup.vue"
 import Users from "./components/admin/Users.vue"
 import Portfolio from "./components/user/portfolio/Portfolio.vue"
 import Market from "./components/user/Market.vue"
@@ -18,10 +19,13 @@ export default new Router({
             path: '/', name: "home", component: Home
         },
         {
-            path: '/test', name: "test", component: Test
+            path: '/test', name: "test", component: Test, redirect: '/'
         },
         {
             path: '/login', name: "login", component: Login
+        },
+        {
+            path: '/signup', name: "signup", component: Signup
         },
         {
             path: "/users", name: "users", component: Users, beforeEnter(to, from, next) {
