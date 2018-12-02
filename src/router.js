@@ -8,6 +8,7 @@ import Signup from "./components/Signup.vue"
 import Users from "./components/admin/Users.vue"
 import Portfolio from "./components/user/portfolio/Portfolio.vue"
 import Market from "./components/user/Market.vue"
+import Profile from "./components/user/Profile.vue"
 
 Vue.use(Router)
 
@@ -47,6 +48,15 @@ export default new Router({
         },
         {
             path: "/portfolio", name: "portfolio", component: Portfolio, beforeEnter(to, from, next) {
+                if (store.getters.user.admin === false || localStorage.getItem("admin") == "false") {
+                    next()
+                } else {
+                    next(from.path)
+                }
+            }
+        },
+        {
+            path: "/profile", name: "profile", component: Profile, beforeEnter(to, from, next) {
                 if (store.getters.user.admin === false || localStorage.getItem("admin") == "false") {
                     next()
                 } else {

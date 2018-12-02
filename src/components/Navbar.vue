@@ -49,7 +49,7 @@
                 {{user.username}}
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <router-link to="/profile" tag="li" exact>
+                <router-link v-if="!isAdmin" to="/profile" tag="li" exact>
                   <a class="dropdown-item">
                     <i class="fas fa-cog"></i> Edit Profile
                   </a>

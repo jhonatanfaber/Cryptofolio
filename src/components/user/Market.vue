@@ -9,7 +9,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th id="nameAlign" class="table-padding head" scope="col"> Name</th>
-                <th class="table-padding head" scope="col">Price</th>
+                <th class="table-padding head" scope="col">Price ($)</th>
                 <th class="table-padding head" scope="col">Change (24h)</th>
             </tr>
             </thead>
@@ -34,7 +34,6 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 export default {
   data() {
     return {
