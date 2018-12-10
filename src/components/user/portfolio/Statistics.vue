@@ -11,7 +11,9 @@
             
             <div class="information-investment">
                 <h4> Profit </h4>
-                <p class="information-quantity">
+                <p class="information-quantity"
+                  :style="[profitsToShow >= 0 ? {color : 'green'} : {color : '#ef143e'}]"
+                >
                    {{ currencySymbol }}{{ profitsToShow.toLocaleString(undefined, {
                                                                   minimumFractionDigits: 2,
                                                                   maximumFractionDigits: 4 }) }} 
