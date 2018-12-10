@@ -3,7 +3,7 @@
         <div class="information-investment">
                 <h4> Invested </h4>
                 <p class="information-quantity"> 
-                  {{ currencySymbol }}{{ totalInvestment.toLocaleString(undefined, {
+                  {{ currencySymbol }}{{ totalInvestmentToShow.toLocaleString(undefined, {
                                                                           minimumFractionDigits: 2,
                                                                           maximumFractionDigits: 4 }) }} 
                 </p>
@@ -12,11 +12,10 @@
             <div class="information-investment">
                 <h4> Profit </h4>
                 <p class="information-quantity">
-                   {{ currencySymbol }}{{ profit.toLocaleString(undefined, {
+                   {{ currencySymbol }}{{ profitsToShow.toLocaleString(undefined, {
                                                                   minimumFractionDigits: 2,
                                                                   maximumFractionDigits: 4 }) }} 
                 </p>
-                {{profitsToShow}}
             </div>
     </div>
 </template>
@@ -45,10 +44,19 @@ export default {
       });
       this.updateProfit(profit);
       return profit;
+    },
+    totalInvestmentToShow(){
+      let investment = 0;
+      this.portfolio.forEach(element => {
+        investment += element.usdBuyPrice * element.amount
+      });
+      this.updateTotalInvestementPrice(investment);
+      return investment;
+
     }
   },
   methods: {
-    ...mapActions(["updateProfit"])
+    ...mapActions(["updateProfit","updateTotalInvestementPrice"])
   }
 };
 </script>

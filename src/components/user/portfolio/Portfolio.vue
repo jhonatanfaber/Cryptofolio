@@ -49,7 +49,7 @@ export default {
     this.loading = false
   },
   computed: {
-    ...mapGetters(["totalInvestment", "profit","portfolio"]),
+    ...mapGetters(["portfolio"]),
     portfolioIsEmpty(){
       if(this.portfolio.length == 0){
         return true;

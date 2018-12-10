@@ -117,7 +117,7 @@ export const store = new Vuex.Store({
                     state.totalInvestment += card.amount * card.usdBuyPrice
                 })
             } else {
-                state.totalInvestment += payload
+                state.totalInvestment = payload
             }
         },
         updateProfit(state, payload) {
