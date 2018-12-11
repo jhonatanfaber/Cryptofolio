@@ -77,7 +77,7 @@ export const store = new Vuex.Store({
                 if (user.id == data.id) {
                     user.name = data.name
                     user.password = data.password
-                    user.admin = data.admin
+                    user.admin = data.admin || false
                 }
             })
         },
