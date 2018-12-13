@@ -3,25 +3,22 @@
     <div class="container">
       <h1>Edit Profile</h1>
       <hr>
+      <div v-if="showSavedAlert" class="alert alert-success alert-dismissable">
+        <i class="fas fa-info-circle"></i>
+        Changes saved successfully
+      </div>
       <div class="row">
         <!-- left column -->
-        <div class="col-md-3">
+        <!-- <div class="col-md-3">
           <div class="text-center">
             <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
             <h6>Picture</h6>
 
             <input type="file" class="form-control">
           </div>
-        </div>
-
+        </div>-->
         <!-- edit form column -->
         <div class="col-md-9 personal-info">
-          <div class="alert alert-dark alert-dismissable">
-            <a class="panel-close close" data-dismiss="alert">×</a>
-            <i class="fas fa-info-circle"></i>
-            Please fill in all fields
-          </div>
-
           <form class="form-horizontal" role="form">
             <div class="form-group">
               <label class="col-lg-3 control-label">Name:</label>
@@ -63,18 +60,28 @@ export default {
   data() {
     return {
       name: "",
-      password: ""
+      password: "",
+      showSavedAlert: false
     };
   },
   methods: {
     editUser() {
       let user = {
-        id : this.$store.getters.user.id,
+        id: this.$store.getters.user.id,
         name: this.name,
         password: this.password
       };
       //TODO: show alert after upload
       this.$store.dispatch("editUser", user);
+      this.showAlert();
+    },
+    showAlert() {
+      this.showSavedAlert = true;
+      this.name = ""
+      this.password = ""
+      setInterval(() => {
+        this.showSavedAlert = false;
+      }, 2000);
     }
   }
 };
@@ -94,5 +101,12 @@ export default {
 .col-lg-3,
 .col-md-3 {
   display: flex;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 20px;
 }
 </style>
