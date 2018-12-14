@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import Vuelidate from "vuelidate"
 import { store } from './store/store'
+
+Vue.use(Vuelidate)
 
 Vue.config.productionTip = false
 export const busPrice = new Vue()
@@ -15,7 +18,6 @@ router.beforeEach((to, from, next) => {
   } else {
     next("/home")
   }
-
 });
 
 new Vue({

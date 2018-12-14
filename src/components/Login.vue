@@ -1,6 +1,5 @@
 <template>
   <div class="login-container">
-    
     <template>
       <img src="https://source.unsplash.com/6dW3xyQvcYE">
     </template>
@@ -13,25 +12,28 @@
           src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
         >
         <form class="form-signin">
-          <input
-            type="text"
-            v-model="username"
-            id="exampleInputEmail1"
-            :class="{invalidHighlight: invalidUser}"
-            class="form-control"
-            placeholder="Username"
-            required
-            autofocus
-          >
-          <input
-            type="password"
-            v-model="password"
-            id="exampleInputPassword"
-            :class="{invalidHighlight: invalidUser}"
-            class="form-control"
-            placeholder="Password"
-            required
-          >
+          <div class="input-username" :class="{invalid : $v.username.$error}">
+            <input
+              type="text"
+              @input="$v.username.$touch()"
+              v-model="username"
+              id="exampleInputEmail1"
+              :class="{invalidHighlight: invalidUser}"
+              class="form-control"
+              placeholder="Username"
+            >
+          </div>
+          <div class="input-password" :class="{invalid : $v.password.$error}">
+            <input
+              type="password"
+              @input="$v.password.$touch()"
+              v-model="password"
+              id="exampleInputPassword"
+              :class="{invalidHighlight: invalidUser}"
+              class="form-control"
+              placeholder="Password"
+            >
+          </div>
           <button @click.prevent="login" class="btn btn-lg btn-primary btn-block btn-signin">Log in</button>
         </form>
         <span @click="signup" class="dontHaveAccount">Don't have an account?</span>
@@ -42,13 +44,22 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { required } from "vuelidate/lib/validators";
 
 export default {
   data() {
     return {
-      username: "ivansan",
-      password: "321"
+      username: "",
+      password: ""
     };
+  },
+  validations: {
+    username: {
+      required
+    },
+    password: {
+      required
+    }
   },
   computed: {
     ...mapGetters(["invalidUser"])
@@ -61,8 +72,8 @@ export default {
       };
       this.$store.dispatch("login", user);
     },
-    signup(){
-      this.$router.push("/signup")
+    signup() {
+      this.$router.push("/signup");
     }
   }
 };
@@ -97,6 +108,7 @@ html {
 
 .card-container.card {
   max-width: 350px;
+  height: 430px;
   padding: 40px 40px;
 }
 
@@ -125,6 +137,17 @@ html {
   margin-bottom: 40px;
 }
 
+.input-password {
+  margin-top: 10px;
+}
+
+.input-username.invalid,
+.input-password.invalid {
+  color: #f57f6c;
+  border: 1px solid #f79483;
+  box-shadow: inset 0 1px 1px rgba(218, 30, 30, 0.87), 0 0 8px #f57f6c;
+}
+
 .form-signin #exampleInputEmail1,
 .form-signin #exampleInputPassword {
   direction: ltr;
@@ -138,13 +161,12 @@ html {
 .form-signin button {
   width: 100%;
   display: block;
-  margin-bottom: 10px;
 }
 
-.form-signin .form-control:focus {
+/* .form-signin .form-control:focus {
   border-color: rgb(104, 145, 162);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgb(104, 145, 162);
-}
+} */
 
 .btn.btn-signin {
   background-color: #343a40;
@@ -153,6 +175,7 @@ html {
   height: 36px;
   border-radius: 4px;
   border: none;
+  margin-top: 30px;
 }
 
 .btn.btn-signin:hover,
@@ -164,6 +187,7 @@ html {
 .dontHaveAccount {
   color: #343a40;
   cursor: pointer;
+  margin-top: 5px;
 }
 
 .dontHaveAccount:hover,

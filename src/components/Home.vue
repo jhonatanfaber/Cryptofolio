@@ -5,7 +5,7 @@
       <div class="hero-text">
         <h1 style="font-size:50px">Start Now!</h1>
         <h2 style="font-size:30px">Manage and track your cryptocurrency portfolio</h2>
-        <span @click="redirectsToSignupPage" class="btn btn-dark btn-lg"> SIGN UP</span>
+        <span @click="redirectsToSignupPage" class="btn btn-dark btn-lg">SIGN UP</span>
       </div>
     </template>
 
@@ -38,11 +38,11 @@ export default {
       return false;
     }
   },
-  methods : {
-    redirectsToSignupPage(){
-      this.$router.push("/signup")
-    }
-  }
+  methods: {
+    redirectsToSignupPage() {
+      this.$router.push("/signup");
+    },
+  },
 };
 </script>
 
