@@ -1,48 +1,83 @@
 <template>
-    <transition name="modal">
+  <transition name="modal">
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-
           <div class="header">
-             <h3> Edit User </h3>
+            <h3>Edit User</h3>
             <i class="fas fa-times fa-2x" @click="closeModel"></i>
           </div>
 
           <div class="body">
-           <div class="form-group">
-                <label for="inputName">Name </label>
-                <input type="text" v-model="editedUser.name" class="form-control col-sm-6"  id="inputName" placeholder="Enter name">
+            <div class="form-group">
+              <label for="inputName" :class="{labelInput : $v.editedUser.name.$error}">Name</label>
+              <input
+                type="text"
+                v-model="editedUser.name"
+                @input="$v.editedUser.name.$touch()"
+                class="form-control col-sm-6"
+                id="inputName"
+                placeholder="Enter name *"
+                :class="{invalidName : $v.editedUser.name.$error}"
+              >
+              <div class="error" v-if="$v.editedUser.name.$error">Field is required</div>
             </div>
             <div class="form-group">
-                <label for="inputPassword">Password </label>
-                <input type="password" v-model="editedUser.password" class="form-control col-sm-6" id="inputPassword" placeholder="Enter password">
+              <label
+                for="inputPassword"
+                :class="{labelInput : $v.editedUser.password.$error}"
+              >Password</label>
+              <input
+                type="password"
+                v-model="editedUser.password"
+                @input="$v.editedUser.password.$touch()"
+                class="form-control col-sm-6"
+                id="inputPassword"
+                placeholder="Enter password *"
+                :class="{invalidPassword : $v.editedUser.password.$error}"
+              >
+              <div class="error" v-if="$v.editedUser.password.$error">Field is required</div>
             </div>
             <div class="form-group">
-              <label> Admin </label>
+              <label>Admin</label>
               <input type="checkbox" v-model="editedUser.admin">
             </div>
           </div>
           <div class="footer">
-              <label class="btn btn-dark" @click="editUser"> Edit </label>
+            <button
+              class="btn btn-dark"
+              :disabled="!$v.editedUser.name.required || !$v.editedUser.password.required"
+              @click="editUser"
+            >Edit</button>
           </div>
         </div>
       </div>
     </div>
   </transition>
-    
 </template>
 <script>
+import { required } from "vuelidate/lib/validators";
+
 export default {
   data() {
     return {
-        editedUser : {
-            id : this.user.id,
-            name : this.user.name,
-            password : "",
-            admin : this.user.admin
-        }
+      editedUser: {
+        id: this.user.id,
+        name: this.user.name,
+        password: "",
+        admin: this.user.admin
+      }
     };
+  },
+  validations: {
+    editedUser: {
+      name: {
+        required
+      },
+      password: {
+        required
+      }
+    }
   },
   props: {
     user: {
@@ -54,15 +89,13 @@ export default {
     closeModel() {
       this.$emit("close");
     },
-    editUser(){
-      this.$store.dispatch("editUser", this.editedUser)
-      this.closeModel()
+    editUser() {
+      this.$store.dispatch("editUser", this.editedUser);
+      this.closeModel();
     }
   }
 };
 </script>
-
-
 
 <style scoped>
 .modal-mask {
@@ -100,6 +133,10 @@ export default {
   font-weight: bold;
 }
 
+h3{
+  margin-top: 15px;
+}
+
 .header {
   display: flex;
   flex-direction: row;
@@ -130,6 +167,42 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.labelInput {
+  color: #f57f6c;
+}
+
+.form-control:hover {
+  border-color: #aaa9a9;
+}
+
+.form-control:focus {
+  border-color: #525151;
+  box-shadow: inset 0px 0px 1px rgba(126, 124, 124, 0.87), 0 0 8px #7c7b7b;
+}
+
+input:hover,
+input:active,
+input:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: #cccccc;
+}
+
+.invalidName:focus,
+.invalidPassword:focus,
+.invalidName,
+.invalidPassword {
+  border: 1px solid #f79483;
+  box-shadow: inset 0px 0px 0px rgba(218, 30, 30, 0.87), 0 0 8px #f57f6c;
+}
+
+.error {
+  color: #f57f6c;
+  font-size: 0.75rem;
+  line-height: 2;
+  margin-left: 10px;
 }
 
 .modal-default-button {
