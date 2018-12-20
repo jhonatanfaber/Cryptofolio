@@ -1,71 +1,112 @@
 <template>
-    <transition name="modal">
+  <transition name="modal">
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-
           <div class="header">
-             <h3> New User </h3>
+            <h3>New User</h3>
             <i class="fas fa-times fa-2x" @click="closeModel"></i>
           </div>
 
           <div class="body">
-           <div class="form-group">
-                <label for="inputName">Name </label>
-                <input type="text" v-model="name" class="form-control col-sm-6"  id="inputName" placeholder="Enter name">
+            <div class="form-group">
+              <label for="inputName" :class="{labelInput : $v.name.$error}">Name</label>
+              <input
+                type="text"
+                v-model="name"
+                @input="$v.name.$touch()"
+                class="form-control col-sm-6"
+                id="inputName"
+                placeholder="Enter name *"
+                :class="{invalidName : $v.name.$error}"
+              >
+              <div class="error" v-if="$v.name.$error">Field is required</div>
             </div>
             <div class="form-group">
-                <label for="inputUsername">Username </label>
-                <input type="text" v-model="username" class="form-control col-sm-6" id="inputUsername" placeholder="Enter username">
+              <label for="inputUsername" :class="{labelInput : $v.username.$error}">Username</label>
+              <input
+                type="text"
+                v-model="username"
+                @input="$v.username.$touch()"
+                class="form-control col-sm-6"
+                id="inputUsername"
+                placeholder="Enter username *"
+                :class="{invalidUsername : $v.username.$error}"
+              >
+              <div class="error" v-if="$v.username.$error">Field is required</div>
             </div>
             <div class="form-group">
-                <label for="inputPassword">Password </label>
-                <input type="password" v-model="password" class="form-control col-sm-6" id="inputPassword" placeholder="Enter password">
+              <label for="inputPassword" :class="{labelInput : $v.password.$error}">Password</label>
+              <input
+                type="password"
+                v-model="password"
+                @input="$v.password.$touch()"
+                class="form-control col-sm-6"
+                id="inputPassword"
+                placeholder="Enter password *"
+                :class="{invalidPassword : $v.password.$error}"
+              >
+              <div class="error" v-if="$v.password.$error">Field is required</div>
             </div>
             <div class="form-group">
-              <label> Admin </label>
+              <label>Admin</label>
               <input type="checkbox" v-model="isAdmin">
             </div>
           </div>
 
           <div class="footer">
-              <label class="btn btn-dark" @click="createNewUser"> Create </label>
+            <button
+              class="btn btn-dark"
+              :disabled="!$v.name.required || !$v.username.required || !$v.password.required"
+              @click="createNewUser"
+            >Create</button>
           </div>
         </div>
       </div>
     </div>
   </transition>
-    
 </template>
 <script>
+import { required } from "vuelidate/lib/validators";
+
 export default {
   data() {
     return {
-      name : "",
-      username : "",
-      password : "",
+      name: "",
+      username: "",
+      password: "",
       isAdmin: false
     };
   },
-  methods : {
-    createNewUser(){
+  validations: {
+    name: {
+      required
+    },
+    username: {
+      required
+    },
+    password: {
+      required
+    }
+  },
+  methods: {
+    createNewUser() {
       const newUser = {
-        name : this.name,
-        username : this.username,
-        password : this.password,
-        admin : this.isAdmin
-      }
-      this.$store.dispatch("createUser", newUser)
+        name: this.name,
+        username: this.username,
+        password: this.password,
+        admin: this.isAdmin
+      };
+      this.$store.dispatch("createUser", newUser);
       this.closeModel();
     },
-    closeModel(){
-      this.$emit("close")
+    closeModel() {
+      this.$emit("close");
     }
   }
 };
 </script>
 <style scoped>
-
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -86,7 +127,7 @@ export default {
 .modal-container {
   width: 50%;
   margin: 0px auto;
-  padding: 20px ;
+  padding: 20px;
   padding-left: 5%;
   background-color: #fff;
   border-radius: 2px;
@@ -101,13 +142,17 @@ export default {
   font-weight: bold;
 }
 
-.header{
+h3 {
+  margin-top: 15px;
+}
+
+.header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.fa-times{
+.fa-times {
   padding-top: 15px;
   padding-right: 20px;
   cursor: pointer;
@@ -118,7 +163,7 @@ export default {
 }
 
 .btn:hover {
-color: #fff;
+  color: #fff;
 }
 
 .footer {
@@ -131,6 +176,44 @@ color: #fff;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.error {
+  color: #f57f6c;
+  font-size: 0.75rem;
+  line-height: 2;
+  margin-left: 10px;
+}
+
+.labelInput {
+  color: #f57f6c;
+}
+
+.form-control:hover {
+  border-color: #aaa9a9;
+}
+
+.form-control:focus {
+  border-color: #525151;
+  box-shadow: inset 0px 0px 1px rgba(126, 124, 124, 0.87), 0 0 8px #7c7b7b;
+}
+
+input:hover,
+input:active,
+input:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: #cccccc;
+}
+
+.invalidName:focus,
+.invalidPassword:focus,
+.invalidUsername:focus,
+.invalidName,
+.invalidPassword,
+.invalidUsername {
+  border: 1px solid #f79483;
+  box-shadow: inset 0px 0px 0px rgba(218, 30, 30, 0.87), 0 0 8px #f57f6c;
 }
 
 .modal-default-button {

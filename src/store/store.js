@@ -12,7 +12,6 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
     state: {
         user: {},
-        invalidUser: false,
         isAdmin: false,
         users: [],
         // ********
@@ -29,9 +28,6 @@ export const store = new Vuex.Store({
     getters: {
         user(state) {
             return state.user
-        },
-        invalidUser(state) {
-            return state.invalidUser
         },
         isAdmin(state) {
             return state.isAdmin
@@ -155,9 +151,6 @@ export const store = new Vuex.Store({
                         localStorage.setItem("username", res.data.username);
                         localStorage.setItem("admin", res.data.admin);
                     }
-                })
-                .catch(() => {
-                    context.state.invalidUser = true
                 })
         },
         getUsers(context) {

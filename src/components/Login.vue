@@ -12,26 +12,26 @@
           src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
         >
         <form class="form-signin">
-          <div class="input-username" :class="{invalid : $v.username.$error}">
+          <div class="input-username" >
             <input
               type="text"
               @input="$v.username.$touch()"
               v-model="username"
               id="exampleInputEmail1"
-              :class="{invalidHighlight: invalidUser}"
               class="form-control"
               placeholder="Username"
+              :class="{invalidUsername : $v.username.$error}"
             >
           </div>
-          <div class="input-password" :class="{invalid : $v.password.$error}">
+          <div class="input-password" >
             <input
               type="password"
               @input="$v.password.$touch()"
               v-model="password"
               id="exampleInputPassword"
-              :class="{invalidHighlight: invalidUser}"
               class="form-control"
               placeholder="Password"
+              :class="{invalidPassword : $v.password.$error}"
             >
           </div>
           <button @click.prevent="login" class="btn btn-lg btn-primary btn-block btn-signin">Log in</button>
@@ -62,7 +62,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["invalidUser"])
+    ...mapGetters(["PasswordUser"])
   },
   methods: {
     login() {
@@ -95,10 +95,6 @@ img {
   transform: translate(-50%, -50%);
 }
 
-.form-control.invalidHighlight {
-  border: 1px solid rgb(226, 152, 152);
-}
-
 */ body,
 html {
   height: 100%;
@@ -125,7 +121,6 @@ html {
   margin: 0 auto 25px;
   margin-top: 50px;
   border-radius: 2px;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
 .profile-img-card {
@@ -137,15 +132,32 @@ html {
   margin-bottom: 40px;
 }
 
+input:hover,
+input:active, 
+input:focus
+{
+    outline: none;
+    box-shadow: none;
+    border-color: #cccccc;
+}
+
+.form-control:hover{
+    border-color: #aaa9a9
+}
+
+.form-control:focus{
+    border-color: #525151;
+    box-shadow: inset 0px 0px 1px rgba(126, 124, 124, 0.87), 0 0 8px #7c7b7b;
+}
+
 .input-password {
   margin-top: 10px;
 }
 
-.input-username.invalid,
-.input-password.invalid {
-  color: #f57f6c;
+.invalidPassword:focus,
+.invalidUsername:focus{
   border: 1px solid #f79483;
-  box-shadow: inset 0 1px 1px rgba(218, 30, 30, 0.87), 0 0 8px #f57f6c;
+  box-shadow: inset 0px 0px 0px rgba(218, 30, 30, 0.87), 0 0 8px #f57f6c;
 }
 
 .form-signin #exampleInputEmail1,
