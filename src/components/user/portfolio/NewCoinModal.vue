@@ -1,21 +1,27 @@
 <template>
-    <transition name="modal">
+  <transition name="modal">
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="header">
-             <h3> Add new coin to portfolio </h3>
+            <h3>Add new coin to portfolio</h3>
             <i class="fas fa-times fa-2x" @click="closeModal"></i>
           </div>
-
           <div class="body">
-            <div class="form-group"  >
-                <select v-model="card.coinID" class="form-control col-sm-8">
-                    <option >Choose One:</option>
-                    <option  v-for="crypto in sortedCryptoData" :key="crypto.id" :value="crypto.id">
-                      {{crypto.slug}}
-                    </option>
-                </select>
+            <div class="form-group">
+              <select
+                v-model="card.coinID"
+                class="form-control col-sm-8"
+                @input="$v.card.coinID.$touch()"
+                :class="{invalidCoinID : $v.card.coinID.$error}"
+              >
+                <option>Choose One:</option>
+                <option
+                  v-for="crypto in sortedCryptoData"
+                  :key="crypto.id"
+                  :value="crypto.id"
+                >{{crypto.slug}}</option>
+              </select>
             </div>
             <div class="amountWrapper">
               <div class="col-auto">
@@ -25,7 +31,15 @@
                       <i class="fas fa-align-justify"></i>
                     </div>
                   </div>
-                  <input type="number" v-model="card.amount"  class="form-control col-sm-7" id="inlineFormInputGroup" placeholder="Amount">
+                  <input
+                    type="number"
+                    v-model="card.amount"
+                    @input="$v.card.amount.$touch()"
+                    class="form-control col-sm-7"
+                    id="inlineFormInputGroup"
+                    placeholder="Amount"
+                    :class="{invalidAmount : $v.card.amount.$error}"
+                  >
                 </div>
               </div>
               <div class="col-auto">
@@ -35,32 +49,55 @@
                       <i class="far fa-money-bill-alt"></i>
                     </div>
                   </div>
-                  <input type="text" v-model="card.usdBuyPrice" class="form-control col-sm-7" id="inlineFormInputGroup" placeholder="Buy price ($)">
+                  <input
+                    type="text"
+                    v-model="card.usdBuyPrice"
+                    @input="$v.card.usdBuyPrice.$touch()"
+                    class="form-control col-sm-7"
+                    id="inlineFormInputGroup"
+                    placeholder="Buy price ($)"
+                    :class="{invalidUsdBuyPrice : $v.card.usdBuyPrice.$error}"
+                  >
                 </div>
               </div>
             </div>
             <div class="col-auto">
-                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <i class="fas fa-calendar-alt"></i> Bought on
-                    </div>
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i class="fas fa-calendar-alt"></i> Bought on
                   </div>
-                  <input type="date" v-model="card.boughtDate" class="form-control col-sm-6" id="inlineFormInputGroup">
                 </div>
+                <input
+                  type="date"
+                  v-model="card.boughtDate"
+                  @input="$v.card.boughtDate.$touch()"
+                  class="form-control col-sm-6"
+                  id="inlineFormInputGroup"
+                  :class="{invalidBoughtDate : $v.card.boughtDate.$error}"
+                >
               </div>
+            </div>
           </div>
+          <div
+            class="error"
+            v-if="$v.card.usdBuyPrice.$error || $v.card.amount.$error || $v.card.coinID.$error"
+          >All fields are required</div>
           <div class="footer">
-              <label class="btn btn-dark" @click="addToPortfolio"> Add to porfolio </label>
+            <button
+              class="btn btn-dark"
+              @click="addToPortfolio"
+              :disabled="!$v.card.usdBuyPrice.required || !$v.card.amount.required || !$v.card.coinID.required || !$v.card.boughtDate.required"
+            >Add to porfolio</button>
           </div>
         </div>
       </div>
     </div>
   </transition>
-    
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
+import { required } from "vuelidate/lib/validators";
 
 export default {
   props: ["showStarterMessage"],
@@ -77,6 +114,22 @@ export default {
         cardID: null
       }
     };
+  },
+  validations: {
+    card: {
+      amount: {
+        required
+      },
+      usdBuyPrice: {
+        required
+      },
+      coinID: {
+        required
+      },
+      boughtDate : {
+        required
+      }
+    }
   },
   computed: {
     ...mapGetters(["cryptoData", "portfolio"]),
@@ -188,6 +241,43 @@ export default {
   margin-bottom: 10%;
   display: flex;
   justify-content: flex-start;
+}
+
+.form-control:hover {
+  border-color: #aaa9a9;
+}
+
+.form-control:focus {
+  border-color: #525151;
+  box-shadow: inset 0px 0px 1px rgba(126, 124, 124, 0.87), 0 0 8px #7c7b7b;
+}
+
+input:hover,
+input:active,
+input:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: #cccccc;
+}
+
+.invalidUsdBuyPrice:focus,
+.invalidAmount:focus,
+.invalidBoughtDate:focus,
+.invalidCoinID:focus,
+.invalidUsdBuyPrice,
+.invalidAmount, 
+.invalidBoughtDate,
+.invalidCoinID {
+  border: 1px solid #f79483;
+  box-shadow: inset 0px 0px 0px rgba(218, 30, 30, 0.87), 0 0 8px #f57f6c;
+}
+
+.error {
+  color: #f57f6c;
+  font-size: 1rem;
+  line-height: 2;
+  margin-left: 10px;
+  display: flex;
 }
 
 .form-group {
