@@ -62,7 +62,11 @@
             <div class="form-group">
               <label class="col-md-3 control-label"></label>
               <div class="col-md-8">
-                <input type="button" @click="editUser" class="btn btn-dark" value="Save Changes">
+                <button 
+                type="button" 
+                @click="editUser" 
+                :disabled="!$v.name.required || !$v.password.required || !$v.repeatedPassword.required || !$v.repeatedPassword.sameAsPassword "
+                class="btn btn-dark"> Save Changes</button>
                 <span></span>
                 <input type="reset" class="btn btn-default" value="Cancel">
               </div>
@@ -178,5 +182,9 @@ input:focus {
   font-size: 0.75rem;
   line-height: 2;
   margin-left: 20px;
+}
+
+button:disabled {
+  cursor: not-allowed;
 }
 </style>

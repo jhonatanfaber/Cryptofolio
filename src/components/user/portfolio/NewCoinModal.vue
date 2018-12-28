@@ -280,6 +280,10 @@ input:focus {
   display: flex;
 }
 
+button:disabled {
+  cursor: not-allowed;
+}
+
 .form-group {
   display: flex;
   flex-direction: column;

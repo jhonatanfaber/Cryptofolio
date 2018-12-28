@@ -216,6 +216,10 @@ input:focus {
   box-shadow: inset 0px 0px 0px rgba(218, 30, 30, 0.87), 0 0 8px #f57f6c;
 }
 
+button:disabled {
+  cursor: not-allowed;
+}
+
 .modal-default-button {
   float: right;
 }

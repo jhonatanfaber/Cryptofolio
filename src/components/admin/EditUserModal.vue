@@ -205,6 +205,10 @@ input:focus {
   margin-left: 10px;
 }
 
+button:disabled {
+  cursor: not-allowed;
+}
+
 .modal-default-button {
   float: right;
 }
