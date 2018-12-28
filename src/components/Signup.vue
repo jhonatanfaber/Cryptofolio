@@ -11,39 +11,49 @@
           <input
             type="text"
             v-model="name"
+            @input="$v.name.$touch()"
             id="exampleInputName"
             class="form-control"
             placeholder="Name"
-            required
-            autofocus
+            :class="{invalidName : $v.name.$error}"
           >
+          <div class="error" v-if="$v.name.$error">Field is required</div>
           <input
             type="text"
             v-model="username"
+            @input="$v.username.$touch()"
             id="exampleInputUsername"
             class="form-control"
             placeholder="Username"
-            required
-            autofocus
+            :class="{invalidUsername : $v.username.$error}"
           >
+          <div class="error" v-if="$v.username.$error">Field is required</div>
           <input
             type="password"
             v-model="password"
+            @input="$v.password.$touch()"
             id="exampleInputPassword"
             class="form-control"
             placeholder="Password"
-            required
+            :class="{invalidPassword : $v.password.$error}"
           >
+          <div class="error" v-if="$v.password.$error">Field is required</div>
           <input
             type="password"
-            v-model="repeatPassword"
+            v-model="repeatedPassword"
+            @input="$v.repeatedPassword.$touch()"
             id="exampleInputRepeatedPassword"
             class="form-control"
             placeholder="Repeat password"
-            required
+            :class="{invalidRepeatedPassword : $v.repeatedPassword.$error || $v.repeatedPassword.$sameAsPassword}"
           >
+          <div
+            class="error"
+            v-if="$v.repeatedPassword.$error"
+          >Field is required and must be identical</div>
           <button
             @click.prevent="signup"
+            :disabled="!$v.name.required || !$v.password.required || !$v.username.required || !$v.repeatedPassword.required || !$v.repeatedPassword.sameAsPassword "
             class="btn btn-lg btn-primary btn-block btn-signin"
           >Sign up</button>
         </form>
@@ -53,6 +63,7 @@
 </template>
 
 <script>
+import { required, sameAs } from "vuelidate/lib/validators";
 
 export default {
   data() {
@@ -60,8 +71,23 @@ export default {
       name: "",
       username: "",
       password: "",
-      repeatPassword: ""
+      repeatedPassword: ""
     };
+  },
+  validations: {
+    name: {
+      required
+    },
+    username: {
+      required
+    },
+    password: {
+      required
+    },
+    repeatedPassword: {
+      required,
+      sameAsPassword: sameAs("password")
+    }
   },
   methods: {
     signup() {
@@ -71,7 +97,7 @@ export default {
         password: this.password
       };
       this.$store.dispatch("createUser", user);
-      this.$router.push({ path: "/login" })
+      this.$router.push({ path: "/login" });
     }
   }
 };
@@ -147,6 +173,8 @@ html {
   direction: ltr;
   height: 44px;
   font-size: 16px;
+  margin-bottom: 0;
+  margin-top: 15px;
 }
 
 .form-signin input[type="email"],
@@ -158,11 +186,6 @@ html {
   margin-bottom: 10px;
 }
 
-.form-signin .form-control:focus {
-  border-color: rgb(104, 145, 162);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgb(104, 145, 162);
-}
-
 .btn.btn-signin {
   background-color: #343a40;
   font-weight: 700;
@@ -170,6 +193,7 @@ html {
   height: 36px;
   border-radius: 4px;
   border: none;
+  margin-top: 20px;
 }
 
 .btn.btn-signin:hover,
@@ -186,5 +210,46 @@ html {
 .forgot-password:active,
 .forgot-password:focus {
   color: rgb(0, 0, 0);
+}
+
+.form-control:hover {
+  border-color: #aaa9a9;
+}
+
+.form-control:focus {
+  border-color: #525151;
+  box-shadow: inset 0px 0px 1px rgba(126, 124, 124, 0.87), 0 0 8px #7c7b7b;
+}
+
+input:hover,
+input:active,
+input:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: #cccccc;
+}
+
+.invalidName:focus,
+.invalidUsername:focus,
+.invalidPassword:focus,
+.invalidRepeatedPassword:focus,
+.invalidName,
+.invalidUsername,
+.invalidPassword,
+.invalidRepeatedPassword {
+  border: 1px solid #f79483;
+  box-shadow: inset 0px 0px 0px rgba(218, 30, 30, 0.87), 0 0 8px #f57f6c;
+}
+
+.error {
+  color: #f57f6c;
+  font-size: 0.75rem;
+  line-height: 2;
+  margin-left: 10px;
+  display: flex;
+}
+
+button:disabled {
+  cursor: not-allowed;
 }
 </style>
