@@ -29,6 +29,16 @@
           >
           <div class="error" v-if="$v.username.$error">Field is required</div>
           <input
+            type="text"
+            v-model="email"
+            @input="$v.email.$touch()"
+            id="exampleInputEmail"
+            class="form-control"
+            placeholder="Email"
+            :class="{invalidEmail : $v.email.$error}"
+          >
+          <div class="error" v-if="$v.email.$error">Field is required and must be a correct email address</div>
+          <input
             type="password"
             v-model="password"
             @input="$v.password.$touch()"
@@ -45,11 +55,11 @@
             id="exampleInputRepeatedPassword"
             class="form-control"
             placeholder="Repeat password"
-            :class="{invalidRepeatedPassword : $v.repeatedPassword.$error || $v.repeatedPassword.$sameAsPassword}"
+            :class="{invalidRepeatedPassword : $v.repeatedPassword.$error}"
           >
           <div
             class="error"
-            v-if="$v.repeatedPassword.$error"
+            v-if="$v.repeatedPassword.$error || $v.password.$error"
           >Field is required and must be identical</div>
           <button
             @click.prevent="signup"
@@ -63,13 +73,14 @@
 </template>
 
 <script>
-import { required, sameAs } from "vuelidate/lib/validators";
+import { required, sameAs, email } from "vuelidate/lib/validators";
 
 export default {
   data() {
     return {
       name: "",
       username: "",
+      email: "",
       password: "",
       repeatedPassword: ""
     };
@@ -80,6 +91,10 @@ export default {
     },
     username: {
       required
+    },
+    email: {
+      required,
+      email
     },
     password: {
       required
@@ -94,6 +109,7 @@ export default {
       const user = {
         name: this.name,
         username: this.username,
+        email : this.email,
         password: this.password
       };
       this.$store.dispatch("createUser", user);
@@ -168,6 +184,7 @@ html {
 
 .form-signin #exampleInputName,
 .form-signin #exampleInputUsername,
+.form-signin #exampleInputEmail,
 .form-signin #exampleInputRepeatedPassword,
 .form-signin #exampleInputPassword {
   direction: ltr;
@@ -231,10 +248,12 @@ input:focus {
 
 .invalidName:focus,
 .invalidUsername:focus,
+.invalidEmail:focus,
 .invalidPassword:focus,
 .invalidRepeatedPassword:focus,
 .invalidName,
 .invalidUsername,
+.invalidEmail,
 .invalidPassword,
 .invalidRepeatedPassword {
   border: 1px solid #f79483;

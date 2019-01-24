@@ -12,6 +12,7 @@
           <th scope="col">ID</th>
           <th scope="col">Name</th>
           <th scope="col">Username</th>
+          <th scope="col">Email</th>
           <th scope="col">Admin</th>
           <th scope="col"></th>
           <th scope="col"></th>
@@ -23,6 +24,7 @@
           <td>{{user.id}}</td>
           <td>{{user.name}}</td>
           <td>{{user.username}}</td>
+          <td>{{user.email}}</td>
           <td>{{user.admin ? 'Yes' : 'No'}}</td>
           <td>
             <i class="fas fa-pen fa-lg" @click="editUser(user)"></i>

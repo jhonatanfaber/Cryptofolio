@@ -12,7 +12,7 @@
           src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
         >
         <form class="form-signin">
-          <div class="input-username" >
+          <div class="input-username">
             <input
               type="text"
               @input="$v.username.$touch()"
@@ -23,7 +23,7 @@
               :class="{invalidUsername : $v.username.$error}"
             >
           </div>
-          <div class="input-password" >
+          <div class="input-password">
             <input
               type="password"
               @input="$v.password.$touch()"
@@ -37,6 +37,7 @@
           <button @click.prevent="login" class="btn btn-lg btn-primary btn-block btn-signin">Log in</button>
         </form>
         <span @click="signup" class="dontHaveAccount">Don't have an account?</span>
+        <span class="forgotPassword">Forgot Password?</span>
       </div>
     </div>
   </div>
@@ -133,21 +134,20 @@ html {
 }
 
 input:hover,
-input:active, 
-input:focus
-{
-    outline: none;
-    box-shadow: none;
-    border-color: #cccccc;
+input:active,
+input:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: #cccccc;
 }
 
-.form-control:hover{
-    border-color: #aaa9a9
+.form-control:hover {
+  border-color: #aaa9a9;
 }
 
-.form-control:focus{
-    border-color: #525151;
-    box-shadow: inset 0px 0px 1px rgba(126, 124, 124, 0.87), 0 0 8px #7c7b7b;
+.form-control:focus {
+  border-color: #525151;
+  box-shadow: inset 0px 0px 1px rgba(126, 124, 124, 0.87), 0 0 8px #7c7b7b;
 }
 
 .input-password {
@@ -155,7 +155,7 @@ input:focus
 }
 
 .invalidPassword:focus,
-.invalidUsername:focus{
+.invalidUsername:focus {
   border: 1px solid #f79483;
   box-shadow: inset 0px 0px 0px rgba(218, 30, 30, 0.87), 0 0 8px #f57f6c;
 }
@@ -199,13 +199,22 @@ input:focus
 .dontHaveAccount {
   color: #343a40;
   cursor: pointer;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
 .dontHaveAccount:hover,
 .dontHaveAccount:active,
-.dontHaveAccount:focus {
+.dontHaveAccount:focus,
+.forgotPassword:hover,
+.forgotPassword:active,
+.forgotPassword:focus {
   color: rgb(0, 0, 0);
   text-decoration: underline;
+}
+
+.forgotPassword {
+  color: #343a40;
+  cursor: pointer;
+  margin-top: 5px;
 }
 </style>

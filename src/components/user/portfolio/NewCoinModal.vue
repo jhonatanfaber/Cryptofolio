@@ -81,7 +81,7 @@
           </div>
           <div
             class="error"
-            v-if="$v.card.usdBuyPrice.$error || $v.card.amount.$error || $v.card.coinID.$error"
+            v-if="$v.card.usdBuyPrice.$error || $v.card.amount.$error || $v.card.coinID.$error || $v.card.boughtDate.$error"
           >All fields are required</div>
           <div class="footer">
             <button

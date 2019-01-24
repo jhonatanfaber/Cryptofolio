@@ -59,8 +59,7 @@
               </div>
               <div class="error" v-if="$v.repeatedPassword.$error">Field is required and must be identical</div>
             </div>
-            <div class="form-group">
-              <label class="col-md-3 control-label"></label>
+            <div class="form-group buttons">
               <div class="col-md-8">
                 <button 
                 type="button" 
@@ -79,7 +78,6 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
 import { required, sameAs } from "vuelidate/lib/validators";
 
 export default {
@@ -110,7 +108,6 @@ export default {
         name: this.name,
         password: this.password
       };
-      //TODO: show alert after upload
       this.$store.dispatch("editUser", user);
       this.showAlert();
     },
@@ -118,9 +115,12 @@ export default {
       this.showSavedAlert = true;
       this.name = "";
       this.password = "";
+      this.repeatedPassword = "";
+      this.$v.$reset();
       setInterval(() => {
         this.showSavedAlert = false;
       }, 2000);
+     
     }
   }
 };
@@ -136,6 +136,10 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.form-group.buttons{
+  margin-top: 20px;
 }
 
 .col-lg-3,
