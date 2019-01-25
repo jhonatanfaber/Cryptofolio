@@ -39,6 +39,25 @@
               <div class="error" v-if="$v.editedUser.password.$error">Field is required</div>
             </div>
             <div class="form-group">
+              <label
+                for="inputPassword"
+                :class="{labelInput : $v.editedUser.repeatedPassword.$error }"
+              >Repeat Password</label>
+              <input
+                type="password"
+                v-model="editedUser.repeatedPassword"
+                @input="$v.editedUser.repeatedPassword.$touch()"
+                id="exampleInputRepeatedPassword"
+                class="form-control col-sm-6"
+                placeholder="Enter password *"
+                :class="{invalidRepeatedPassword : $v.editedUser.repeatedPassword.$error}"
+              >
+              <div
+                class="error"
+                v-if="$v.editedUser.repeatedPassword.$error"
+              >Field is required and must be identical</div>
+            </div>
+            <div class="form-group">
               <label>Admin</label>
               <input type="checkbox" v-model="editedUser.admin">
             </div>
@@ -46,7 +65,7 @@
           <div class="footer">
             <button
               class="btn btn-dark"
-              :disabled="!$v.editedUser.name.required || !$v.editedUser.password.required"
+              :disabled="!$v.editedUser.name.required || !$v.editedUser.password.required || !$v.editedUser.repeatedPassword.sameAsPassword"
               @click="editUser"
             >Edit</button>
           </div>
@@ -56,7 +75,7 @@
   </transition>
 </template>
 <script>
-import { required } from "vuelidate/lib/validators";
+import { required, sameAs } from "vuelidate/lib/validators";
 
 export default {
   data() {
@@ -65,6 +84,7 @@ export default {
         id: this.user.id,
         name: this.user.name,
         password: "",
+        repeatedPassword: "",
         admin: this.user.admin
       }
     };
@@ -76,6 +96,10 @@ export default {
       },
       password: {
         required
+      },
+      repeatedPassword : {
+        required,
+        sameAsPassword : sameAs("password")
       }
     }
   },
@@ -133,7 +157,7 @@ export default {
   font-weight: bold;
 }
 
-h3{
+h3 {
   margin-top: 15px;
 }
 
@@ -192,8 +216,10 @@ input:focus {
 
 .invalidName:focus,
 .invalidPassword:focus,
+.invalidRepeatedPassword:focus,
 .invalidName,
-.invalidPassword {
+.invalidPassword,
+.invalidRepeatedPassword {
   border: 1px solid #f79483;
   box-shadow: inset 0px 0px 0px rgba(218, 30, 30, 0.87), 0 0 8px #f57f6c;
 }

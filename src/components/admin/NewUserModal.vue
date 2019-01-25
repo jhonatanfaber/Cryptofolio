@@ -49,6 +49,26 @@
               <div class="error" v-if="$v.password.$error">Field is required</div>
             </div>
             <div class="form-group">
+              <label
+                for="inputPassword"
+                :class="{labelInput : $v.repeatedPassword.$error }"
+              >Repeat Password</label>
+              <input
+                type="password"
+                v-model="repeatedPassword"
+                @input="$v.repeatedPassword.$touch()"
+                id="exampleInputRepeatedPassword"
+                class="form-control col-sm-6"
+                placeholder="enter password *"
+                :class="{invalidRepeatedPassword : $v.repeatedPassword.$error}"
+              >
+              <div
+                class="error"
+                v-if="$v.repeatedPassword.$error"
+              >Field is required and must be identical</div>
+            </div>
+
+            <div class="form-group">
               <label>Admin</label>
               <input type="checkbox" v-model="isAdmin">
             </div>
@@ -57,7 +77,7 @@
           <div class="footer">
             <button
               class="btn btn-dark"
-              :disabled="!$v.name.required || !$v.username.required || !$v.password.required"
+              :disabled="!$v.name.required || !$v.username.required || !$v.password.required || !$v.repeatedPassword.sameAsPassword"
               @click="createNewUser"
             >Create</button>
           </div>
@@ -67,7 +87,7 @@
   </transition>
 </template>
 <script>
-import { required } from "vuelidate/lib/validators";
+import { required, sameAs } from "vuelidate/lib/validators";
 
 export default {
   data() {
@@ -75,6 +95,7 @@ export default {
       name: "",
       username: "",
       password: "",
+      repeatedPassword: "",
       isAdmin: false
     };
   },
@@ -87,6 +108,10 @@ export default {
     },
     password: {
       required
+    },
+    repeatedPassword: {
+      required,
+      sameAsPassword: sameAs("password")
     }
   },
   methods: {
@@ -208,9 +233,11 @@ input:focus {
 
 .invalidName:focus,
 .invalidPassword:focus,
+.invalidRepeatedPassword:focus,
 .invalidUsername:focus,
 .invalidName,
 .invalidPassword,
+.invalidRepeatedPassword,
 .invalidUsername {
   border: 1px solid #f79483;
   box-shadow: inset 0px 0px 0px rgba(218, 30, 30, 0.87), 0 0 8px #f57f6c;

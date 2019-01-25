@@ -37,7 +37,7 @@
             placeholder="Email"
             :class="{invalidEmail : $v.email.$error}"
           >
-          <div class="error" v-if="$v.email.$error">Field is required and must be a correct email address</div>
+          <div class="error" v-if="$v.email.$error">Field is required and must be a valid email address</div>
           <input
             type="password"
             v-model="password"
@@ -59,11 +59,11 @@
           >
           <div
             class="error"
-            v-if="$v.repeatedPassword.$error || $v.password.$error"
+            v-if="$v.repeatedPassword.$error"
           >Field is required and must be identical</div>
           <button
             @click.prevent="signup"
-            :disabled="!$v.name.required || !$v.password.required || !$v.username.required || !$v.repeatedPassword.required || !$v.repeatedPassword.sameAsPassword "
+            :disabled="!$v.name.required || !$v.password.required || !$v.username.required ||  !$v.repeatedPassword.sameAsPassword "
             class="btn btn-lg btn-primary btn-block btn-signin"
           >Sign up</button>
         </form>

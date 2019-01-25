@@ -1,7 +1,5 @@
 <template>
-  <div class="container-navBar">
     <nav class="navbar navbar-expand-lg navbar-light">
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <div class="left-navbar">
             <router-link to="/" tag="li" class="nav-item" exact>
@@ -15,10 +13,8 @@
             <router-link v-if="user.token && isAdmin" to="/test" class="nav-item" tag="li" exact>
               <a class="nav-link-disabled"></a>
             </router-link>
-              <router-link v-if="user.token && isAdmin" to="/users" tag="li" class="nav-item" exact>
-              <a class="nav-link">
-                Manage users
-              </a>
+            <router-link v-if="user.token && isAdmin" to="/users" tag="li" class="nav-item" exact>
+              <a class="nav-link">Manage users</a>
             </router-link>
             <router-link v-if="user.token && !isAdmin" to="/" class="nav-item" tag="li" exact>
               <a class="nav-link-disabled"></a>
@@ -54,9 +50,9 @@
                     <i class="fas fa-cog"></i> Edit Profile
                   </a>
                 </router-link>
-                  <a @click="logout" class="dropdown-item logout">
-                    <i class="fas fa-sign-out-alt"></i> Log out
-                  </a>
+                <a @click="logout" class="dropdown-item logout">
+                  <i class="fas fa-sign-out-alt"></i> Log out
+                </a>
               </div>
             </li>
             <router-link v-if="!user.token" to="/login" tag="li" class="nav-item" exact>
@@ -66,9 +62,7 @@
             </router-link>
           </div>
         </ul>
-      </div>
     </nav>
-  </div>
 </template>
 
 <script>
@@ -86,6 +80,18 @@ export default {
 
 
 <style scoped>
+@media (min-width: 1340px) {
+  .navbar-nav {
+    max-width: 1260px;
+  }
+}
+
+@media (min-width: 780px) {
+  .navbar-nav{
+    width: 90%;
+  }
+}
+
 .navbar-light .navbar-nav .nav-link,
 .brand {
   color: white;
@@ -122,7 +128,7 @@ export default {
   grid-template-columns: repeat(2, 1fr);
   position: fixed;
   top: 0;
-  z-index: 99;
+  /* z-index: 99; */
 }
 
 .left-navbar {
