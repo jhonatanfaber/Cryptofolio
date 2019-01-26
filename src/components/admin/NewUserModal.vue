@@ -94,7 +94,7 @@
             <button
               class="btn btn-dark"
               :disabled="!$v.name.required || !$v.username.required || !$v.password.required || !$v.repeatedPassword.sameAsPassword || $v.email.$invalid"
-              @click="createNewUser"
+              @click.prevent="createNewUser"
             >Create</button>
           </div>
         </div>
@@ -140,6 +140,7 @@ export default {
       const newUser = {
         name: this.name,
         username: this.username,
+        email: this.email,
         password: this.password,
         admin: this.isAdmin
       };
@@ -280,11 +281,5 @@ button:disabled {
 
 .modal-leave-active {
   opacity: 0;
-}
-
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
 }
 </style>

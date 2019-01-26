@@ -15,25 +15,24 @@
           <div class="input-username">
             <input
               type="text"
-              @input="$v.username.$touch()"
               v-model="username"
               id="exampleInputEmail1"
               class="form-control"
               placeholder="Username"
-              :class="{invalidUsername : $v.username.$error}"
+              :class="{'auth-error': (status == 'error')}"
             >
           </div>
           <div class="input-password">
             <input
               type="password"
-              @input="$v.password.$touch()"
               v-model="password"
               id="exampleInputPassword"
               class="form-control"
               placeholder="Password"
-              :class="{invalidPassword : $v.password.$error}"
+              :class="{'auth-error': (status == 'error')}"
             >
           </div>
+          <div class="error" v-if="status == 'error'">Invalid credentials</div>
           <button @click.prevent="login" class="btn btn-lg btn-primary btn-block btn-signin">Log in</button>
         </form>
         <span @click="signup" class="dontHaveAccount">Don't have an account?</span>
@@ -45,7 +44,6 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { required } from "vuelidate/lib/validators";
 
 export default {
   data() {
@@ -54,16 +52,8 @@ export default {
       password: ""
     };
   },
-  validations: {
-    username: {
-      required
-    },
-    password: {
-      required
-    }
-  },
   computed: {
-    ...mapGetters(["PasswordUser"])
+    ...mapGetters(["status"])
   },
   methods: {
     login() {
@@ -81,6 +71,7 @@ export default {
 </script>
 
 <style scoped>
+
 img {
   width: 100%;
   height: 700px;
@@ -154,10 +145,27 @@ input:focus {
   margin-top: 10px;
 }
 
-.invalidPassword:focus,
-.invalidUsername:focus {
+input:hover,
+input:active,
+input:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: #cccccc;
+}
+
+.auth-error,
+.auth-error:focus
+{
   border: 1px solid #f79483;
   box-shadow: inset 0px 0px 0px rgba(218, 30, 30, 0.87), 0 0 8px #f57f6c;
+}
+
+.error {
+  color: #f57f6c;
+  font-size: 0.75rem;
+  line-height: 2;
+  display: flex;
+  justify-content: center;
 }
 
 .form-signin #exampleInputEmail1,
@@ -174,11 +182,6 @@ input:focus {
   width: 100%;
   display: block;
 }
-
-/* .form-signin .form-control:focus {
-  border-color: rgb(104, 145, 162);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgb(104, 145, 162);
-} */
 
 .btn.btn-signin {
   background-color: #343a40;

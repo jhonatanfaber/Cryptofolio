@@ -14,6 +14,7 @@ export const store = new Vuex.Store({
         user: {},
         isAdmin: false,
         users: [],
+        status : "",
         // ********
         cryptoData: [],
         cryptoIDs: [],
@@ -34,6 +35,9 @@ export const store = new Vuex.Store({
         },
         users(state) {
             return state.users
+        },
+        status(state) {
+            return state.status
         },
         // ********
         cryptoData(state) {
@@ -58,6 +62,10 @@ export const store = new Vuex.Store({
     mutations: {
         login(state, data) {
             state.user = data
+            state.status = "success"
+        },
+        auth_error(state) {
+            state.status = "error"
         },
         getUsers(state, data) {
             state.users = data
@@ -151,6 +159,9 @@ export const store = new Vuex.Store({
                         localStorage.setItem("username", res.data.username);
                         localStorage.setItem("admin", res.data.admin);
                     }
+                })
+                .catch(() => {
+                    context.commit("auth_error")
                 })
         },
         getUsers(context) {
