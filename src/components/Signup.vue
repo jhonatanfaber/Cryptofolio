@@ -37,7 +37,10 @@
             placeholder="Email"
             :class="{invalidEmail : $v.email.$error}"
           >
-          <div class="error" v-if="$v.email.$error">Field is required and must be a valid email address</div>
+          <div
+            class="error"
+            v-if="$v.email.$error"
+          >Field is required and must be a valid email address</div>
           <input
             type="password"
             v-model="password"
@@ -63,7 +66,7 @@
           >Field is required and must be identical</div>
           <button
             @click.prevent="signup"
-            :disabled="!$v.name.required || !$v.password.required || !$v.username.required ||  !$v.repeatedPassword.sameAsPassword "
+            :disabled="!$v.name.required || !$v.password.required || !$v.username.required ||  !$v.repeatedPassword.sameAsPassword || $v.email.$invalid"
             class="btn btn-lg btn-primary btn-block btn-signin"
           >Sign up</button>
         </form>
@@ -94,7 +97,7 @@ export default {
     },
     email: {
       required,
-      email
+      mail: email
     },
     password: {
       required
@@ -109,7 +112,7 @@ export default {
       const user = {
         name: this.name,
         username: this.username,
-        email : this.email,
+        email: this.email,
         password: this.password
       };
       this.$store.dispatch("createUser", user);

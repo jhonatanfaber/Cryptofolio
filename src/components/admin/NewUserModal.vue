@@ -36,6 +36,22 @@
               <div class="error" v-if="$v.username.$error">Field is required</div>
             </div>
             <div class="form-group">
+              <label for="exampleInputEmail" :class="{labelInput : $v.email.$error}">Email</label>
+              <input
+                type="text"
+                v-model="email"
+                @input="$v.email.$touch()"
+                id="exampleInputEmail"
+                class="form-control col-sm-6"
+                placeholder="Email *"
+                :class="{invalidEmail : $v.email.$error}"
+              >
+              <div
+                class="error"
+                v-if="$v.email.$error"
+              >Field is required and must be a valid email address</div>
+            </div>
+            <div class="form-group">
               <label for="inputPassword" :class="{labelInput : $v.password.$error}">Password</label>
               <input
                 type="password"
@@ -77,7 +93,7 @@
           <div class="footer">
             <button
               class="btn btn-dark"
-              :disabled="!$v.name.required || !$v.username.required || !$v.password.required || !$v.repeatedPassword.sameAsPassword"
+              :disabled="!$v.name.required || !$v.username.required || !$v.password.required || !$v.repeatedPassword.sameAsPassword || $v.email.$invalid"
               @click="createNewUser"
             >Create</button>
           </div>
@@ -87,13 +103,14 @@
   </transition>
 </template>
 <script>
-import { required, sameAs } from "vuelidate/lib/validators";
+import { required, sameAs, email } from "vuelidate/lib/validators";
 
 export default {
   data() {
     return {
       name: "",
       username: "",
+      email: "",
       password: "",
       repeatedPassword: "",
       isAdmin: false
@@ -105,6 +122,10 @@ export default {
     },
     username: {
       required
+    },
+    email: {
+      required,
+      email
     },
     password: {
       required
@@ -235,9 +256,11 @@ input:focus {
 .invalidPassword:focus,
 .invalidRepeatedPassword:focus,
 .invalidUsername:focus,
+.invalidEmail:focus,
 .invalidName,
 .invalidPassword,
 .invalidRepeatedPassword,
+.invalidEmail,
 .invalidUsername {
   border: 1px solid #f79483;
   box-shadow: inset 0px 0px 0px rgba(218, 30, 30, 0.87), 0 0 8px #f57f6c;
