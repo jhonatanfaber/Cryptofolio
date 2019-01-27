@@ -25,7 +25,7 @@
             id="exampleInputUsername"
             class="form-control"
             placeholder="Username"
-            :class="{invalidUsername : $v.username.$error}"
+            :class="{invalidUsername : $v.username.$error, 'signup-error': (signup_status == 'error')}"
           >
           <div class="error" v-if="$v.username.$error">Field is required</div>
           <input
@@ -35,7 +35,7 @@
             id="exampleInputEmail"
             class="form-control"
             placeholder="Email"
-            :class="{invalidEmail : $v.email.$error}"
+            :class="{invalidEmail : $v.email.$error, 'signup-error': (signup_status == 'error')}"
           >
           <div
             class="error"
@@ -64,6 +64,10 @@
             class="error"
             v-if="$v.repeatedPassword.$error"
           >Field is required and must be identical</div>
+          <div
+            class="already-exists"
+            v-if="signup_status == 'error'"
+          >Username or email already exist</div>
           <button
             @click.prevent="signup"
             :disabled="!$v.name.required || !$v.password.required || !$v.username.required ||  !$v.repeatedPassword.sameAsPassword || $v.email.$invalid"
@@ -77,6 +81,7 @@
 
 <script>
 import { required, sameAs, email } from "vuelidate/lib/validators";
+import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -87,6 +92,9 @@ export default {
       password: "",
       repeatedPassword: ""
     };
+  },
+  computed: {
+    ...mapGetters(["signup_status"])
   },
   validations: {
     name: {
@@ -116,7 +124,9 @@ export default {
         password: this.password
       };
       this.$store.dispatch("createUser", user);
-      this.$router.push({ path: "/login" });
+      if (this.signup_status == "success") {
+        this.$router.push({ path: "/login" });
+      }
     }
   }
 };
@@ -249,6 +259,8 @@ input:focus {
   border-color: #cccccc;
 }
 
+.signup-error,
+.signup-error:focus,
 .invalidName:focus,
 .invalidUsername:focus,
 .invalidEmail:focus,
@@ -269,6 +281,15 @@ input:focus {
   line-height: 2;
   margin-left: 10px;
   display: flex;
+}
+
+.already-exists {
+  color: #f57f6c;
+  font-size: 0.75rem;
+  line-height: 2;
+  margin-left: 10px;
+  display: flex;
+  justify-content: center;
 }
 
 button:disabled {

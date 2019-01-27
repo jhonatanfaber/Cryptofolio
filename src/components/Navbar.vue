@@ -80,17 +80,17 @@ export default {
 
 
 <style scoped>
-@media (min-width: 1340px) {
+/* @media (max-width: 1340px) {
   .navbar-nav {
     max-width: 1260px;
   }
 }
 
-@media (min-width: 780px) {
+@media (max-width: 780px) {
   .navbar-nav{
-    width: 90%;
+    width: 50%;
   }
-}
+} */
 
 .navbar-light .navbar-nav .nav-link,
 .brand {
@@ -128,7 +128,7 @@ export default {
   grid-template-columns: repeat(2, 1fr);
   position: fixed;
   top: 0;
-  /* z-index: 99; */
+  z-index: 1;
 }
 
 .left-navbar {

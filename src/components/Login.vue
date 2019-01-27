@@ -19,7 +19,7 @@
               id="exampleInputEmail1"
               class="form-control"
               placeholder="Username"
-              :class="{'auth-error': (status == 'error')}"
+              :class="{'auth-error': (auth_status == 'error')}"
             >
           </div>
           <div class="input-password">
@@ -29,10 +29,10 @@
               id="exampleInputPassword"
               class="form-control"
               placeholder="Password"
-              :class="{'auth-error': (status == 'error')}"
+              :class="{'auth-error': (auth_status == 'error')}"
             >
           </div>
-          <div class="error" v-if="status == 'error'">Invalid credentials</div>
+          <div class="error" v-if="auth_status == 'error'">Invalid credentials</div>
           <button @click.prevent="login" class="btn btn-lg btn-primary btn-block btn-signin">Log in</button>
         </form>
         <span @click="signup" class="dontHaveAccount">Don't have an account?</span>
@@ -53,7 +53,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["status"])
+    ...mapGetters(["auth_status"])
   },
   methods: {
     login() {
