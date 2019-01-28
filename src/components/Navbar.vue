@@ -1,68 +1,69 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <ul class="navbar-nav mr-auto">
-          <div class="left-navbar">
-            <router-link to="/" tag="li" class="nav-item" exact>
-              <a class="brand">
-                <i class="fab fa-audible"></i>
-                Cryptofolio
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">
+      <i class="fab fa-audible"></i>
+      Cryptofolio
+    </a>
+    
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <router-link v-if="user.token && isAdmin" to="/test" class="nav-item" tag="li" exact>
+          <a class="nav-link-disabled"></a>
+        </router-link>
+        <router-link v-if="user.token && isAdmin" to="/users" tag="li" class="nav-item" exact>
+          <a class="nav-link">Manage users</a>
+        </router-link>
+        <router-link v-if="user.token && !isAdmin" to="/" class="nav-item" tag="li" exact>
+          <a class="nav-link-disabled"></a>
+        </router-link>
+        <router-link v-if="user.token && !isAdmin" to="/portfolio" class="nav-item" tag="li" exact>
+          <a class="nav-link">Portfolio</a>
+        </router-link>
+        <router-link v-if="user.token && !isAdmin" to="/market" class="nav-item" tag="li" exact>
+          <a class="nav-link">Market</a>
+        </router-link>
+        <li v-if="user.token" class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdownMenuLink"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="fas fa-user"></i>
+            {{user.username}}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <router-link v-if="!isAdmin" to="/profile" tag="li" exact>
+              <a class="dropdown-item">
+                <i class="fas fa-cog"></i> Edit Profile
               </a>
             </router-link>
+            <a @click="logout" class="dropdown-item logout">
+              <i class="fas fa-sign-out-alt"></i> Log out
+            </a>
           </div>
-          <div class="right-navbar">
-            <router-link v-if="user.token && isAdmin" to="/test" class="nav-item" tag="li" exact>
-              <a class="nav-link-disabled"></a>
-            </router-link>
-            <router-link v-if="user.token && isAdmin" to="/users" tag="li" class="nav-item" exact>
-              <a class="nav-link">Manage users</a>
-            </router-link>
-            <router-link v-if="user.token && !isAdmin" to="/" class="nav-item" tag="li" exact>
-              <a class="nav-link-disabled"></a>
-            </router-link>
-            <router-link
-              v-if="user.token && !isAdmin"
-              to="/portfolio"
-              class="nav-item"
-              tag="li"
-              exact
-            >
-              <a class="nav-link">Portfolio</a>
-            </router-link>
-            <router-link v-if="user.token && !isAdmin" to="/market" class="nav-item" tag="li" exact>
-              <a class="nav-link">Market</a>
-            </router-link>
-            <li v-if="user.token" class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                <i class="fas fa-user"></i>
-                {{user.username}}
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <router-link v-if="!isAdmin" to="/profile" tag="li" exact>
-                  <a class="dropdown-item">
-                    <i class="fas fa-cog"></i> Edit Profile
-                  </a>
-                </router-link>
-                <a @click="logout" class="dropdown-item logout">
-                  <i class="fas fa-sign-out-alt"></i> Log out
-                </a>
-              </div>
-            </li>
-            <router-link v-if="!user.token" to="/login" tag="li" class="nav-item" exact>
-              <a class="nav-link">
-                <i class="fas fa-sign-in-alt"></i> Log in
-              </a>
-            </router-link>
-          </div>
-        </ul>
-    </nav>
+        </li>
+        <router-link v-if="!user.token" to="/login" tag="li" class="nav-item" exact>
+          <a class="nav-link">
+            <i class="fas fa-sign-in-alt"></i> Log in
+          </a>
+        </router-link>
+      </ul>
+    </div>
+  </nav>
 </template>
 
 <script>
@@ -80,73 +81,41 @@ export default {
 
 
 <style scoped>
-/* @media (max-width: 1340px) {
-  .navbar-nav {
-    max-width: 1260px;
+@media (min-width: 992px) {
+  .navbar-expand-lg .navbar-collapse {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;
   }
+
 }
 
-@media (max-width: 780px) {
-  .navbar-nav{
-    width: 50%;
-  }
-} */
-
-.navbar-light .navbar-nav .nav-link,
+.navbar-dark .navbar-nav .nav-link,
 .brand {
   color: white;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  color: rgb(197, 178, 72);
+}
+
+.bg-dark {
+  background-color: rgba(0, 0, 0, 1) !important;
+  padding: 20px;
 }
 
 .nav-link {
   font-size: 16px;
 }
 
-.navbar-light .navbar-nav .nav-link:hover {
-  color: rgb(197, 178, 72);
-}
-
-.brand {
+.navbar-brand{
   font-size: 22px;
   text-decoration: none;
   font-weight: bold;
 }
 
-.brand:hover {
+.navbar-brand:hover {
   color: rgb(197, 178, 72);
-}
-
-.navbar {
-  padding: 0;
-  margin-bottom: 75px;
-}
-
-.navbar-nav {
-  background-color: rgba(0, 0, 0, 1);
-  width: 100%;
-  padding: 20px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  position: fixed;
-  top: 0;
-  z-index: 1;
-}
-
-.left-navbar {
-  grid-column: 1;
-  display: flex;
-  align-items: center;
-}
-
-.right-navbar {
-  grid-column: 2;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  margin-right: 15px;
-}
-
-.nav-item {
-  margin-right: 15px;
 }
 
 .fa-sign-out-alt,
