@@ -1,25 +1,26 @@
 <template>
-    <div class="profit-container">
-        <div class="information-investment">
-                <h4> Invested </h4>
-                <p class="information-quantity"> 
-                  {{ currencySymbol }}{{ totalInvestmentToShow.toLocaleString(undefined, {
-                                                                          minimumFractionDigits: 2,
-                                                                          maximumFractionDigits: 4 }) }} 
-                </p>
-            </div>
-            
-            <div class="information-investment">
-                <h4> Profit </h4>
-                <p class="information-quantity"
-                  :style="[profitsToShow >= 0 ? {color : 'green'} : {color : '#ef143e'}]"
-                >
-                   {{ currencySymbol }}{{ profitsToShow.toLocaleString(undefined, {
-                                                                  minimumFractionDigits: 2,
-                                                                  maximumFractionDigits: 4 }) }} 
-                </p>
-            </div>
+  <div class="profit-container">
+    <div class="information-investment">
+      <h4>Invested</h4>
+      <p class="information-quantity">
+        {{ currencySymbol }}{{ totalInvestmentToShow.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 4 }) }}
+      </p>
     </div>
+
+    <div class="information-investment">
+      <h4>Profit</h4>
+      <p
+        class="information-quantity"
+        :style="[profitsToShow >= 0 ? {color : 'green'} : {color : '#ef143e'}]"
+      >
+        {{ currencySymbol }}{{ profitsToShow.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 4 }) }}
+      </p>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -41,29 +42,32 @@ export default {
     profitsToShow() {
       let profit = 0;
       this.portfolio.forEach(element => {
-        let currentCoinPrice = this.getCryptoDataById(element.coinID).usdCurrentPrice;
-        profit += currentCoinPrice * element.amount - element.usdBuyPrice * element.amount;
+        let currentCoinPrice = this.getCryptoDataById(element.coinID)
+          .usdCurrentPrice;
+        profit +=
+          currentCoinPrice * element.amount -
+          element.usdBuyPrice * element.amount;
       });
       this.updateProfit(profit);
       return profit;
     },
-    totalInvestmentToShow(){
+    totalInvestmentToShow() {
       let investment = 0;
       this.portfolio.forEach(element => {
-        investment += element.usdBuyPrice * element.amount
+        investment += element.usdBuyPrice * element.amount;
       });
       this.updateTotalInvestementPrice(investment);
       return investment;
-
     }
   },
   methods: {
-    ...mapActions(["updateProfit","updateTotalInvestementPrice"])
+    ...mapActions(["updateProfit", "updateTotalInvestementPrice"])
   }
 };
 </script>
 
 <style scoped>
+
 .profit-container {
   width: 80%;
   display: flex;
@@ -71,10 +75,18 @@ export default {
   justify-content: space-around;
 }
 
-.information-investment {
-  padding: 20px 90px;
-  width: 30%;
+@media (max-width: 600px) {
+  .profit-container {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+  }
 }
+
+/* .information-investment {
+  padding: 20px 90px; */
+  /* width: 30%;
+} */
 
 .information-quantity {
   font-size: 25px;
