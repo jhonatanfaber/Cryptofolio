@@ -14,8 +14,8 @@ export const store = new Vuex.Store({
         user: {},
         isAdmin: false,
         users: [],
-        auth_status : "",
-        signup_status : "",
+        auth_status: "",
+        signup_status: "",
         // ********
         cryptoData: [],
         cryptoIDs: [],
@@ -172,29 +172,25 @@ export const store = new Vuex.Store({
                     context.commit("auth_error")
                 })
         },
-        getUsers(context) {
-            return new Promise(async (resolve) => {
-                const response = await customisedUsersAxios.get("/users", {
-                    headers: {
-                        'x-api-token': context.state.user.token
-                    }
-                })
-                context.commit("getUsers", response.data)
-                resolve()
-            })
-        },
-        createUser(context, payload) {
-            customisedUsersAxios.post("/users", payload, {
+        async getUsers(context) {
+            const response = await customisedUsersAxios.get("/users", {
                 headers: {
                     'x-api-token': context.state.user.token
                 }
             })
-                .then(response => {
-                    context.commit("createUser", response.data)
+            context.commit("getUsers", response.data)
+        },
+        async createUser(context, payload) {
+            try {
+                const response = await customisedUsersAxios.post("/users", payload, {
+                    headers: {
+                        'x-api-token': context.state.user.token
+                    }
                 })
-                .catch( (e) => {
-                    context.commit("signup_error")
-                })
+                context.commit("createUser", response.data)
+            } catch (error) {
+                context.commit("signup_error")
+            }
         },
         deleteUser(context, payload) {
             customisedUsersAxios.delete("/users/" + payload.id, {

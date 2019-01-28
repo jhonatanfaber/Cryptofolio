@@ -116,17 +116,19 @@ export default {
     }
   },
   methods: {
-    signup() {
+    async signup() {
       const user = {
         name: this.name,
         username: this.username,
         email: this.email,
         password: this.password
       };
-      this.$store.dispatch("createUser", user);
+      await this.$store.dispatch("createUser", user);
+      
       if (this.signup_status == "success") {
         this.$router.push({ path: "/login" });
       }
+      
     }
   }
 };
