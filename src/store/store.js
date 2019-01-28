@@ -3,9 +3,6 @@ import Vuex from "vuex"
 import axios from "axios"
 import customisedUsersAxios from "./../customisedAxios/usersAxios.js"
 import router from "./../router"
-import dotenv from 'dotenv'
-dotenv.config()
-
 
 Vue.use(Vuex)
 

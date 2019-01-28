@@ -23,7 +23,7 @@
               <div class="error" v-if="$v.name.$error">Field is required</div>
             </div>
             <div class="form-group">
-              <label for="inputUsername" :class="{labelInput : $v.username.$error}">Username</label>
+              <label for="inputUsername" :class="{labelInput : $v.username.$error, 'signup-error-label': (signup_status == 'error')}">Username</label>
               <input
                 type="text"
                 v-model="username"
@@ -31,12 +31,12 @@
                 class="form-control col-sm-6"
                 id="inputUsername"
                 placeholder="Enter username *"
-                :class="{invalidUsername : $v.username.$error}"
+                :class="{invalidUsername : $v.username.$error, 'signup-error': (signup_status == 'error')}"
               >
               <div class="error" v-if="$v.username.$error">Field is required</div>
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail" :class="{labelInput : $v.email.$error}">Email</label>
+              <label for="exampleInputEmail" :class="{labelInput : $v.email.$error, 'signup-error-label': (signup_status == 'error')}">Email</label>
               <input
                 type="text"
                 v-model="email"
@@ -44,7 +44,7 @@
                 id="exampleInputEmail"
                 class="form-control col-sm-6"
                 placeholder="Email *"
-                :class="{invalidEmail : $v.email.$error}"
+                :class="{invalidEmail : $v.email.$error , 'signup-error': (signup_status == 'error')}"
               >
               <div
                 class="error"
@@ -89,6 +89,10 @@
               <input type="checkbox" v-model="isAdmin">
             </div>
           </div>
+          <div
+            class="already-exists"
+            v-if="signup_status == 'error'"
+          >Username or email already exist</div>
 
           <div class="footer">
             <button
@@ -104,6 +108,7 @@
 </template>
 <script>
 import { required, sameAs, email } from "vuelidate/lib/validators";
+import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -115,6 +120,9 @@ export default {
       repeatedPassword: "",
       isAdmin: false
     };
+  },
+  computed: {
+    ...mapGetters(["signup_status"])
   },
   validations: {
     name: {
@@ -136,7 +144,7 @@ export default {
     }
   },
   methods: {
-    createNewUser() {
+    async createNewUser() {
       const newUser = {
         name: this.name,
         username: this.username,
@@ -144,8 +152,10 @@ export default {
         password: this.password,
         admin: this.isAdmin
       };
-      this.$store.dispatch("createUser", newUser);
-      this.closeModel();
+      await this.$store.dispatch("createUser", newUser);
+      if (this.signup_status == "success") {
+        this.closeModel();
+      }
     },
     closeModel() {
       this.$emit("close");
@@ -232,7 +242,15 @@ h3 {
   margin-left: 10px;
 }
 
-.labelInput {
+.already-exists {
+  color: #f57f6c;
+  font-size: 1rem;
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.labelInput,
+.signup-error-label {
   color: #f57f6c;
 }
 
@@ -253,6 +271,8 @@ input:focus {
   border-color: #cccccc;
 }
 
+.signup-error,
+.signup-error:focus
 .invalidName:focus,
 .invalidPassword:focus,
 .invalidRepeatedPassword:focus,
