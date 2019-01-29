@@ -25,6 +25,14 @@ export default {
   grid-template-columns: repeat(4, 1fr);
 }
 
+@media (max-width: 768px) {
+  .coins-container {
+    width: 70%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 600px) {
   .coins-container {
     display: flex;

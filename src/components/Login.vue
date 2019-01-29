@@ -1,23 +1,19 @@
 <template>
   <div class="login-container">
     <template>
-      <img src="https://source.unsplash.com/6dW3xyQvcYE">
+      <!-- <img src="https://source.unsplash.com/6dW3xyQvcYE"> -->
     </template>
 
     <div class="container">
-      <div class="card card-container">
-        <img
-          id="profile-img"
-          class="profile-img-card"
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-        >
+      <div class="login-container">
+        <img id="profile-img" class="profile-img-card" src="https://i.imgur.com/6b6psnA.png">
         <form class="form-signin">
           <div class="input-username">
             <input
               type="text"
               v-model="username"
               id="exampleInputEmail1"
-              class="form-control"
+              class="form-control form-group col-sm-3"
               placeholder="Username"
               :class="{'auth-error': (auth_status == 'error')}"
             >
@@ -27,16 +23,18 @@
               type="password"
               v-model="password"
               id="exampleInputPassword"
-              class="form-control"
+              class="form-control form-group col-sm-3"
               placeholder="Password"
               :class="{'auth-error': (auth_status == 'error')}"
             >
           </div>
           <div class="error" v-if="auth_status == 'error'">Invalid credentials</div>
-          <button @click.prevent="login" class="btn btn-lg btn-primary btn-block btn-signin">Log in</button>
+          <button @click.prevent="login" class="btn btn-lg btn-primary btn-signin col-sm-3">Log in</button>
         </form>
-        <span @click="signup" class="dontHaveAccount">Don't have an account?</span>
-        <span class="forgotPassword">Forgot Password?</span>
+        <div class="footer-form">
+          <span @click="signup" class="dontHaveAccount">Don't have an account?</span>
+          <span class="forgotPassword">Forgot Password?</span>
+        </div>
       </div>
     </div>
   </div>
@@ -71,7 +69,6 @@ export default {
 </script>
 
 <style scoped>
-
 img {
   width: 100%;
   height: 700px;
@@ -82,22 +79,32 @@ img {
 
 .container {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-*/ body,
-html {
-  height: 100%;
-  background-repeat: no-repeat;
-  background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
+@media (max-width: 1300px) {
+  .container {
+    top: 45%;
+  }
 }
 
-.card-container.card {
-  max-width: 350px;
-  height: 430px;
-  padding: 40px 40px;
+@media (max-width: 600) {
+  .container {
+    top: 40%;
+  }
+}
+
+.input-username,
+.input-password {
+  display: flex;
+  justify-content: center;
+}
+
+.footer-form {
+  display: flex;
+  flex-direction: column;
 }
 
 .btn {
@@ -105,14 +112,6 @@ html {
   height: 36px;
   user-select: none;
   cursor: default;
-}
-
-.card {
-  background-color: #f7f7f7;
-  padding: 20px 25px 30px;
-  margin: 0 auto 25px;
-  margin-top: 50px;
-  border-radius: 2px;
 }
 
 .profile-img-card {
@@ -141,10 +140,6 @@ input:focus {
   box-shadow: inset 0px 0px 1px rgba(126, 124, 124, 0.87), 0 0 8px #7c7b7b;
 }
 
-.input-password {
-  margin-top: 10px;
-}
-
 input:hover,
 input:active,
 input:focus {
@@ -154,8 +149,7 @@ input:focus {
 }
 
 .auth-error,
-.auth-error:focus
-{
+.auth-error:focus {
   border: 1px solid #f79483;
   box-shadow: inset 0px 0px 0px rgba(218, 30, 30, 0.87), 0 0 8px #f57f6c;
 }
@@ -171,26 +165,16 @@ input:focus {
 .form-signin #exampleInputEmail1,
 .form-signin #exampleInputPassword {
   direction: ltr;
-  height: 44px;
-  font-size: 16px;
-}
-
-.form-signin input[type="email"],
-.form-signin input[type="password"],
-.form-signin input[type="text"],
-.form-signin button {
-  width: 100%;
-  display: block;
+  height: 38px;
+  font-size: 13px;
 }
 
 .btn.btn-signin {
   background-color: #343a40;
   font-weight: 700;
   font-size: 14px;
-  height: 36px;
   border-radius: 4px;
   border: none;
-  margin-top: 30px;
 }
 
 .btn.btn-signin:hover,
