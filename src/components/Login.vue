@@ -79,20 +79,24 @@ img {
 
 .container {
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1350px) {
   .container {
-    top: 45%;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
 
-@media (max-width: 600) {
+/* Smartphones */
+@media only screen and (min-width: 320px) and (max-width: 480px) {
   .container {
-    top: 40%;
+    top: 55%;
   }
 }
 
@@ -170,7 +174,7 @@ input:focus {
 }
 
 .btn.btn-signin {
-  background-color: #343a40;
+  background-color: #131212;
   font-weight: 700;
   font-size: 14px;
   border-radius: 4px;
@@ -180,7 +184,7 @@ input:focus {
 .btn.btn-signin:hover,
 .btn.btn-signin:active,
 .btn.btn-signin:focus {
-  background-color: rgb(0, 0, 0);
+  background-color: #272727;
 }
 
 .dontHaveAccount {

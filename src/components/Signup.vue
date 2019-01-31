@@ -219,7 +219,7 @@ html {
 }
 
 .btn.btn-signin {
-  background-color: #343a40;
+  background-color: #131212;
   font-weight: 700;
   font-size: 14px;
   height: 36px;
@@ -231,7 +231,7 @@ html {
 .btn.btn-signin:hover,
 .btn.btn-signin:active,
 .btn.btn-signin:focus {
-  background-color: rgb(0, 0, 0);
+  background-color: #272727;
 }
 
 .forgot-password {

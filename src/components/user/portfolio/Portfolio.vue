@@ -107,5 +107,13 @@ h5 {
 .beginnerMessage {
   margin-top: 40px;
 }
+
+.btn-dark {
+  background-color: #131212;
+}
+
+.btn-dark:hover {
+  background-color: #272727;
+}
 </style>
 

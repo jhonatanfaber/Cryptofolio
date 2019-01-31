@@ -90,6 +90,13 @@ export default {
 
 }
 
+/* .navbar{
+  z-index: 1;
+  position: fixed ;
+  overflow: hidden;
+  width: 100%;
+} */
+
 .navbar-dark .navbar-nav .nav-link,
 .brand {
   color: white;

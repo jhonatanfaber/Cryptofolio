@@ -324,5 +324,10 @@ button:disabled {
 
 .btn-dark {
   margin-top: 30px;
+  background-color: #131212;
+}
+
+.btn-dark:hover {
+  background-color: #272727;
 }
 </style>

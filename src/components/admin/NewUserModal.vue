@@ -23,7 +23,10 @@
               <div class="error" v-if="$v.name.$error">Field is required</div>
             </div>
             <div class="form-group">
-              <label for="inputUsername" :class="{labelInput : $v.username.$error, 'signup-error-label': (signup_status == 'error')}">Username</label>
+              <label
+                for="inputUsername"
+                :class="{labelInput : $v.username.$error, 'signup-error-label': (signup_status == 'error')}"
+              >Username</label>
               <input
                 type="text"
                 v-model="username"
@@ -36,7 +39,10 @@
               <div class="error" v-if="$v.username.$error">Field is required</div>
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail" :class="{labelInput : $v.email.$error, 'signup-error-label': (signup_status == 'error')}">Email</label>
+              <label
+                for="exampleInputEmail"
+                :class="{labelInput : $v.email.$error, 'signup-error-label': (signup_status == 'error')}"
+              >Email</label>
               <input
                 type="text"
                 v-model="email"
@@ -272,8 +278,7 @@ input:focus {
 }
 
 .signup-error,
-.signup-error:focus
-.invalidName:focus,
+.signup-error:focus .invalidName:focus,
 .invalidPassword:focus,
 .invalidRepeatedPassword:focus,
 .invalidUsername:focus,
@@ -301,5 +306,13 @@ button:disabled {
 
 .modal-leave-active {
   opacity: 0;
+}
+
+.btn-dark {
+  background-color: #131212;
+}
+
+.btn-dark:hover {
+  background-color: #272727;
 }
 </style>

@@ -97,9 +97,9 @@ export default {
       password: {
         required
       },
-      repeatedPassword : {
+      repeatedPassword: {
         required,
-        sameAsPassword : sameAs("password")
+        sameAsPassword: sameAs("password")
       }
     }
   },
@@ -251,5 +251,13 @@ button:disabled {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+
+.btn-dark {
+  background-color: #131212;
+}
+
+.btn-dark:hover {
+  background-color: #272727;
 }
 </style>
