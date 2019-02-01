@@ -56,7 +56,7 @@ export default {
 }
 
 #nameAlign {
-  display: flex;
+  text-align: left;
 }
 
 .market-container {
@@ -66,7 +66,7 @@ export default {
 
 .table {
   margin-top: 5%;
-  width: auto;
+  width: 90%;
 }
 
 .table th {
@@ -79,7 +79,6 @@ export default {
 }
 
 .table-padding {
-  padding-right: 200px;
   line-height: 3;
 }
 
