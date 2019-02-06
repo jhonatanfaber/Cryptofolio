@@ -1,7 +1,11 @@
 <template>
   <div class="home-container">
     <template v-if="!isAdmin && isEmpty">
-      <img src="https://source.unsplash.com/6dW3xyQvcYE/1300x1000" class="responsive">
+      <!-- LfU6_b3Oj4E -->
+      <!-- SxNGG1MJ_IQ -->
+      <!-- qNEv1SVkOnk -->
+      <!-- jLwVAUtLOAQ -->
+      <img src="https://source.unsplash.com/LfU6_b3Oj4E/" class="responsive">
       <div class="hero-text">
         <h1>Start Now!</h1>
         <h2>Manage and track your cryptocurrency portfolio</h2>
@@ -47,15 +51,23 @@ export default {
 };
 </script>
 
-
-
-
 <style scoped>
-img {
+.home-container {
+  height: 100vh;
+  width: 100vw;
+}
+
+img.responsive {
+  width: 100%;
+  height: 100%;
+  /* opacity: 0.9; */
+}
+
+/* img {
   width: 100%;
   height: auto;
   opacity: 0.6;
-}
+} */
 
 .content-wrapper {
   display: flex;
@@ -100,6 +112,10 @@ h2 {
     font-size: 18px;
     font-weight: 500;
   }
+
+  /* img.responsive {
+    transform: scale(4);
+  } */
 }
 
 .home-container-wrapper {
