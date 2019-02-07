@@ -1,14 +1,10 @@
 <template>
   <div class="signup-container">
-    <template>
-      <!-- <img src="https://source.unsplash.com/6dW3xyQvcYE"> -->
-    </template>
-
     <div class="container">
       <div class="login-container">
         <h4>Create New Account</h4>
         <form class="form-signin">
-          <!-- <div class="input-form"> -->
+          <div class="input-form">
             <input
               type="text"
               v-model="name"
@@ -18,9 +14,9 @@
               placeholder="Name"
               :class="{invalidName : $v.name.$error}"
             >
-            <div class="error" v-if="$v.name.$error">Field is required</div>
-          <!-- </div>
-          <div class="input-form"> -->
+            <span class="error" v-if="$v.name.$error">Field is required</span>
+          </div>
+          <div class="input-form">
             <input
               type="text"
               v-model="username"
@@ -31,8 +27,8 @@
               :class="{invalidUsername : $v.username.$error, 'signup-error': (signup_status == 'error')}"
             >
             <div class="error" v-if="$v.username.$error">Field is required</div>
-          <!-- </div>
-          <div class="input-form"> -->
+          </div>
+          <div class="input-form">
             <input
               type="text"
               v-model="email"
@@ -46,8 +42,8 @@
               class="error"
               v-if="$v.email.$error"
             >Field is required and must be a valid email address</div>
-          <!-- </div>
-          <div class="input-form"> -->
+          </div>
+          <div class="input-form">
             <input
               type="password"
               v-model="password"
@@ -58,8 +54,8 @@
               :class="{invalidPassword : $v.password.$error}"
             >
             <div class="error" v-if="$v.password.$error">Field is required</div>
-          <!-- </div>
-          <div class="input-form"> -->
+          </div>
+          <div class="input-form">
             <input
               type="password"
               v-model="repeatedPassword"
@@ -77,7 +73,7 @@
               class="already-exists"
               v-if="signup_status == 'error'"
             >Username or email already exist</div>
-          <!-- </div> -->
+          </div>
           <button
             @click.prevent="signup"
             :disabled="!$v.name.required || !$v.password.required || !$v.username.required ||  !$v.repeatedPassword.sameAsPassword || $v.email.$invalid"
@@ -146,28 +142,43 @@ export default {
 <style scoped>
 .container {
   position: absolute;
-  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-@media (max-width: 1350px) {
-  .container {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-}
+/* .signup-container {
+  display: flex;
+  flex-wrap: wrap;
+} */
 
-/* Smartphones */
-@media only screen and (min-width: 320px) and (max-width: 480px) {
+/* Mobile Styles */
+@media (max-width: 400px) {
   .container {
     top: 55%;
   }
 }
 
+/* Tablet Styles */
+@media only screen and (min-width: 401px) and (max-width: 960px) {
+  .container {
+    top: 45%;
+  }
+}
+
+/* Desktop Styles */
+@media only screen and (min-width: 961px) {
+  .container {
+    top: 40%;
+  }
+
+  /* .signup-container {
+    width: 960px;
+    margin: 0 auto;
+  } */
+}
+
 .input-form {
+  width: 100%;
   display: flex;
   justify-content: center;
 }
@@ -197,9 +208,9 @@ input:focus {
 }
 
 form.form-signin {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 input:hover,
