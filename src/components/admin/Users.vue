@@ -1,9 +1,6 @@
 <template >
   <div class="users-container">
-
-    <p v-if="loading" id="loadingMessage">
-        Loading...
-    </p>
+    <p v-if="loading" id="loadingMessage">Loading...</p>
 
     <table v-if="!loading" class="table">
       <thead class="thead-light">
@@ -20,7 +17,7 @@
       </thead>
       <tbody>
         <tr v-for="(user,index) in users" :key="user.id">
-          <th scope="row">{{index+1}}</th>
+          <th scope="row">{{ index +1 }}</th>
           <td>{{user.id}}</td>
           <td>{{user.name}}</td>
           <td>{{user.username}}</td>
@@ -34,7 +31,6 @@
           </td>
         </tr>
       </tbody>
-
       <NewUserModal v-if="showNewUserModal" @close="showNewUserModal = false"/>
 
       <EditUserModal
@@ -100,17 +96,7 @@ export default {
 
 <style scoped>
 
-#loadingMessage{
-    margin-top: 40px;
-}
-
-.users-container {
-  display: flex;
-  justify-content: center;
-}
-
-.table {
-  width: 70%;
+#loadingMessage {
   margin-top: 40px;
 }
 
@@ -123,11 +109,91 @@ export default {
 }
 
 .btn {
+  margin-top: 10px;
   background-color: #131212;
   color: white;
 }
 
-.btn:hover{
+.btn:hover {
   background-color: #272727;
+}
+
+@media only screen and (max-width: 1030px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  /* Hide table headers (but not display: none;, for accessibility) */
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  tr {
+    border: 1px solid #ccc;
+  }
+
+  td {
+    /* Behave  like a "row" */
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+  }
+
+  td:before {
+    /* Now like a table header */
+    position: absolute;
+    /* Top/left values mimic padding */
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+
+  /*
+	Label the data
+	*/
+  td:nth-of-type(1):before {
+    content: "ID";
+  }
+  td:nth-of-type(2):before {
+    content: "Name";
+  }
+  td:nth-of-type(3):before {
+    content: "Username";
+  }
+  td:nth-of-type(4):before {
+    content: "Email";
+  }
+  td:nth-of-type(5):before {
+    content: "Admin";
+  }
+  td:nth-of-type(6):before {
+    content: "Edit user";
+  }
+  td:nth-of-type(7):before {
+    content: "Delete user";
+  }
+}
+
+@media only screen and (min-width: 961px) {
+  .users-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .table {
+    width: 75%;
+    margin-top: 40px;
+  }
 }
 </style>

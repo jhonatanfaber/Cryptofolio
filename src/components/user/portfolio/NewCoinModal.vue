@@ -206,7 +206,7 @@ export default {
 }
 
 .modal-container {
-  width: 55%;
+  width: 50%;
   margin: 0px auto;
   padding: 50px;
   padding-left: 5%;
@@ -215,6 +215,22 @@ export default {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
+}
+
+@media (max-width: 400px) {
+  .modal-container {
+    width: 90%;
+  }
+
+  .amountWrapper{
+    flex-direction: column;
+  }
+}
+
+@media only screen and (min-width: 401px) and (max-width: 960px) {
+  .modal-container {
+    width: 70%;
+  }
 }
 
 .header h3 {

@@ -77,6 +77,12 @@ export default {
   font-family: Helvetica, Arial, sans-serif;
 }
 
+@media (max-width: 400px) {
+  .modal-container {
+    width: 90%;
+  }
+}
+
 .modal-enter {
   opacity: 0;
 }

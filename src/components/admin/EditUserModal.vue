@@ -151,6 +151,12 @@ export default {
   font-family: Helvetica, Arial, sans-serif;
 }
 
+@media (max-width: 400px) {
+  .modal-container {
+    width: 85%;
+  }
+}
+
 .header h3 {
   margin-bottom: 7%;
   color: #070707;
