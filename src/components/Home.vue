@@ -25,6 +25,24 @@
         </div>
       </div>
     </div>
+    <div class="information" v-if="!isAdmin && isEmpty">
+      <h2 id="images-title">Bitcoin &amp; Altcoin tracker.</h2>
+      <div class="information-wrapper col-md-6" style="margin:auto;">
+        <h4>Our goal is to make your cryptocurrencies tracking easier.</h4>
+        <img class="pc-responsive" src="../assets/portfolio.png" alt>
+      </div>
+      <div class="information-wrapper col-md-6" style="margin:auto;">
+        <img class="market-responsive" src="../assets/market.png" alt>
+        <h4>Check the current prices of your coins. Mobile friendly design!</h4>
+      </div>
+    </div>
+    <!-- <div class="steps" v-if="!isAdmin && isEmpty">
+      <a href="https://gyazo.com/539fe7b79f14a4a46bf8747aecd24437">
+        <video alt="Video from Gyazo" width="700" height="800" autoplay muted loop playsinline>
+          <source src="https://i.gyazo.com/539fe7b79f14a4a46bf8747aecd24437.mp4" type="video/mp4">
+        </video>
+      </a>
+    </div> -->
   </div>
 </template>
 
@@ -51,9 +69,28 @@ export default {
 </script>
 
 <style scoped>
+#images-title {
+  margin-bottom: 70px;
+}
+
+.information-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.information {
+  width: 100%;
+  height: 500px;
+  margin-top: 100px;
+}
+
 .home-container {
-  height: 90vh;
+  height: 95vh;
   width: 100vw;
+}
+
+.steps {
+  height: 600px;
 }
 
 img.responsive {
@@ -63,11 +100,16 @@ img.responsive {
   filter: grayscale(100%);
 }
 
-/* img {
-  width: 100%;
-  height: auto;
-  opacity: 0.6;
-} */
+.pc-responsive {
+  width: 52%;
+  height: 64%;
+  margin-left: 40px;
+}
+
+.market-responsive {
+  width: 40%;
+  height: 84%;
+}
 
 .content-wrapper {
   display: flex;
@@ -93,6 +135,10 @@ h2 {
   font-weight: 500;
 }
 
+h4 {
+  font-weight: 300;
+}
+
 @media only screen and (min-width: 320px) and (max-width: 480px) {
   .hero-text {
     text-align: center;
@@ -103,6 +149,25 @@ h2 {
     color: rgb(0, 0, 0);
   }
 
+  .information-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pc-responsive {
+    width: 70%;
+    height: 50%;
+    margin-left: 0;
+    margin-bottom: 80px;
+    margin-top: 30px;
+  }
+
+  .market-responsive {
+    width: 60%;
+    height: 84%;
+    order: 2;
+  }
+
   h1 {
     font-size: 30px;
     font-weight: 600;
@@ -111,6 +176,10 @@ h2 {
   h2 {
     font-size: 18px;
     font-weight: 500;
+  }
+
+  h4 {
+    font-size: 16px;
   }
 }
 

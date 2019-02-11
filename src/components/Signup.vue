@@ -22,7 +22,7 @@
               <div class="error" v-if="$v.name.$error">Field is required</div>
             </div>
             <div class="form-group">
-              <label class="col-md-3 control-label">Password:</label>
+              <label class="col-md-3 control-label">Username:</label>
               <div class="col-md-8">
                 <input
                   type="text"
@@ -255,7 +255,7 @@ input:focus {
   color: #f57f6c;
   font-size: 0.75rem;
   line-height: 2;
-  margin-left: 10px;
+  margin-left: 20px;
   display: flex;
   justify-content: center;
 }
