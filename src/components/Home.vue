@@ -42,7 +42,7 @@
           <source src="https://i.gyazo.com/539fe7b79f14a4a46bf8747aecd24437.mp4" type="video/mp4">
         </video>
       </a>
-    </div> -->
+    </div>-->
   </div>
 </template>
 
@@ -101,7 +101,7 @@ img.responsive {
 }
 
 .pc-responsive {
-  width: 52%;
+  width: 58%;
   height: 64%;
   margin-left: 40px;
 }
@@ -122,7 +122,7 @@ img.responsive {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
 }
 
 h1 {
@@ -141,12 +141,8 @@ h4 {
 
 @media only screen and (min-width: 320px) and (max-width: 480px) {
   .hero-text {
-    text-align: center;
-    position: absolute;
-    top: 40%;
+    top: 45%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    color: rgb(0, 0, 0);
   }
 
   .information-wrapper {

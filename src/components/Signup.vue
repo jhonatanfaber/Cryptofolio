@@ -163,12 +163,12 @@ export default {
 
 <style scoped>
 .container {
-  margin-top: 50px;
+  margin-top: 140px;
 }
 
 @media only screen and (min-width: 320px) and (max-width: 480px) {
   .container {
-    margin-top: 20px;
+    margin-top: 110px;
   }
 
   h2{
