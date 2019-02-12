@@ -33,6 +33,10 @@ html{
     font-size: 13px;
 }
 
+#nav{
+  margin-bottom: 80px;
+}
+
 body{
     margin: 0;
     padding: 0;

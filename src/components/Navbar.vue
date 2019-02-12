@@ -87,15 +87,13 @@ export default {
     justify-content: flex-end;
     margin-right: 20px;
   }
-
 }
 
-/* .navbar{
-  z-index: 1;
-  position: fixed ;
-  overflow: hidden;
+.navbar {
+  position: fixed;
   width: 100%;
-} */
+  z-index: 1;
+}
 
 .navbar-dark .navbar-nav .nav-link,
 .brand {
@@ -115,7 +113,7 @@ export default {
   font-size: 16px;
 }
 
-.navbar-brand{
+.navbar-brand {
   font-size: 22px;
   text-decoration: none;
   font-weight: bold;

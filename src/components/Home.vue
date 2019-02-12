@@ -4,7 +4,7 @@
       <!-- LfU6_b3Oj4E -->
       <!-- SxNGG1MJ_IQ -->
       <!-- qNEv1SVkOnk -->
-      <img src="https://source.unsplash.com/xah3Ny20Vbw/" class="responsive">
+      <img src="https://source.unsplash.com/qNEv1SVkOnk/" class="responsive">
       <div class="hero-text">
         <h1>Start Now!</h1>
         <h2>Manage and track your cryptocurrency portfolio</h2>
@@ -96,7 +96,7 @@ export default {
 img.responsive {
   width: 100%;
   height: 100%;
-  opacity: 0.4;
+  opacity: 0.8;
   filter: grayscale(100%);
 }
 
@@ -107,8 +107,8 @@ img.responsive {
 }
 
 .market-responsive {
-  width: 40%;
-  height: 84%;
+  width: 48%;
+  height: 88%;
 }
 
 .content-wrapper {
