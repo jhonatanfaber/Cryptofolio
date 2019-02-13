@@ -169,6 +169,14 @@ export const store = new Vuex.Store({
                     context.commit("auth_error")
                 })
         },
+        async signup(context, payload) {
+            try {
+                const response = await customisedUsersAxios.post("/signup", payload)
+                context.commit("createUser", response.data)
+            } catch (error) {
+                context.commit("signup_error")
+            }
+        },
         async getUsers(context) {
             const response = await customisedUsersAxios.get("/users", {
                 headers: {

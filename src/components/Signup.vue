@@ -151,7 +151,7 @@ export default {
         email: this.email,
         password: this.password
       };
-      await this.$store.dispatch("createUser", user);
+      await this.$store.dispatch("signup", user);
 
       if (this.signup_status == "success") {
         this.$router.push({ path: "/login" });

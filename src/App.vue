@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
-        <Navbar/>
+      <Navbar/>
     </div>
     <router-view/>
   </div>
@@ -17,36 +17,34 @@ export default {
     Navbar
   },
   created() {
-    this.$store.dispatch("tryAutoLogin")
+    this.$store.dispatch("tryAutoLogin");
   }
 };
 </script>
 
 
 <style>
-
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
 
-html{
-    font-size: 13px;
+html {
+  font-size: 13px;
 }
 
-#nav{
+#nav {
   margin-bottom: 80px;
 }
 
-body{
-    margin: 0;
-    padding: 0;
-    font-family: Lato,sans-serif;
-    font-size: 1rem;
-    display: grid;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Lato, sans-serif;
+  font-size: 1rem;
+  display: grid;
 }
 
-
- #app {
+#app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

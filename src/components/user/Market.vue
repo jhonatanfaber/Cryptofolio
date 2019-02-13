@@ -4,6 +4,7 @@
         <p v-if="loading" id="loadingMessage"> Loading... </p>
 
       <template v-if="!loading">
+        <!-- <h2 id="title">Top 100 Cryptocurrencies by Market Capitalization</h2> -->
         <table class="table">
             <thead>
             <tr>
@@ -55,6 +56,10 @@ export default {
   margin-top: 70px;
 }
 
+h2#title{
+  padding-top: 50px;
+}
+
 #nameAlign {
   text-align: left;
 }
@@ -62,6 +67,7 @@ export default {
 .market-container {
   display: flex;
   justify-content: center;
+  flex-flow: wrap;
 }
 
 .table {

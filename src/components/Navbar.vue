@@ -98,6 +98,7 @@ export default {
 .navbar-dark .navbar-nav .nav-link,
 .brand {
   color: white;
+  margin-left: 25px;
 }
 
 .navbar-dark .navbar-nav .nav-link:hover {

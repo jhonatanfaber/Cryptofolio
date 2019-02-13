@@ -36,13 +36,12 @@
         <h4>Check the current prices of your coins. Mobile friendly design!</h4>
       </div>
     </div>
-    <!-- <div class="steps" v-if="!isAdmin && isEmpty">
-      <a href="https://gyazo.com/539fe7b79f14a4a46bf8747aecd24437">
-        <video alt="Video from Gyazo" width="700" height="800" autoplay muted loop playsinline>
-          <source src="https://i.gyazo.com/539fe7b79f14a4a46bf8747aecd24437.mp4" type="video/mp4">
-        </video>
-      </a>
-    </div>-->
+    <div class="steps" v-if="!isAdmin && isEmpty">
+      <h2 id="demo-font">Live Demo</h2>
+      <video alt="Video from Gyazo" width="700" height="600" autoplay muted loop playsinline>
+        <source src="../assets/demo.mp4" type="video/mp4">
+      </video>
+    </div>
   </div>
 </template>
 
@@ -90,7 +89,14 @@ export default {
 }
 
 .steps {
-  height: 600px;
+  height: 750px;
+  margin-top: 400px;
+  background-color: rgba(0, 0, 0, 1)
+}
+
+#demo-font{
+  color: white;
+  padding-top: 80px;
 }
 
 img.responsive {
