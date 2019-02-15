@@ -299,6 +299,13 @@ export const store = new Vuex.Store({
             context.commit("addCardToPortfolio", response.data)
             context.commit("updateTotalInvestementPrice", response.data)
 
+        },
+        async forgotPassword(context, payload) {
+            const response = await axios.post("http://localhost:3000/password/forgot_password", { email: payload })
+        },
+        async resetPassword(context, payload) {
+            const response = await axios.put("http://localhost:3000/password/reset_password", payload )
+
         }
     }
 })

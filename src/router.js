@@ -4,6 +4,8 @@ import { store } from "./store/store"
 import Home from "./components/Home.vue"
 import Test from "./components/Test.vue"
 import Login from "./components/Login.vue"
+import ForgotPassword from "./components/ForgotPassword.vue"
+import ResetPassword from "./components/ResetPassword.vue"
 import Signup from "./components/Signup.vue"
 import Users from "./components/admin/Users.vue"
 import Portfolio from "./components/user/portfolio/Portfolio.vue"
@@ -24,6 +26,12 @@ export default new Router({
         },
         {
             path: '/login', name: "login", component: Login
+        },
+        {
+            path: '/forgot_password', name: "forgot_password", component: ForgotPassword
+        },
+        {
+            path: '/reset_password', name: "reset_password", component: ResetPassword
         },
         {
             path: '/signup', name: "signup", component: Signup

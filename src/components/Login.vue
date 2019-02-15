@@ -33,7 +33,7 @@
         </form>
         <div class="footer-form">
           <span @click="signup" class="dontHaveAccount">Don't have an account?</span>
-          <span class="forgotPassword">Forgot Password?</span>
+          <span @click="forgotPassword" class="forgotPassword">Forgot Password?</span>
         </div>
       </div>
     </div>
@@ -63,6 +63,9 @@ export default {
     },
     signup() {
       this.$router.push("/signup");
+    },
+    forgotPassword() {
+      this.$router.push("/forgot_password");
     }
   }
 };

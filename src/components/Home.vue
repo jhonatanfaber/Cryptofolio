@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="information" v-if="!isAdmin && isEmpty">
-      <h2 id="images-title">Bitcoin &amp; Altcoin tracker.</h2>
+      <h2 id="images-title">Bitcoin &amp; Altcoin tracker</h2>
       <div class="information-wrapper col-md-6" style="margin:auto;">
         <h4>Our goal is to make your cryptocurrencies tracking easier.</h4>
         <img class="pc-responsive" src="../assets/portfolio.png" alt>
