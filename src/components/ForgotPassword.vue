@@ -9,6 +9,20 @@
           class="form-control col-md-2"
           placeholder="Enter your email address..."
         >
+        <template class="alert-message">
+          <template v-if="showErrorMessage">
+            <span class="alert-error">
+              <i class="fas fa-times-circle"></i>
+              Invalid email address
+            </span>
+          </template>
+          <template v-if="showSuccessMessage">
+            <span class="alert-success">
+              <i class="fas fa-check-circle"></i>
+              Email sent successfuly
+            </span>
+          </template>
+        </template>
       </div>
       <div class="form-group">
         <button
@@ -21,22 +35,64 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   data() {
     return {
-      email: ""
+      email: "",
+      showErrorMessage: false,
+      showSuccessMessage: false
     };
   },
   methods: {
-    resetPassword() {
-      this.$store.dispatch("forgotPassword", this.email);
+    async resetPassword() {
+      await this.$store.dispatch("forgotPassword", this.email);
+      this.showAlert();
+    },
+    showAlert() {
+      if (this.forgotpassword_status == "success") {
+        this.showSuccessMessage = true;
+      }
+
+      if (this.forgotpassword_status == "error") {
+        this.showErrorMessage = true;
+      }
+
+      setInterval(() => {
+        this.showErrorMessage = false;
+        this.showSuccessMessage = false;
+      }, 3000);
     }
+  },
+  computed: {
+    ...mapGetters(["forgotpassword_status"])
   }
 };
 </script>
 
 
 <style scoped>
+.alert-message {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0;
+}
+
+.alert-success,
+.alert-error {
+  margin-top: 5px;
+}
+
+.alert-success {
+  color: green;
+  background-color: rgb(255, 255, 255);
+}
+
+.alert-error {
+  color: red;
+}
+
 hr {
   width: 85%;
 }

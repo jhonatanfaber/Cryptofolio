@@ -13,6 +13,8 @@ export const store = new Vuex.Store({
         users: [],
         auth_status: "",
         signup_status: "",
+        forgotpassword_status: "",
+        resetpassword_status: "",
         // ********
         cryptoData: [],
         cryptoIDs: [],
@@ -39,6 +41,12 @@ export const store = new Vuex.Store({
         },
         signup_status(state) {
             return state.signup_status
+        },
+        forgotpassword_status(state) {
+            return state.forgotpassword_status
+        },
+        resetpassword_status(state) {
+            return state.resetpassword_status
         },
         // ********
         cryptoData(state) {
@@ -70,6 +78,12 @@ export const store = new Vuex.Store({
         },
         signup_error(state) {
             state.signup_status = "error"
+        },
+        forgotpasswordChangeStatus(state, status) {
+            state.forgotpassword_status = status
+        },
+        resetpasswordChangeStatus(state, status) {
+            state.resetpassword_status = status
         },
         getUsers(state, data) {
             state.users = data
@@ -301,10 +315,20 @@ export const store = new Vuex.Store({
 
         },
         async forgotPassword(context, payload) {
-            const response = await axios.post("http://localhost:3000/password/forgot_password", { email: payload })
+            try {
+                await axios.post("http://localhost:3000/password/forgot_password", { email: payload })
+                context.commit("forgotpasswordChangeStatus", "success")
+            } catch (error) {
+                context.commit("forgotpasswordChangeStatus", "error")
+            }
         },
         async resetPassword(context, payload) {
-            const response = await axios.put("http://localhost:3000/password/reset_password", payload )
+            try {
+                await axios.put("http://localhost:3000/password/reset_password", payload)
+                context.commit("resetpasswordChangeStatus", "success")
+            } catch (error) {
+                context.commit("resetpasswordChangeStatus", "error")
+            }
 
         }
     }

@@ -36,7 +36,7 @@
         <li v-if="user.token" class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
-            href="#"
+            href=""
             id="navbarDropdownMenuLink"
             data-toggle="dropdown"
             aria-haspopup="true"
@@ -47,7 +47,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <router-link v-if="!isAdmin" to="/profile" tag="li" exact>
-              <a class="dropdown-item">
+              <a class="dropdown-item" >
                 <i class="fas fa-cog"></i> Edit Profile
               </a>
             </router-link>
