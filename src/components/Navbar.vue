@@ -1,5 +1,6 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<!-- :style="{padding: padding + 'px'}" -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" > 
     <a class="navbar-brand" href="/">
       <i class="fab fa-audible"></i>
       Cryptofolio
@@ -36,7 +37,7 @@
         <li v-if="user.token" class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
-            href=""
+            href
             id="navbarDropdownMenuLink"
             data-toggle="dropdown"
             aria-haspopup="true"
@@ -47,7 +48,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <router-link v-if="!isAdmin" to="/profile" tag="li" exact>
-              <a class="dropdown-item" >
+              <a class="dropdown-item">
                 <i class="fas fa-cog"></i> Edit Profile
               </a>
             </router-link>
@@ -70,12 +71,31 @@
 import { mapActions, mapGetters } from "vuex";
 
 export default {
+  data() {
+    return {
+      // padding: 25
+    };
+  },
   computed: {
     ...mapGetters(["user", "isAdmin"])
   },
   methods: {
     ...mapActions(["logout"])
-  }
+    // handleScroll() {
+    //   if(window.scrollY >= 160){
+    //     this.padding = 15;
+    //   }else{
+    //     this.padding = 25;
+    //   }
+    //   console.log(window.scrollY);
+    // }
+  },
+  // created() {
+  //   window.addEventListener("scroll", this.handleScroll);
+  // },
+  // destroyed() {
+  //   window.removeEventListener("scroll", this.handleScroll);
+  // }
 };
 </script>
 
@@ -107,7 +127,7 @@ export default {
 
 .bg-dark {
   background-color: rgba(0, 0, 0, 1) !important;
-  padding: 20px;
+  padding: 21px;
 }
 
 .nav-link {

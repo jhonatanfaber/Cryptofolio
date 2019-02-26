@@ -17,6 +17,20 @@
           class="form-control col-md-2"
           placeholder="Repeat password"
         >
+      <template class="alert-message">
+        <template v-if="showErrorMessage">
+          <span class="alert-error">
+            <i class="fas fa-times-circle"></i>
+            Password could not be reset
+          </span>
+        </template>
+        <template v-if="showSuccessMessage">
+          <span class="alert-success">
+            <i class="fas fa-check-circle"></i>
+            Reset password successfuly
+          </span>
+        </template>
+      </template>
       </div>
       <div class="form-group">
         <button
@@ -31,24 +45,46 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   data() {
     return {
       password: "",
       repeatedPassword: "",
       urlToken: this.$route.query.token,
-      urlID: this.$route.query.id
+      urlID: this.$route.query.id,
+      showErrorMessage: false,
+      showSuccessMessage: false
     };
   },
   methods: {
-    resetPassword() {
+    async resetPassword() {
       let user = {
         id: this.$route.query.id,
-        password : this.password,
-        token : this.$route.query.token
+        password: this.password,
+        token: this.$route.query.token
+      };
+      await this.$store.dispatch("resetPassword", user);
+      this.showAlert();
+    },
+    showAlert() {
+      if (this.resetpassword_status == "success") {
+        this.showSuccessMessage = true;
       }
-      this.$store.dispatch("resetPassword", user);
+
+      if (this.resetpassword_status == "error") {
+        this.showErrorMessage = true;
+      }
+
+      setInterval(() => {
+        this.showErrorMessage = false;
+        this.showSuccessMessage = false;
+      }, 3000);
     }
+  },
+  computed: {
+    ...mapGetters(["resetpassword_status"])
   }
 };
 </script>
@@ -90,6 +126,20 @@ hr {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.alert-success,
+.alert-error {
+  margin-top: 5px;
+}
+
+.alert-success {
+  color: green;
+  background-color: rgb(255, 255, 255);
+}
+
+.alert-error {
+  color: red;
 }
 
 input:hover,

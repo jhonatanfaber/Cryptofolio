@@ -1,9 +1,6 @@
 <template>
   <div class="home-container">
     <template v-if="!isAdmin && isEmpty">
-      <!-- LfU6_b3Oj4E -->
-      <!-- SxNGG1MJ_IQ -->
-      <!-- qNEv1SVkOnk -->
       <img src="https://source.unsplash.com/qNEv1SVkOnk/" class="responsive">
       <div class="hero-text">
         <h1>Start Now!</h1>
