@@ -6,46 +6,51 @@
         <input
           type="password"
           v-model="password"
+          @input="$v.password.$touch()"
           class="form-control col-md-2"
           placeholder="password"
+          :class="{invalidPassword : $v.password.$error}"
         >
       </div>
       <div class="form-group">
         <input
           type="password"
           v-model="repeatedPassword"
+          @input="$v.repeatedPassword.$touch()"
           class="form-control col-md-2"
           placeholder="Repeat password"
+          :class="{invalidRepeatedPassword : $v.repeatedPassword.$error}"
         >
-      <template class="alert-message">
-        <template v-if="showErrorMessage">
-          <span class="alert-error">
-            <i class="fas fa-times-circle"></i>
-            Password could not be reset
-          </span>
+        <template class="alert-message">
+          <template v-if="showErrorMessage">
+            <span class="alert-error">
+              <i class="fas fa-times-circle"></i>
+              Password could not be reset
+            </span>
+          </template>
+          <template v-if="showSuccessMessage">
+            <span class="alert-success">
+              <i class="fas fa-check-circle"></i>
+              Reset password successfuly
+            </span>
+          </template>
         </template>
-        <template v-if="showSuccessMessage">
-          <span class="alert-success">
-            <i class="fas fa-check-circle"></i>
-            Reset password successfuly
-          </span>
-        </template>
-      </template>
+        <div class="error" v-if="$v.repeatedPassword.$error">Field is required and must be identical</div>
       </div>
       <div class="form-group">
         <button
+          :disabled="!$v.password.required || !$v.repeatedPassword.sameAsPassword"
           class="btn btn-lg btn-dark btn-signin col-md-2"
           @click.prevent="resetPassword"
         >Reset Password</button>
       </div>
-      {{urlToken}}
-      {{urlID}}
     </form>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import { required, sameAs } from "vuelidate/lib/validators";
 
 export default {
   data() {
@@ -57,6 +62,15 @@ export default {
       showErrorMessage: false,
       showSuccessMessage: false
     };
+  },
+  validations: {
+    password: {
+      required
+    },
+    repeatedPassword: {
+      required,
+      sameAsPassword: sameAs("password")
+    }
   },
   methods: {
     async resetPassword() {
@@ -142,12 +156,11 @@ hr {
   color: red;
 }
 
-input:hover,
-input:active,
-input:focus {
-  outline: none;
-  box-shadow: none;
-  border-color: #cccccc;
+.error {
+  color: #f57f6c;
+  font-size: 0.75rem;
+  line-height: 2;
+  display: flex;
 }
 
 .form-control:hover {
@@ -157,6 +170,22 @@ input:focus {
 .form-control:focus {
   border-color: #525151;
   box-shadow: inset 0px 0px 1px rgba(126, 124, 124, 0.87), 0 0 8px #7c7b7b;
+}
+
+.invalidPassword:focus,
+.invalidRepeatedPassword:focus,
+.invalidPassword,
+.invalidRepeatedPassword {
+  border: 1px solid #f79483;
+  box-shadow: inset 0px 0px 0px rgba(218, 30, 30, 0.87), 0 0 8px #f57f6c;
+}
+
+input:hover,
+input:active,
+input:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: #cccccc;
 }
 
 input:hover,
@@ -179,5 +208,9 @@ input:focus {
 .btn.btn-signin:active,
 .btn.btn-signin:focus {
   background-color: #272727;
+}
+
+button:disabled {
+  cursor: not-allowed;
 }
 </style>
