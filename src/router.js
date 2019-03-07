@@ -37,8 +37,10 @@ export default new Router({
             path: '/signup', name: "signup", component: Signup
         },
         {
-            path: "/users", name: "users", component: Users, beforeEnter(to, from, next) {
+            path: "/users", name: "users", meta: { requireAuth: true }, component: Users, beforeEnter(to, from, next) {
+                //beforeEnter: requireAuth,
                 if (store.getters.user.admin === true || localStorage.getItem("admin") == "true") {
+
                     next()
                 } else {
                     next(from.path)
