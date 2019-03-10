@@ -1,6 +1,6 @@
 <template>
-<!-- :style="{padding: padding + 'px'}" -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" > 
+  <!-- :style="{padding: padding + 'px'}" -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/">
       <i class="fab fa-audible"></i>
       Cryptofolio
@@ -89,7 +89,7 @@ export default {
     //   }
     //   console.log(window.scrollY);
     // }
-  },
+  }
   // created() {
   //   window.addEventListener("scroll", this.handleScroll);
   // },
@@ -101,6 +101,17 @@ export default {
 
 
 <style scoped>
+.bg-dark {
+  background-color: rgba(0, 0, 0, 1) !important;
+  padding: 21px;
+}
+
+@media (max-width: 991px) {
+  .bg-dark {
+    padding: 8px;
+  }
+}
+
 @media (min-width: 992px) {
   .navbar-expand-lg .navbar-collapse {
     display: flex;
@@ -123,11 +134,6 @@ export default {
 
 .navbar-dark .navbar-nav .nav-link:hover {
   color: rgb(197, 178, 72);
-}
-
-.bg-dark {
-  background-color: rgba(0, 0, 0, 1) !important;
-  padding: 21px;
 }
 
 .nav-link {

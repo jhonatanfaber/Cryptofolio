@@ -36,6 +36,12 @@ html {
   margin-bottom: 80px;
 }
 
+@media (max-width: 991px) {
+  #nav {
+    margin-bottom: 50px;
+  }
+}
+
 body {
   margin: 0;
   padding: 0;

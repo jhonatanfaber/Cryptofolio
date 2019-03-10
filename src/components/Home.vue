@@ -35,8 +35,8 @@
     </div>
     <div class="steps" v-if="!isAdmin && isEmpty">
       <h2 id="demo-font">Live Demo</h2>
-      <video alt="Video from Gyazo" width="700" height="600" autoplay muted loop playsinline>
-        <source src="../assets/demo.mp4" type="video/mp4">
+      <video alt="Video from Gyazo" autoplay muted loop playsinline>
+        <source src="./../assets/demo.mp4" type="video/mp4">
       </video>
     </div>
   </div>
@@ -65,9 +65,15 @@ export default {
 </script>
 
 <style scoped>
+video {
+  width: 60%;
+  height: 75%;
+}
+
 #images-title {
   margin-bottom: 70px;
 }
+
 
 .information-wrapper {
   display: flex;
@@ -88,10 +94,10 @@ export default {
 .steps {
   height: 750px;
   margin-top: 400px;
-  background-color: rgba(0, 0, 0, 1)
+  background-color: rgba(0, 0, 0, 1);
 }
 
-#demo-font{
+#demo-font {
   color: white;
   padding-top: 80px;
 }
@@ -165,6 +171,11 @@ h4 {
     width: 60%;
     height: 84%;
     order: 2;
+  }
+
+  .steps {
+    height: 450px;
+    margin-top: 250px;
   }
 
   h1 {

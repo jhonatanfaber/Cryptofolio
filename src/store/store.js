@@ -1,7 +1,6 @@
 import Vue from "vue"
 import Vuex from "vuex"
-import axios from "axios"
-import customisedUsersAxios from "./../customisedAxios/usersAxios.js"
+import { BASE_URL } from "../customisedAxios/customisedAxios.js"
 import router from "./../router"
 
 Vue.use(Vuex)
@@ -157,7 +156,7 @@ export const store = new Vuex.Store({
     },
     actions: {
         login(context, payload) {
-            customisedUsersAxios.post("/login", payload)
+            BASE_URL.post("/login", payload)
                 .then(res => {
                     if (res.data.token) {
                         if (res.data.admin) {
@@ -185,14 +184,14 @@ export const store = new Vuex.Store({
         },
         async signup(context, payload) {
             try {
-                const response = await customisedUsersAxios.post("/signup", payload)
+                const response = await BASE_URL.post("/signup", payload)
                 context.commit("createUser", response.data)
             } catch (error) {
                 context.commit("signup_error")
             }
         },
         async getUsers(context) {
-            const response = await customisedUsersAxios.get("/users", {
+            const response = await BASE_URL.get("/users", {
                 headers: {
                     'x-api-token': context.state.user.token
                 }
@@ -201,7 +200,7 @@ export const store = new Vuex.Store({
         },
         async createUser(context, payload) {
             try {
-                const response = await customisedUsersAxios.post("/users", payload, {
+                const response = await BASE_URL.post("/users", payload, {
                     headers: {
                         'x-api-token': context.state.user.token
                     }
@@ -212,7 +211,7 @@ export const store = new Vuex.Store({
             }
         },
         deleteUser(context, payload) {
-            customisedUsersAxios.delete("/users/" + payload.id, {
+            BASE_URL.delete("/users/" + payload.id, {
                 headers: {
                     'x-api-token': context.state.user.token
                 }
@@ -222,7 +221,7 @@ export const store = new Vuex.Store({
                 })
         },
         editUser(context, payload) {
-            customisedUsersAxios.put("/users/" + payload.id, payload, {
+            BASE_URL.put("/users/" + payload.id, payload, {
                 headers: {
                     'x-api-token': context.state.user.token
                 }
@@ -264,7 +263,7 @@ export const store = new Vuex.Store({
             })
         },
         async getCryptoData(context) {
-            const response = await axios.get("http://localhost:3000/coins", {
+            const response = await BASE_URL.get("/coins", {
                 headers: {
                     'x-api-token': context.state.user.token
                 }
@@ -283,7 +282,7 @@ export const store = new Vuex.Store({
         removeCardFromPortfolio(context, card) {
             const userID = context.state.user.id
             const cardID = card.cardID
-            axios.delete("http://localhost:3000/users/" + userID + "/card/" + cardID, {
+            BASE_URL.delete("/users/" + userID + "/card/" + cardID, {
                 headers: {
                     'x-api-token': context.state.user.token
                 }
@@ -296,7 +295,7 @@ export const store = new Vuex.Store({
         },
         async saveCardInDB(context, payload) {
             const userID = context.state.user.id
-            await axios.post("http://localhost:3000/users/" + userID + "/card", payload, {
+            await BASE_URL.post("/users/" + userID + "/card", payload, {
                 headers: {
                     'x-api-token': context.state.user.token
                 }
@@ -305,7 +304,7 @@ export const store = new Vuex.Store({
         // call in portfolio.vue
         async getCardsFromDB(context) {
             const userID = context.state.user.id
-            const response = await axios.get("http://localhost:3000/users/" + userID + "/cards", {
+            const response = await BASE_URL.get("/users/" + userID + "/cards", {
                 headers: {
                     'x-api-token': context.state.user.token
                 }
@@ -316,7 +315,7 @@ export const store = new Vuex.Store({
         },
         async forgotPassword(context, payload) {
             try {
-                await axios.post("http://localhost:3000/password/forgot_password", { email: payload })
+                await BASE_URL.post("/password/forgot_password", { email: payload })
                 context.commit("forgotpasswordChangeStatus", "success")
             } catch (error) {
                 context.commit("forgotpasswordChangeStatus", "error")
@@ -324,7 +323,7 @@ export const store = new Vuex.Store({
         },
         async resetPassword(context, payload) {
             try {
-                await axios.put("http://localhost:3000/password/reset_password", payload)
+                await BASE_URL.put("/password/reset_password", payload)
                 context.commit("resetpasswordChangeStatus", "success")
             } catch (error) {
                 context.commit("resetpasswordChangeStatus", "error")
