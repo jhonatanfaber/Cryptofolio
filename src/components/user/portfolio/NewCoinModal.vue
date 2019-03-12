@@ -41,6 +41,10 @@
                     :class="{invalidAmount : $v.card.amount.$error}"
                   >
                 </div>
+                <div
+                  class="error"
+                  v-if="!$v.card.amount.decimal"
+                >This entry can only contain numbers</div>
               </div>
               <div class="col-auto">
                 <div class="input-group mb-2">
@@ -50,7 +54,7 @@
                     </div>
                   </div>
                   <input
-                    type="text"
+                    type="number"
                     v-model="card.usdBuyPrice"
                     @input="$v.card.usdBuyPrice.$touch()"
                     class="form-control col-sm-7"
@@ -59,6 +63,10 @@
                     :class="{invalidUsdBuyPrice : $v.card.usdBuyPrice.$error}"
                   >
                 </div>
+                <div
+                  class="error"
+                  v-if="!$v.card.usdBuyPrice.decimal"
+                >This entry can only contain numbers</div>
               </div>
             </div>
             <div class="col-auto">
@@ -97,7 +105,7 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { required } from "vuelidate/lib/validators";
+import { required, decimal } from "vuelidate/lib/validators";
 
 export default {
   props: ["showStarterMessage"],
@@ -118,15 +126,17 @@ export default {
   validations: {
     card: {
       amount: {
-        required
+        required,
+        decimal
       },
       usdBuyPrice: {
-        required
+        required,
+        decimal
       },
       coinID: {
         required
       },
-      boughtDate : {
+      boughtDate: {
         required
       }
     }
@@ -222,7 +232,7 @@ export default {
     width: 90%;
   }
 
-  .amountWrapper{
+  .amountWrapper {
     flex-direction: column;
   }
 }
@@ -281,7 +291,7 @@ input:focus {
 .invalidBoughtDate:focus,
 .invalidCoinID:focus,
 .invalidUsdBuyPrice,
-.invalidAmount, 
+.invalidAmount,
 .invalidBoughtDate,
 .invalidCoinID {
   border: 1px solid #f79483;

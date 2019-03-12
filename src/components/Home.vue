@@ -36,7 +36,10 @@
     <div class="steps" v-if="!isAdmin && isEmpty">
       <h2 id="demo-font">Live Demo</h2>
       <video alt="Video from Gyazo" autoplay muted loop playsinline>
-        <source src="https://res.cloudinary.com/dt53ic7sy/video/upload/v1552388562/demo.mp4" type="video/mp4">
+        <source
+          src="https://res.cloudinary.com/dt53ic7sy/video/upload/v1552388562/demo.mp4"
+          type="video/mp4"
+        >
       </video>
     </div>
   </div>
@@ -67,13 +70,12 @@ export default {
 <style scoped>
 video {
   width: 60%;
-  height: 75%;
+  height: 55%;
 }
 
 #images-title {
   margin-bottom: 70px;
 }
-
 
 .information-wrapper {
   display: flex;
@@ -100,6 +102,7 @@ video {
 #demo-font {
   color: white;
   padding-top: 80px;
+  margin-bottom: 50px;
 }
 
 img.responsive {
@@ -152,6 +155,14 @@ h4 {
   .hero-text {
     top: 45%;
     left: 50%;
+  }
+
+  #demo-font {
+  margin-bottom: 20px;
+}
+
+  video {
+    height: 35%;
   }
 
   .information-wrapper {
