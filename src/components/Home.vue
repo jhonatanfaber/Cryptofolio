@@ -36,7 +36,7 @@
     <div class="steps" v-if="!isAdmin && isEmpty">
       <h2 id="demo-font">Live Demo</h2>
       <video alt="Video from Gyazo" autoplay muted loop playsinline>
-        <source src="./../assets/demo.mp4" type="video/mp4">
+        <source src="https://res.cloudinary.com/dt53ic7sy/video/upload/v1552388562/demo.mp4" type="video/mp4">
       </video>
     </div>
   </div>
