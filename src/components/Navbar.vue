@@ -49,7 +49,12 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <router-link v-if="!isAdmin" to="/profile" tag="li" exact>
               <a class="dropdown-item">
-                <i class="fas fa-cog"></i> Edit Profile
+                <i class="fas fa-user-cog"></i> Edit Profile
+              </a>
+            </router-link>
+            <router-link v-if="!isAdmin" to="/settings" tag="li" exact>
+              <a class="dropdown-item">
+                <i class="fas fa-cog"></i> Settings
               </a>
             </router-link>
             <a @click="logout" class="dropdown-item logout">

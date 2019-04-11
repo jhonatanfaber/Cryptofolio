@@ -16,7 +16,7 @@
 
             <input type="file" class="form-control">
           </div>
-        </div> -->
+        </div>-->
         <!-- edit form column -->
         <div class="col-md-9 personal-info">
           <form class="form-horizontal" role="form">
@@ -57,15 +57,19 @@
                   :class="{invalidRepeatedPassword : $v.repeatedPassword.$error || $v.repeatedPassword.$sameAsPassword}"
                 >
               </div>
-              <div class="error" v-if="$v.repeatedPassword.$error">Field is required and must be identical</div>
+              <div
+                class="error"
+                v-if="$v.repeatedPassword.$error"
+              >Field is required and must be identical</div>
             </div>
             <div class="form-group buttons">
               <div class="col-md-8">
-                <button 
-                type="button" 
-                @click="editUser" 
-                :disabled="!$v.name.required || !$v.password.required || !$v.repeatedPassword.required || !$v.repeatedPassword.sameAsPassword "
-                class="btn btn-dark"> Save Changes</button>
+                <button
+                  type="button"
+                  @click="editUser"
+                  :disabled="!$v.name.required || !$v.password.required || !$v.repeatedPassword.required || !$v.repeatedPassword.sameAsPassword "
+                  class="btn btn-dark"
+                >Save Changes</button>
                 <span></span>
                 <input type="reset" class="btn btn-default" value="Cancel">
               </div>
@@ -98,7 +102,7 @@ export default {
     },
     repeatedPassword: {
       required,
-      sameAsPassword: sameAs('password')
+      sameAsPassword: sameAs("password")
     }
   },
   methods: {
@@ -120,7 +124,6 @@ export default {
       setInterval(() => {
         this.showSavedAlert = false;
       }, 2000);
-     
     }
   }
 };
@@ -138,7 +141,7 @@ export default {
   align-items: flex-start;
 }
 
-.form-group.buttons{
+.form-group.buttons {
   margin-top: 20px;
 }
 
@@ -190,5 +193,13 @@ input:focus {
 
 button:disabled {
   cursor: not-allowed;
+}
+
+.btn-dark {
+  background-color: #131212;
+}
+
+.btn-dark:hover {
+  background-color: #272727;
 }
 </style>
