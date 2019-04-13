@@ -1,6 +1,12 @@
 <template>
   <div class="settings-container">
     <h1>Configure your exchange</h1>
+    <div class="alert-wrapper">
+      <div
+        v-show="showInfoAlert"
+        class="alert alert-success"
+      >New data have been added to your portfolio, check it out!</div>
+    </div>
     <div class="form-wrapper">
       <div class="group-selector">
         <label for="exchangeSelector">Select your favourite</label>
@@ -16,14 +22,32 @@
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Enter secret">
         </div>
-        <button type="button" class="btn btn-dark">Save</button>
+        <button type="button" @click="saveExchangeKey" class="btn btn-dark">Save</button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      showInfoAlert: false
+    };
+  },
+  methods: {
+    saveExchangeKey() {
+      //call store action
+      this.setInfoAlert();
+    },
+    setInfoAlert() {
+      this.showInfoAlert = true;
+      setTimeout(() => {
+        this.showInfoAlert = false;
+      }, 3500);
+    }
+  }
+};
 </script>
 
 <style scoped>
@@ -62,8 +86,22 @@ form {
   background-color: #272727;
 }
 
+.alert-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.alert {
+  width: 50%;
+}
+
 h1 {
   margin-bottom: 50px;
+}
+
+hr {
+  width: 55%;
 }
 </style>
 

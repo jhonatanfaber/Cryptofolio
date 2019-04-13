@@ -2,7 +2,6 @@
   <div class="editprofile-container">
     <div class="container">
       <h1>Edit Profile</h1>
-      <hr>
       <div v-if="showSavedAlert" class="alert alert-success alert-dismissable">
         <i class="fas fa-info-circle"></i>
         Changes saved successfully
@@ -123,7 +122,7 @@ export default {
       this.$v.$reset();
       setInterval(() => {
         this.showSavedAlert = false;
-      }, 2000);
+      }, 3500);
     }
   }
 };
