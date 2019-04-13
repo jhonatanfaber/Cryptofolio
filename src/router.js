@@ -76,13 +76,13 @@ export default new Router({
             }
         },
         {
-            path: "/settings", name: "settings", component: Settings//, beforeEnter(to, from, next) {
-                // if (store.getters.user.admin === false || localStorage.getItem("admin") == "false") {
-                //     next()
-                // } else {
-                //     next(from.path)
-                // }
-            //}
+            path: "/settings", name: "settings", component: Settings, beforeEnter(to, from, next) {
+                if (store.getters.user.admin === false || localStorage.getItem("admin") == "false") {
+                    next()
+                } else {
+                    next(from.path)
+                }
+            }
         },
         {
             path: "/*", redirect: "/"
