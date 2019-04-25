@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     saveExchangeKey() {
-      //call store action
+      //TODO: call store action
       this.setInfoAlert();
     },
     setInfoAlert() {
@@ -75,6 +75,24 @@ export default {
 
 form {
   width: 40%;
+}
+
+@media (max-width: 1350px) {
+  .settings-container {
+    margin-top: 30%;
+  }
+
+  .group-selector {
+    width: 100%;
+  }
+
+  form {
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 2.1rem;
+  }
 }
 
 .btn-dark {
