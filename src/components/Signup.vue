@@ -96,7 +96,7 @@
                 <button
                   @click.prevent="signup"
                   :disabled="!$v.name.required || !$v.password.required || !$v.username.required ||  !$v.repeatedPassword.sameAsPassword || $v.email.$invalid"
-                  class="btn btn-lg btn-dark btn-signin col-sm-4"
+                  class="btn btn-lg btn-dark btn-signin col-md-12"
                 >Sign up</button>
               </div>
             </div>

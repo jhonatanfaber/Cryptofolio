@@ -328,6 +328,16 @@ export const store = new Vuex.Store({
             } catch (error) {
                 context.commit("resetpasswordChangeStatus", "error")
             }
+        },
+        saveExchangeInfo(context, payload) {
+            const userID = context.state.user.id
+            console.log(userID);
+            console.log(payload);
+            BASE_URL.patch("/users/" + userID, payload, {
+                headers: {
+                    'x-api-token': context.state.user.token
+                }
+            })
 
         }
     }

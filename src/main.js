@@ -9,7 +9,7 @@ Vue.use(Vuelidate)
 Vue.config.productionTip = false
 export const busPrice = new Vue()
 
-const openRoutes = ["home", "login", "signup","forgot_password", "reset_password","settings"]
+const openRoutes = ["home", "login", "signup","forgot_password", "reset_password"]
 router.beforeEach((to, from, next) => {
   if (openRoutes.includes(to.name)) {
     next()

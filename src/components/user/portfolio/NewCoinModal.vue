@@ -180,16 +180,18 @@ export default {
       this.card.logo = coin.logo;
       this.card.symbol = coin.symbol;
       this.card.cardID = this.card.symbol + Date.now();
+      console.log(this.card);
+      
       this.addCardToPortfolio(this.card);
 
       this.updateTotalInvestementPrice(
         this.card.amount * this.card.usdBuyPrice
       );
 
-      this.setCurrentCardID({
-        cardID: this.card.cardID,
-        coinID: this.card.coinID
-      });
+      // this.setCurrentCardID({
+      //   cardID: this.card.cardID,
+      //   coinID: this.card.coinID
+      // });
       this.saveCardInDB({
         cardID: this.card.cardID,
         coinID: this.card.coinID,
