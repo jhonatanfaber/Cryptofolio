@@ -7,7 +7,10 @@
       >
         <p id="bought-day">
           {{card.boughtDate}}
-          <i @click="removeCard" class="fas fa-times"></i>
+          <span>
+            <i class="fas fa-pencil-alt"></i>
+            <i @click="removeCard" class="fas fa-times"></i>
+          </span>
         </p>
 
         <h5 class="card-title">{{card.name}}</h5>
@@ -150,8 +153,12 @@ export default {
   align-items: flex-start;
 }
 
-.fa-times {
+.fas {
   cursor: pointer;
+}
+
+.fa-pencil-alt{
+  margin-right: 25px;
 }
 
 hr {

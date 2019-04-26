@@ -331,7 +331,6 @@ export const store = new Vuex.Store({
         },
         saveExchangeInfo(context, payload) {
             const userID = context.state.user.id
-            console.log(userID);
             console.log(payload);
             BASE_URL.patch("/users/" + userID, payload, {
                 headers: {

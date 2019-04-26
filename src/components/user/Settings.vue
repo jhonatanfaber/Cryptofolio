@@ -1,6 +1,6 @@
 <template>
   <div class="settings-container">
-    <h1>Configure your exchange</h1>
+    <h1>Connect your exchange</h1>
     <div class="alert-wrapper">
       <div
         v-show="showInfoAlert"
@@ -10,7 +10,7 @@
     <div class="form-wrapper">
       <div class="group-selector">
         <label for="exchangeSelector">Select your favourite</label>
-        <select class="form-control" id="exchangeSelector" v-model="exchange.name">
+        <select class="form-control" id="exchangeSelector" v-model="exchange.ex_name">
           <option>Bittrex</option>
           <option>Binance</option>
         </select>
@@ -35,9 +35,6 @@
         <button type="button" @click="saveExchangeKey" class="btn btn-dark">Save</button>
       </form>
     </div>
-    {{exchange.name}}
-    {{exchange.apikey}}
-    {{exchange.secret}}
   </div>
 </template>
 
@@ -49,7 +46,7 @@ export default {
     return {
       showInfoAlert: false,
       exchange: {
-        name: "",
+        ex_name: "",
         apikey: "",
         secret: ""
       }
@@ -58,7 +55,6 @@ export default {
   methods: {
     ...mapActions(["saveExchangeInfo"]),
     saveExchangeKey() {
-      //TODO: call store action
       this.saveExchangeInfo(this.exchange);
       this.setInfoAlert();
     },
