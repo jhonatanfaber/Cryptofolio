@@ -181,7 +181,7 @@ export default {
       this.card.symbol = coin.symbol;
       this.card.cardID = this.card.symbol + Date.now();
       console.log(this.card);
-      
+
       this.addCardToPortfolio(this.card);
 
       this.updateTotalInvestementPrice(

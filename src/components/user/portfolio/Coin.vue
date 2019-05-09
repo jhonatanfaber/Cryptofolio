@@ -8,7 +8,7 @@
         <p id="bought-day">
           {{card.boughtDate}}
           <span>
-            <i class="fas fa-pencil-alt"></i>
+            <i @click="showEditCoinModal = true" class="fas fa-pencil-alt"></i>
             <i @click="removeCard" class="fas fa-times"></i>
           </span>
         </p>
@@ -61,6 +61,7 @@
           @close="confirmatiomModalIsOpen = false"
           :card="card"
         />
+        <EditCoinModal v-if="showEditCoinModal" @close="showEditCoinModal = false"/>
       </div>
     </div>
   </div>
@@ -69,6 +70,7 @@
 <script>
 import { mapGetters } from "vuex";
 import RemoveModal from "./RemoveModal.vue";
+import EditCoinModal from "./EditCoinModal.vue";
 
 export default {
   props: ["card"],
@@ -80,7 +82,8 @@ export default {
       profitBackgroundColor: "#b6efb673",
       lossesBorder: "1px solid #d04d4d",
       lossesBackgroundColor: "#da7c7c3d",
-      confirmatiomModalIsOpen: false
+      confirmatiomModalIsOpen: false,
+      showEditCoinModal: false
     };
   },
   computed: {
@@ -105,7 +108,8 @@ export default {
     }
   },
   components: {
-    RemoveModal
+    RemoveModal,
+    EditCoinModal
   }
 };
 </script>
@@ -157,7 +161,7 @@ export default {
   cursor: pointer;
 }
 
-.fa-pencil-alt{
+.fa-pencil-alt {
   margin-right: 25px;
 }
 

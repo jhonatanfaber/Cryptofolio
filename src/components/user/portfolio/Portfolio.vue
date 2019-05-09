@@ -1,16 +1,15 @@
 <template>
   <div class="portfolio-container">
-    <template >
-    </template>
+    <template></template>
 
     <div class="add-button">
       <p v-if="loading">Loading...</p>
       <button
         @click="showNewCoinModal = true"
         type="button"
-        class="btn btn-dark btn-circle btn-xl"> + </button>
+        class="btn btn-dark btn-circle btn-xl"
+      >+</button>
     </div>
-
 
     <div class="beginnerMessage" v-show="portfolioIsEmpty && !loading">
       <h3>Click the add button and start creating your portfolio</h3>
@@ -39,28 +38,28 @@ export default {
     return {
       showNewCoinModal: false,
       currencySymbol: "$",
-      loading : false,
+      loading: false
     };
   },
   async created() {
-    this.loading = true
-    await this.$store.dispatch("getCryptoData")
+    this.loading = true;
+    await this.$store.dispatch("getCryptoData");
     await this.$store.dispatch("getCardsFromDB");
-    this.loading = false
+    this.loading = false;
   },
   computed: {
     ...mapGetters(["portfolio"]),
-    portfolioIsEmpty(){
-      if(this.portfolio.length == 0){
+    portfolioIsEmpty() {
+      if (this.portfolio.length == 0) {
         return true;
       }
-      return false
+      return false;
     }
   },
   components: {
     Coins,
     NewCoinModal,
-    Statistics
+    Statistics,
   }
 };
 </script>
