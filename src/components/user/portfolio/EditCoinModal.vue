@@ -4,14 +4,40 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="header">
-            <h3>Edit Card Information</h3>
+            <h3>Edit Card </h3>
             <i class="fas fa-times fa-2x" @click="closeModal"></i>
           </div>
           <div class="body">
-            <div class="form-group">
-              <label class="col-md-3 control-label">UsdBuyPrice:</label>
-              <div class="col-md-4">
-                <input type="number" class="form-control">
+            <div class="amountWrapper">
+              <div class="col-auto">
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="fas fa-layer-group"></i>
+                    </div>
+                  </div>
+                  <input
+                    type="number"
+                    class="form-control col-sm-5"
+                    id="inlineFormInputGroup"
+                    placeholder="Amount"
+                  >
+                </div>
+              </div>
+              <div class="col-auto">
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="fas fa-dollar-sign"></i>
+                    </div>
+                  </div>
+                  <input
+                    type="number"
+                    class="form-control col-sm-5"
+                    id="inlineFormInputGroup"
+                    placeholder="Buy price ($)"
+                  >
+                </div>
               </div>
             </div>
           </div>
@@ -54,7 +80,7 @@ export default {
 }
 
 .modal-container {
-  width: 50%;
+  width: 40%;
   margin: 0px auto;
   padding: 50px;
   padding-left: 5%;
@@ -69,12 +95,26 @@ export default {
   .modal-container {
     width: 90%;
   }
+
+  h3{
+    font-weight: 100;
+  }
 }
 
 @media only screen and (min-width: 401px) and (max-width: 960px) {
   .modal-container {
     width: 70%;
   }
+}
+
+.input-group-text {
+  width: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.col-auto{
+  padding: 0;
 }
 
 .header h3 {
@@ -98,7 +138,8 @@ export default {
 }
 
 .footer {
-  margin-bottom: 10%;
+  margin-top: 7%;
+  margin-bottom: 5%;
   display: flex;
   justify-content: flex-start;
 }
@@ -119,15 +160,6 @@ input:focus {
   box-shadow: none;
   border-color: #cccccc;
 }
-
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
 
 .modal-enter {
   opacity: 0;

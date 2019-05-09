@@ -27,8 +27,8 @@
               <div class="col-auto">
                 <div class="input-group mb-2">
                   <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <i class="fas fa-align-justify"></i>
+                    <div class="input-group-text amount">
+                      <i class="fas fa-layer-group"></i>
                     </div>
                   </div>
                   <input
@@ -49,8 +49,8 @@
               <div class="col-auto">
                 <div class="input-group mb-2">
                   <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <i class="far fa-money-bill-alt"></i>
+                    <div class="input-group-text amount">
+                      <i class="fas fa-dollar-sign"></i>
                     </div>
                   </div>
                   <input
@@ -235,6 +235,12 @@ export default {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
+}
+
+.input-group-text.amount {
+  width: 40px;
+  display: flex;
+  justify-content: center;
 }
 
 @media (max-width: 400px) {
