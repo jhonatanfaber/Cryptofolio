@@ -20,10 +20,10 @@ export const store = new Vuex.Store({
         portfolio: [],
         totalInvestment: 0,
         profit: 0,
-        currentCardInformation: {
-            cardID: null,
-            coinID: null
-        }
+        // currentCardInformation: {
+        //     cardID: null,
+        //     coinID: null
+        // }
     },
     getters: {
         user(state) {
@@ -63,9 +63,9 @@ export const store = new Vuex.Store({
         profit(state) {
             return state.profit
         },
-        currentCardInformation(state) {
-            return state.currentCardInformation
-        }
+        // currentCardInformation(state) {
+        //     return state.currentCardInformation
+        // }
     },
     mutations: {
         login(state, data) {
@@ -149,9 +149,17 @@ export const store = new Vuex.Store({
             let index = state.portfolio.findIndex(coin => coin.cardID == card.cardID)
             state.portfolio.splice(index, 1)
         },
-        setCurrentCardID(state, card) {
-            state.currentCardInformation.cardID = card.cardID
-            state.currentCardInformation.coinID = card.coinID
+        // setCurrentCardID(state, card) {
+        //     state.currentCardInformation.cardID = card.cardID
+        //     state.currentCardInformation.coinID = card.coinID
+        // }
+        editCoinData(state, data) {
+            state.portfolio.forEach(card => {
+                if (card.cardID == data.cardID) {
+                    card.amount = data.amount
+                    card.usdBuyPrice = data.usdBuyPrice
+                }
+            })
         }
     },
     actions: {
@@ -290,9 +298,9 @@ export const store = new Vuex.Store({
             context.commit("removeCardFromPortfolio", card)
             context.commit("updateTotalInvestementPrice", -card.amount * card.usdBuyPrice)
         },
-        setCurrentCardID(context, payload) {
-            context.commit("setCurrentCardID", payload)
-        },
+        // setCurrentCardID(context, payload) {
+        //     context.commit("setCurrentCardID", payload)
+        // },
         async saveCardInDB(context, payload) {
             const userID = context.state.user.id
             await BASE_URL.post("/users/" + userID + "/card", payload, {
@@ -331,13 +339,21 @@ export const store = new Vuex.Store({
         },
         saveExchangeInfo(context, payload) {
             const userID = context.state.user.id
-            console.log(payload);
             BASE_URL.patch("/users/" + userID, payload, {
                 headers: {
                     'x-api-token': context.state.user.token
                 }
             })
-
+        },
+        editCoinData(context, payload) {
+            const userID = context.state.user.id
+            const cardID = payload.cardID
+            BASE_URL.patch("/users/" + userID + "/card/" + cardID, payload, {
+                headers: {
+                    'x-api-token': context.state.user.token
+                }
+            })
+            context.commit("editCoinData", payload)
         }
     }
 })

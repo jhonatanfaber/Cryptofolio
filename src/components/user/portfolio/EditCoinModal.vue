@@ -4,7 +4,7 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="header">
-            <h3>Edit Card </h3>
+            <h3>Edit Card</h3>
             <i class="fas fa-times fa-2x" @click="closeModal"></i>
           </div>
           <div class="body">
@@ -18,8 +18,8 @@
                   </div>
                   <input
                     type="number"
+                    v-model="modifiedCardInfo.amount"
                     class="form-control col-sm-5"
-                    id="inlineFormInputGroup"
                     placeholder="Amount"
                   >
                 </div>
@@ -34,15 +34,15 @@
                   <input
                     type="number"
                     class="form-control col-sm-5"
-                    id="inlineFormInputGroup"
-                    placeholder="Buy price ($)"
+                    v-model="modifiedCardInfo.usdBuyPrice"
+                    placeholder="Price in $"
                   >
                 </div>
               </div>
             </div>
           </div>
           <div class="footer">
-            <button class="btn btn-dark">Save changes</button>
+            <button @click="updateCoin" class="btn btn-dark">Save changes</button>
           </div>
         </div>
       </div>
@@ -52,9 +52,23 @@
 
 <script>
 export default {
+  props: ["card"],
+  data() {
+    return {
+      modifiedCardInfo: {
+        amount: this.card.amount,
+        usdBuyPrice: this.card.usdBuyPrice,
+        cardID: this.card.cardID
+      }
+    };
+  },
   methods: {
     closeModal() {
       this.$emit("close");
+    },
+    updateCoin() {
+      this.$store.dispatch("editCoinData", this.modifiedCardInfo);
+      this.closeModal();
     }
   }
 };
@@ -96,7 +110,7 @@ export default {
     width: 90%;
   }
 
-  h3{
+  h3 {
     font-weight: 100;
   }
 }
@@ -113,7 +127,7 @@ export default {
   justify-content: center;
 }
 
-.col-auto{
+.col-auto {
   padding: 0;
 }
 

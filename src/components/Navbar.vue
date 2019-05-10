@@ -78,7 +78,6 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
     return {
-      // padding: 25
     };
   },
   computed: {
@@ -86,21 +85,8 @@ export default {
   },
   methods: {
     ...mapActions(["logout"])
-    // handleScroll() {
-    //   if(window.scrollY >= 160){
-    //     this.padding = 15;
-    //   }else{
-    //     this.padding = 25;
-    //   }
-    //   console.log(window.scrollY);
-    // }
   }
-  // created() {
-  //   window.addEventListener("scroll", this.handleScroll);
-  // },
-  // destroyed() {
-  //   window.removeEventListener("scroll", this.handleScroll);
-  // }
+ 
 };
 </script>
 

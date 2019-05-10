@@ -55,13 +55,12 @@
           </div>
         </div>
 
-        <!-- <a href="#" class="btn btn-dark">View Details</a> -->
         <RemoveModal
           v-if="confirmatiomModalIsOpen"
           @close="confirmatiomModalIsOpen = false"
           :card="card"
         />
-        <EditCoinModal v-if="showEditCoinModal" @close="showEditCoinModal = false"/>
+        <EditCoinModal :card="card" v-if="showEditCoinModal" @close="showEditCoinModal = false"/>
       </div>
     </div>
   </div>

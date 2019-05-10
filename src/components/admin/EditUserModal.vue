@@ -5,7 +5,7 @@
         <div class="modal-container">
           <div class="header">
             <h3>Edit User</h3>
-            <i class="fas fa-times fa-2x" @click="closeModel"></i>
+            <i class="fas fa-times fa-2x" @click="closeModal"></i>
           </div>
 
           <div class="body">
@@ -110,12 +110,12 @@ export default {
     }
   },
   methods: {
-    closeModel() {
+    closeModal() {
       this.$emit("close");
     },
     editUser() {
       this.$store.dispatch("editUser", this.editedUser);
-      this.closeModel();
+      this.closeModal();
     }
   }
 };
